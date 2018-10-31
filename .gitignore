@@ -1,4 +1,3 @@
-# Created by .ignore support plugin (hsz.mobi)
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion, Android Studio and WebStorm
 # Reference: https://intellij-support.jetbrains.com/hc/en-us/articles/206544839
@@ -60,6 +59,8 @@ fabric.properties
 
 # Editor-based Rest Client
 .idea/httpRequests
+
+
 ### Symfony template
 # Cache and logs (Symfony2)
 /app/cache/*
@@ -109,6 +110,8 @@ fabric.properties
 
 # Embedded web-server pid file
 /.web-server-pid
+
+
 ### macOS template
 # General
 .DS_Store
@@ -137,3 +140,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
+
+### Custom
