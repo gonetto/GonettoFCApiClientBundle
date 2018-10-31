@@ -1,0 +1,41 @@
+# Map for match symfony models method from/to Finance Consult response/request property
+type: nullObject
+properties:
+  customers:
+    property: kunden
+    item:
+      type: array
+      items:
+        type: object
+        class: FinanceConsultBundle\Model\FinanceConsultCustomer
+        properties:
+          email:
+            type: string
+            property: email
+          firstName:
+            type: string
+            property: vorname
+          lastName:
+            type: string
+            property: nachname
+          company:
+            type: string
+            property: firma
+          street:
+            type: string
+            property: strasse
+          zipCode:
+            type: string
+            property: plz
+          city:
+            type: string
+            property: ort
+          iban:
+            type: string
+            property: iban
+          contracts:
+            type: array
+            property: verträge
+            items:
+              type: rel
+              target: contract
