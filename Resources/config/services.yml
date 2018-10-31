@@ -1,6 +1,6 @@
 services:
-  FinanceConsultBundle\Client\CustomerClient:
-    class:      FinanceConsultBundle\Client\CustomerClient
+  Gonetto\FCApiClientBundle\Client\CustomerClient:
+    class:      Gonetto\FCApiClientBundle\Client\CustomerClient
     arguments:
       - '%finance_consult_api_access_token%'
       - '%finance_consult_api_path%'
@@ -9,11 +9,11 @@ services:
       - '@app.finance_consult.service.response_mapper'
 
   test_alias.app.finance_consult.client.customer:
-    alias: 'FinanceConsultBundle\Client\CustomerClient'
+    alias: 'Gonetto\FCApiClientBundle\Client\CustomerClient'
     public: true
 
   app.finance_consult.service.response_mapper:
-    class:      FinanceConsultBundle\Service\ResponseMapper
+    class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
     arguments: ['@symfony.component.yaml', '@doctrine.orm.entity_manager']
 
   test_alias.app.finance_consult.service.response_mapper:

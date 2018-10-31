@@ -1,6 +1,6 @@
 <?php
 
-namespace FinanceConsultBundle\Service;
+namespace Gonetto\FCApiClientBundle\Service;
 
 use Symfony\Component\Yaml\Yaml;
 

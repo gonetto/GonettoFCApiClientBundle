@@ -6,7 +6,7 @@ items:
     items:
       0:
         type: object
-        class: FinanceConsultBundle\Model\FinanceConsultCustomer
+        class: Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer
         properties:
           getEmail:
             type: string
@@ -37,7 +37,7 @@ items:
             items:
               0:
                 type: object
-                class: FinanceConsultBundle\Model\FinanceConsultContract
+                class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
                 properties:
                   getFee:
                     type: float
@@ -68,7 +68,7 @@ items:
                     value: 'monatlich'
               1:
                 type: object
-                class: FinanceConsultBundle\Model\FinanceConsultContract
+                class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
                 properties:
                   getFee:
                     type: float
@@ -99,7 +99,7 @@ items:
                     value: 'jahrlich'
       1:
         type: object
-        class: FinanceConsultBundle\Model\FinanceConsultCustomer
+        class: Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer
         properties:
           getEmail:
             type: string

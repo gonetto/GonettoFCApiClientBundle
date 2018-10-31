@@ -7,7 +7,7 @@ properties:
       type: array
       items:
         type: object
-        class: FinanceConsultBundle\Model\FinanceConsultCustomer
+        class: Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer
         properties:
           email:
             type: string

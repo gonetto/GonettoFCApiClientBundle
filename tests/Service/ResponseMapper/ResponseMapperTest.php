@@ -13,7 +13,7 @@ use Symfony\Component\Yaml\Yaml;
 class ResponseMapperTest extends WebTestCase
 {
 
-    /** @var \FinanceConsultBundle\Service\ResponseMapper */
+    /** @var \Gonetto\FCApiClientBundle\Service\ResponseMapper */
     protected $responseMapper;
 
     /** {@inheritDoc} */

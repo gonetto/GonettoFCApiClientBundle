@@ -1,15 +1,15 @@
 <?php
 
-namespace FinanceConsultBundle\Client;
+namespace Gonetto\FCApiClientBundle\Client;
 
 use AppBundle\Service\JSONSchemaCheck;
-use FinanceConsultBundle\Service\ResponseMapper;
+use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use GuzzleHttp\Client;
 
 /**
  * Class CustomerClient
  *
- * @package FinanceConsultBundle\Client
+ * @package Gonetto\FCApiClientBundle\Client
  */
 class CustomerClient
 {

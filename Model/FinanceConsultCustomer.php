@@ -1,6 +1,6 @@
 <?php
 
-namespace FinanceConsultBundle\Model;
+namespace Gonetto\FCApiClientBundle\Model;
 
 class FinanceConsultCustomer
 {

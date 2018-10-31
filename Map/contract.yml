@@ -1,6 +1,6 @@
 # Map for match symfony models method from/to Finance Consult response/request property
 type: object
-class: FinanceConsultBundle\Model\FinanceConsultContract
+class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
 properties:
   fee:
     type: double
