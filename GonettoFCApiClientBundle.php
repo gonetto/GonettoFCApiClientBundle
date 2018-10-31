@@ -1,6 +1,6 @@
 <?php
 
-namespace FinanceConsultBundle;
+namespace Gonetto\FCApiClientBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
