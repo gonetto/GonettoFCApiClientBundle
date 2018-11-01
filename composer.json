@@ -1,0 +1,7 @@
+{
+  "name": "gonetto/finance-consult-api-client",
+  "type": "symfony-bundle",
+  "description": "Symfony GonettoFCApiClientBundle",
+  "keywords": ["API client"],
+  "homepage": "https://gonetto.github.com"
+}
