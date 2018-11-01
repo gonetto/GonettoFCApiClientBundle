@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\FinancConsultBundle\Service;
+namespace Tests\Gonetto\FCApiClientBundle\Service;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Yaml\Yaml;
@@ -8,7 +8,7 @@ use Symfony\Component\Yaml\Yaml;
 /**
  * Class ResponseMapperTest
  *
- * @package Tests\FinancConsultBundle\Service
+ * @package Tests\Gonetto\FCApiClientBundle\Service
  */
 class ResponseMapperTest extends WebTestCase
 {
