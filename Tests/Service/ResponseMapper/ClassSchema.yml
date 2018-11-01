@@ -129,7 +129,5 @@ items:
             type: array
             items: ~
 
-# TODO:GN:MS: FinanceConsultBundle auslagern in vendor package (FinanceConsultClient)
-# TODO:GN:MS: alle commands test anlegen. zur not ganz einfache
 # TODO:GN:MS: mapping im response mapper mit JMSSerializer teste/umsetzen
 # TODO:GN:MS: enum fixen (umlaute nicht konsistent)

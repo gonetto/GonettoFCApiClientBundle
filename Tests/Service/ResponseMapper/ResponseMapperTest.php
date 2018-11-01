@@ -32,10 +32,10 @@ class ResponseMapperTest extends WebTestCase
     {
         $this->traversingObject(
             $this->responseMapper->map(
-                file_get_contents(__DIR__.'/Customers/FinanceConsultApiResponse.json'),
+                file_get_contents(__DIR__.'/FinanceConsultApiResponse.json'),
                 'customers'
             ),
-            (new Yaml())::parse(file_get_contents(__DIR__.'/Customers/ClassSchema.yml'))
+            (new Yaml())::parse(file_get_contents(__DIR__.'/ClassSchema.yml'))
         );
     }
 
