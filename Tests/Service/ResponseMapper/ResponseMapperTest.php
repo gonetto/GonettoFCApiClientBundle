@@ -21,7 +21,7 @@ class ResponseMapperTest extends WebTestCase
     {
         self::bootKernel();
         $this->responseMapper = static::$kernel->getContainer()->get(
-            'test_alias.app.finance_consult.service.response_mapper'
+            'test_alias.gonetto.finance-consult-api-client.service.response_mapper'
         );
     }
 

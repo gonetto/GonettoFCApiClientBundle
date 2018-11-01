@@ -2,20 +2,20 @@ services:
   Gonetto\FCApiClientBundle\Client\CustomerClient:
     class:      Gonetto\FCApiClientBundle\Client\CustomerClient
     arguments:
-      - '%finance_consult_api_access_token%'
-      - '%finance_consult_api_path%'
-      - '@eight_points_guzzle.client.api_finance_consult'
-      - '@app.service.json_schema_check'
-      - '@app.finance_consult.service.response_mapper'
+      - '%gonetto.fc-api-client.api_access_token%'
+      - '%gonetto.fc-api-client.api_path%'
+      - '@eight_points_guzzle.client.finance_consult'
+      - '@gonetto.fc-api-client.service.json_schema_check'
+      - '@gonetto.fc-api-client.service.response_mapper'
 
-  test_alias.app.finance_consult.client.customer:
+  test_alias.gonetto.fc-api-client.client.customer:
     alias: 'Gonetto\FCApiClientBundle\Client\CustomerClient'
     public: true
 
-  app.finance_consult.service.response_mapper:
+  gonetto.fc-api-client.service.response_mapper:
     class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
     arguments: ['@symfony.component.yaml', '@doctrine.orm.entity_manager']
 
-  test_alias.app.finance_consult.service.response_mapper:
-    alias: 'app.finance_consult.service.response_mapper'
+  test_alias.gonetto.fc-api-client.service.response_mapper:
+    alias: 'gonetto.fc-api-client.service.response_mapper'
     public: true

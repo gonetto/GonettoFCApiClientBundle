@@ -3,5 +3,6 @@
   "type": "symfony-bundle",
   "description": "Symfony GonettoFCApiClientBundle",
   "keywords": ["API client"],
-  "homepage": "https://gonetto.github.com"
+  "homepage": "https://gonetto.github.com",
+  "license": "proprietary"
 }
