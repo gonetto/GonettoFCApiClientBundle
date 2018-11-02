@@ -3,11 +3,4 @@
   <component name="JavaScriptSettings">
     <option name="languageLevel" value="ES6" />
   </component>
-  <component name="TerminalProjectOptionsProvider">
-    <option name="myStartingDirectory" value="$USER_HOME$/Library/Mobile Documents/com~apple~CloudDocs/web" />
-  </component>
-  <component name="VagrantProjectSettings">
-    <option name="instanceFolder" value="" />
-    <option name="provider" value="" />
-  </component>
 </project>

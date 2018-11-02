@@ -2,7 +2,38 @@
   "name": "gonetto/finance-consult-api-client",
   "type": "symfony-bundle",
   "description": "Symfony GonettoFCApiClientBundle",
-  "keywords": ["API client"],
+  "keywords": [
+    "API client"
+  ],
   "homepage": "https://gonetto.github.com",
-  "license": "proprietary"
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "gonetto GmbH",
+      "email": "info@gonetto.de"
+    },
+    {
+      "name": "Matthias Schobner",
+      "email": "schobner@gonetto.de"
+    }
+  ],
+  "require": {
+    "php": "^7.1"
+  },
+  "require-dev": {
+    "symfony/phpunit-bridge": "^4.1"
+  },
+  "autoload": {
+    "psr-4": {
+      "gonetto\\FCApiClientBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "/Tests/"
+    ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "2.0.x-dev"
+    }
+  }
 }
