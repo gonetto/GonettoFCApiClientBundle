@@ -2,7 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Client;
 
-use AppBundle\Service\JSONSchemaCheck;
+use Gonetto\FCApiClientBundle\Service\JSONSchemaCheck;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use GuzzleHttp\Client;
 
