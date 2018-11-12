@@ -2,7 +2,6 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
-use JsonSchema\Constraints\Factory;
 use JsonSchema\Validator;
 use Symfony\Component\Filesystem\Filesystem;
 

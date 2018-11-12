@@ -7,19 +7,6 @@ use Symfony\Component\Yaml\Yaml;
 class ResponseMapper
 {
 
-    /** @var \Symfony\Component\Yaml\Yaml */
-    protected $yaml;
-
-    /**
-     * ResponseMapper constructor.
-     *
-     * @param Yaml $yaml
-     */
-    public function __construct(Yaml $yaml)
-    {
-        $this->yaml = $yaml;
-    }
-
     /**
      * @param string $response
      * @param string $map
@@ -33,7 +20,7 @@ class ResponseMapper
         $customersResponse = json_decode($response, true);
 
         // Get map
-        $map = $this->yaml::parse(file_get_contents(__DIR__.'/../Map/'.$map.'.yml'));
+        $map = (new Yaml())::parse(file_get_contents(__DIR__.'/../Map/'.$map.'.yml'));
 
         return $this->traversingMap($customersResponse, $map);
     }

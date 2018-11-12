@@ -2,6 +2,7 @@
 
 namespace Tests\Gonetto\FCApiClientBundle\Service;
 
+use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\Yaml\Yaml;
 
@@ -13,16 +14,13 @@ use Symfony\Component\Yaml\Yaml;
 class ResponseMapperTest extends WebTestCase
 {
 
-    /** @var \Gonetto\FCApiClientBundle\Service\ResponseMapper */
+    /** @var ResponseMapper */
     protected $responseMapper;
 
     /** {@inheritDoc} */
     protected function setUp()
     {
-        self::bootKernel();
-        $this->responseMapper = static::$kernel->getContainer()->get(
-            'test_alias.gonetto.finance-consult-api-client.service.response_mapper'
-        );
+        $this->responseMapper = new ResponseMapper();
     }
 
     /**
@@ -31,11 +29,11 @@ class ResponseMapperTest extends WebTestCase
     public function testMapCustomers()
     {
         $this->traversingObject(
-            $this->responseMapper->map(
-                file_get_contents(__DIR__.'/FinanceConsultApiResponse.json'),
-                'customers'
-            ),
-            (new Yaml())::parse(file_get_contents(__DIR__.'/ClassSchema.yml'))
+          $this->responseMapper->map(
+            file_get_contents(__DIR__.'/FinanceConsultApiResponse.json'),
+            'customers'
+          ),
+          (new Yaml())::parse(file_get_contents(__DIR__.'/ClassSchema.yml'))
         );
     }
 
@@ -92,31 +90,31 @@ class ResponseMapperTest extends WebTestCase
                         break;
                     case 'int':
                         $this->assertEquals(
-                            $schemaParameters['value'],
-                            $value,
-                            $error_message.$error_path.$error_method
+                          $schemaParameters['value'],
+                          $value,
+                          $error_message.$error_path.$error_method
                         );
                         break;
                     case 'double':
                     case 'float':
                         $this->assertEquals(
-                            $schemaParameters['value'],
-                            $value,
-                            $error_message.$error_path.$error_method
+                          $schemaParameters['value'],
+                          $value,
+                          $error_message.$error_path.$error_method
                         );
                         break;
                     case 'string':
                         $this->assertEquals(
-                            $schemaParameters['value'],
-                            $value,
-                            $error_message.$error_path.$error_method
+                          $schemaParameters['value'],
+                          $value,
+                          $error_message.$error_path.$error_method
                         );
                         break;
                     case 'boolean':
                         $this->assertEquals(
-                            $schemaParameters['value'],
-                            $value,
-                            $error_message.$error_path.$error_method
+                          $schemaParameters['value'],
+                          $value,
+                          $error_message.$error_path.$error_method
                         );
                         break;
                     case 'date':
@@ -125,9 +123,9 @@ class ResponseMapperTest extends WebTestCase
                             $this->assertNull($value, $error_message.$error_path.$error_method);
                         } else {
                             $this->assertEquals(
-                                new \DateTime($schemaParameters['value']),
-                                $value,
-                                $error_message.$error_path.$error_method
+                              new \DateTime($schemaParameters['value']),
+                              $value,
+                              $error_message.$error_path.$error_method
                             );
                         }
                         break;
@@ -140,9 +138,9 @@ class ResponseMapperTest extends WebTestCase
 
                         // Check correct entity
                         $this->assertEquals(
-                            $schemaParameters['entity'],
-                            get_class($value),
-                            $error_message.$error_path.$error_method
+                          $schemaParameters['entity'],
+                          get_class($value),
+                          $error_message.$error_path.$error_method
                         );
                         if (get_class($value) !== $schemaParameters['entity']) {
                             break;
@@ -151,9 +149,9 @@ class ResponseMapperTest extends WebTestCase
                         // Check value of entity
                         $entityMethod = $schemaParameters['method'];
                         $this->assertEquals(
-                            $schemaParameters['method_value'],
-                            $value->$entityMethod(),
-                            $error_message.$error_path.$error_method
+                          $schemaParameters['method_value'],
+                          $value->$entityMethod(),
+                          $error_message.$error_path.$error_method
                         );
                         break;
                 }
