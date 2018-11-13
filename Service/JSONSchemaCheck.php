@@ -8,9 +8,9 @@ use Symfony\Component\Filesystem\Filesystem;
 // TODO:GN:MS: Entweder eigenes compser package draus machen oder entfernen, weil dies auch in der Bestandsübertragung genutzt wird.
 
 /**
- * Class CheckJSONSchema
+ * Class JSONSchemaCheck
  *
- * @package AppBundle\Service\
+ * @package Gonetto\FCApiClientBundle
  */
 class JSONSchemaCheck
 {

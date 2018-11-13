@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Gonetto\FCApiClientBundle\Service;
+namespace Tests\Gonetto\FCApiClientBundle;
 
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;

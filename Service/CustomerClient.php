@@ -1,9 +1,7 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Client;
+namespace Gonetto\FCApiClientBundle\Service;
 
-use Gonetto\FCApiClientBundle\Service\JSONSchemaCheck;
-use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use GuzzleHttp\Client;
 
 /**

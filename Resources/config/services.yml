@@ -1,6 +1,6 @@
 services:
-  Gonetto\FCApiClientBundle\Client\CustomerClient:
-    class:      Gonetto\FCApiClientBundle\Client\CustomerClient
+  Gonetto\FCApiClientBundle\Service\CustomerClient:
+    class:      Gonetto\FCApiClientBundle\Service\CustomerClient
     arguments:
       - '%gonetto.fc-api-client.api_access_token%'
       - '%gonetto.fc-api-client.api_path%'
@@ -8,8 +8,8 @@ services:
       - '@gonetto.fc-api-client.service.json_schema_check'
       - '@gonetto.fc-api-client.service.response_mapper'
 
-  test_alias.gonetto.fc-api-client.client.customer:
-    alias: 'Gonetto\FCApiClientBundle\Client\CustomerClient'
+  test_alias.gonetto.fc-api-client.service.customer_client:
+    alias: 'Gonetto\FCApiClientBundle\Service\CustomerClient'
     public: true
 
   gonetto.fc-api-client.service.response_mapper:
