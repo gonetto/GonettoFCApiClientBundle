@@ -3,7 +3,8 @@
   "type": "symfony-bundle",
   "description": "Symfony GonettoFCApiClientBundle",
   "keywords": [
-    "API client"
+    "api",
+    "client"
   ],
   "homepage": "https://gonetto.github.com",
   "license": "proprietary",
@@ -31,7 +32,7 @@
       "Gonetto\\FCApiClientBundle\\": ""
     },
     "exclude-from-classmap": [
-      "Tests/"
+      "/Tests/"
     ]
   }
 }
