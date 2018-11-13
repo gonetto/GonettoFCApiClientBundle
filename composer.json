@@ -28,7 +28,10 @@
   },
   "autoload": {
     "psr-4": {
-      "Gonetto\\FCApiClientBundle\\": "src/"
-    }
+      "Gonetto\\FCApiClientBundle\\": ""
+    },
+    "exclude-from-classmap": [
+      "Tests/"
+    ]
   }
 }
