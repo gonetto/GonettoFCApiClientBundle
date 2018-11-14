@@ -16,7 +16,7 @@ class JSONSchemaCheck
 {
 
     /** @var string */
-    protected $folder;
+    protected $folder = __DIR__.'../JSONSchema/';
 
     /** @var string */
     protected $file;
@@ -29,12 +29,9 @@ class JSONSchemaCheck
 
     /**
      * BrokerageCalculator constructor.
-     *
-     * @param string $JSONSchema_folder
      */
-    public function __construct($JSONSchema_folder)
+    public function __construct()
     {
-        $this->folder = $JSONSchema_folder;
         $this->fs = new Filesystem();
         $this->validator = new Validator;
     }
