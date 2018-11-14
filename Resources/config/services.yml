@@ -1,4 +1,9 @@
 services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
   Gonetto\FCApiClientBundle\Service\CustomerClient:
     class:      Gonetto\FCApiClientBundle\Service\CustomerClient
     arguments:
@@ -7,15 +12,12 @@ services:
       - '@eight_points_guzzle.client.finance_consult'
       - '@gonetto_fc_api_client.service.json_schema_check'
       - '@gonetto_fc_api_client.service.response_mapper'
-
-  test_alias.gonetto_fc_api_client.service.customer_client:
-    alias: 'Gonetto\FCApiClientBundle\Service\CustomerClient'
     public: true
 
   gonetto_fc_api_client.service.response_mapper:
     class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
     arguments: ['@symfony.component.yaml', '@doctrine.orm.entity_manager']
 
-  test_alias.gonetto_fc_api_client.service.response_mapper:
-    alias: 'gonetto_fc_api_client.service.response_mapper'
-    public: true
+  gonetto_fc_api_client.service.json_schema_check:
+    class:      Gonetto\FCApiClientBundle\Service\JSONSchemaCheck
+    arguments:  ['%gonetto_fc_api_client.json_schema.folder%']
