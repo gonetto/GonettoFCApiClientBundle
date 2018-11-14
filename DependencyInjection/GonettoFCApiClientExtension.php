@@ -26,3 +26,4 @@ class GonettoFCApiClientExtension extends Extension
         $loader->load('services.yml');
     }
 }
+

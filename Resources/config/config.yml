@@ -7,3 +7,4 @@ eight_points_guzzle:
             options:
                 headers:
                     Accept: "application/json"
+

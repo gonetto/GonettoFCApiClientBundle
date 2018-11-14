@@ -39,3 +39,4 @@ properties:
             items:
               type: rel
               target: contract
+

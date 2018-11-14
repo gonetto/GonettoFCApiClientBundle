@@ -212,3 +212,4 @@ class FinanceConsultContract
         return $this;
     }
 }
+

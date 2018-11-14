@@ -20,3 +20,4 @@ services:
 
   gonetto_fc_api_client.service.json_schema_check:
     class:      Gonetto\FCApiClientBundle\Service\JSONSchemaCheck
+

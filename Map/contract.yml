@@ -30,3 +30,4 @@ properties:
     type: enum
     property: zahlungsweise
     properties: ['jahrlich', 'halbjährlich', 'vierteljahrlich', 'monatlich', 'einmalig']
+
