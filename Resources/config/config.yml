@@ -3,7 +3,7 @@ eight_points_guzzle:
 
     clients:
         finance_consult:
-            base_url: '%gonetto.fc-api-client.base_api_url%'
+            base_url: '%gonetto_fc_api_client.base_api_url%'
             options:
                 headers:
                     Accept: "application/json"
