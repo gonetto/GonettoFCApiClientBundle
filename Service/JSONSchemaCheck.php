@@ -162,3 +162,4 @@ class JSONSchemaCheck
         return $this->validator->getErrors();
     }
 }
+
