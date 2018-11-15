@@ -94,7 +94,7 @@ class CustomerClient
      * @return string
      * @throws \Exception
      */
-    protected function requestJsonFromFCApi(\DateTime $since = null): string
+    public function requestJsonFromFCApi(\DateTime $since = null): string
     {
         $date = $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '';
 
