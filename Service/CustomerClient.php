@@ -56,7 +56,7 @@ class CustomerClient
      * @return mixed
      * @throws \Exception
      */
-    public function getAll()
+    public function getAll(): array
     {
         return $this->getAllSince();
     }
@@ -69,16 +69,35 @@ class CustomerClient
      * @return mixed
      * @throws \Exception
      */
-    public function getAllSince(\DateTime $since = null)
+    public function getAllSince(\DateTime $since = null): array
     {
         // Get data from api
         $content = $this->requestJsonFromFCApi($since);
 
+        throw new \Exception('$content: '.$content);
+
         // Check response
-        $this->jsonSchemaCheck->check(json_decode($content), __DIR__.'/../JSONSchema/CustomersSchema.json');
+        $valid = $this->jsonSchemaCheck->check(json_decode($content), __DIR__.'/../JSONSchema/CustomersSchema.json');
+
+        echo PHP_EOL;
+        var_dump('$valid: '.$valid);
+        echo PHP_EOL;
+
+        // Check if valid response
+        if (!$valid) {
+            throw new \Exception(
+              'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'
+            );
+        }
+
+        var_dump($content);
+        echo PHP_EOL;
 
         // Map response to object list
         $customers = $this->responseMapper->map($content, 'customers');
+
+        var_dump($customers);
+        echo PHP_EOL;
 
         return $customers[0];
     }
