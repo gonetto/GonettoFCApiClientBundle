@@ -37,11 +37,11 @@ class CustomerClient
      * @param ResponseMapper $responseMapper
      */
     public function __construct(
-        string $financeConsultApiAccessToken,
-        string $financeConsultApiPath,
-        Client $client,
-        JSONSchemaCheck $jsonSchemaCheck,
-        ResponseMapper $responseMapper
+      string $financeConsultApiAccessToken,
+      string $financeConsultApiPath,
+      Client $client,
+      JSONSchemaCheck $jsonSchemaCheck,
+      ResponseMapper $responseMapper
     ) {
         $this->financeConsultApiAccessToken = $financeConsultApiAccessToken;
         $this->financeConsultApiPath = $financeConsultApiPath;
@@ -71,19 +71,8 @@ class CustomerClient
      */
     public function getAllSince(\DateTime $since = null)
     {
-        $date = $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '';
-
-        // Get all Finance Consult customer
-        $response = $this->client->get(
-            $this->financeConsultApiPath,
-            ['body' => '{"token":"'.$this->financeConsultApiAccessToken.'","since":"'.$date.'"}']
-        );
-        $content = (string)$response->getBody();
-
-        // Check if valid JSON response
-        if (json_decode($content) === null) {
-            throw new \Exception('Finance Consult API dosen\'t sent valid JSON. Check API Token or the response.');
-        }
+        // Get data from api
+        $content = $this->requestJsonFromFCApi($since);
 
         // Check response
         $this->jsonSchemaCheck->check(json_decode($content), __DIR__.'/../JSONSchema/CustomersSchema.json');
@@ -93,5 +82,29 @@ class CustomerClient
 
         return $customers[0];
     }
-}
 
+    /**
+     * @param \DateTime|null $since
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function requestJsonFromFCApi(\DateTime $since = null): string
+    {
+        $date = $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '';
+
+        // Get all Finance Consult customer
+        $response = $this->client->get(
+          $this->financeConsultApiPath,
+          ['body' => '{"token":"'.$this->financeConsultApiAccessToken.'","since":"'.$date.'"}']
+        );
+        $content = (string)$response->getBody();
+
+        // Check if valid JSON response
+        if (json_decode($content) === null) {
+            throw new \Exception('Finance Consult API dosen\'t sent valid JSON. Check API Token or the response.');
+        }
+
+        return $content;
+    }
+}
