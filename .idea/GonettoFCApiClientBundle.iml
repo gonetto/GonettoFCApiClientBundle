@@ -3,7 +3,10 @@
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$" isTestSource="false" packagePrefix="Gonetto\FCApiClientBundle\" />
-      <excludeFolder url="file://$MODULE_DIR$/vendor/symfony/stopwatch" />
+      <sourceFolder url="file://$MODULE_DIR$/Tests" isTestSource="true" />
+      <sourceFolder url="file://$MODULE_DIR$/Service" isTestSource="false" />
+      <excludeFolder url="file://$MODULE_DIR$/.idea" />
+      <excludeFolder url="file://$MODULE_DIR$/vendor" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
