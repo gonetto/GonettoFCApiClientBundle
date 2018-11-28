@@ -5,11 +5,11 @@ namespace Gonetto\FCApiClientBundle\Model;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class FinanceConsultContract
+ * Class Contract
  *
  * @package Gonetto\FCApiClientBundle\Model
  */
-class FinanceConsultContract
+class Contract
 {
 
     /**
@@ -77,7 +77,7 @@ class FinanceConsultContract
     protected $financeConsultContractNumber;
 
     /**
-     * @var string
+     * @var int
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("zahlungsweise")
@@ -95,9 +95,9 @@ class FinanceConsultContract
     /**
      * @param float $fee
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setFee(float $fee): FinanceConsultContract
+    public function setFee(float $fee): Contract
     {
         $this->fee = $fee;
 
@@ -115,9 +115,9 @@ class FinanceConsultContract
     /**
      * @param string $insurer
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setInsurer(string $insurer): FinanceConsultContract
+    public function setInsurer(string $insurer): Contract
     {
         $this->insurer = $insurer;
 
@@ -135,9 +135,9 @@ class FinanceConsultContract
     /**
      * @param string $gonettoContractNumber
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setGonettoContractNumber(string $gonettoContractNumber): FinanceConsultContract
+    public function setGonettoContractNumber(string $gonettoContractNumber): Contract
     {
         $this->gonettoContractNumber = $gonettoContractNumber;
 
@@ -155,9 +155,9 @@ class FinanceConsultContract
     /**
      * @param \DateTime $mainRenewalDate
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setMainRenewalDate(\DateTime $mainRenewalDate): FinanceConsultContract
+    public function setMainRenewalDate(\DateTime $mainRenewalDate): Contract
     {
         $this->mainRenewalDate = $mainRenewalDate;
 
@@ -175,9 +175,9 @@ class FinanceConsultContract
     /**
      * @param string $insuranceType
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setInsuranceType(string $insuranceType): FinanceConsultContract
+    public function setInsuranceType(string $insuranceType): Contract
     {
         $this->insuranceType = $insuranceType;
 
@@ -195,9 +195,9 @@ class FinanceConsultContract
     /**
      * @param \DateTime $contractDate
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setContractDate(\DateTime $contractDate): FinanceConsultContract
+    public function setContractDate(\DateTime $contractDate): Contract
     {
         $this->contractDate = $contractDate;
 
@@ -215,9 +215,9 @@ class FinanceConsultContract
     /**
      * @param \DateTime $endOfContract
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setEndOfContract(\DateTime $endOfContract): FinanceConsultContract
+    public function setEndOfContract(\DateTime $endOfContract): Contract
     {
         $this->endOfContract = $endOfContract;
 
@@ -235,9 +235,9 @@ class FinanceConsultContract
     /**
      * @param string $financeConsultContractNumber
      *
-     * @return FinanceConsultContract
+     * @return Contract
      */
-    public function setFinanceConsultContractNumber(string $financeConsultContractNumber): FinanceConsultContract
+    public function setFinanceConsultContractNumber(string $financeConsultContractNumber): Contract
     {
         $this->financeConsultContractNumber = $financeConsultContractNumber;
 
@@ -245,19 +245,19 @@ class FinanceConsultContract
     }
 
     /**
-     * @return null|string
+     * @return null|int|string
      */
-    public function getPaymentInterval(): ?string
+    public function getPaymentInterval()
     {
         return $this->paymentInterval;
     }
 
     /**
-     * @param string $paymentInterval
+     * @param int|string $paymentInterval
      *
-     * @return FinanceConsultContract
+     * @return \Gonetto\FCApiClientBundle\Model\Contract
      */
-    public function setPaymentInterval(string $paymentInterval): FinanceConsultContract
+    public function setPaymentInterval($paymentInterval): Contract
     {
         $this->paymentInterval = $paymentInterval;
 

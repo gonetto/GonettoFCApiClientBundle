@@ -87,10 +87,12 @@ class ResponseMapperTest extends WebTestCase
                 $error_method = '->'.$method.'()';
                 switch ($schemaParameters['type']) {
                     case 'array':
+                        $this->assertInternalType('array', $schemaParameters);
                         // Recursion case two.
                         $this->traversingObject($value, $schemaParameters, $error_path.$error_method);
                         break;
                     case 'int':
+                        $this->assertInternalType('int', $value);
                         $this->assertEquals(
                           $schemaParameters['value'],
                           $value,
@@ -99,6 +101,7 @@ class ResponseMapperTest extends WebTestCase
                         break;
                     case 'double':
                     case 'float':
+                        $this->assertInternalType('double', $value);
                         $this->assertEquals(
                           $schemaParameters['value'],
                           $value,
@@ -106,6 +109,7 @@ class ResponseMapperTest extends WebTestCase
                         );
                         break;
                     case 'string':
+                        $this->assertInternalType('string', $value);
                         $this->assertEquals(
                           $schemaParameters['value'],
                           $value,
@@ -113,6 +117,7 @@ class ResponseMapperTest extends WebTestCase
                         );
                         break;
                     case 'boolean':
+                        $this->assertInternalType('boolean', $value);
                         $this->assertEquals(
                           $schemaParameters['value'],
                           $value,

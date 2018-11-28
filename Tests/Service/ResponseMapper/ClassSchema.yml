@@ -3,7 +3,7 @@ type: array
 items:
   0:
     type: object
-    class: Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer
+    class: Gonetto\FCApiClientBundle\Model\Customer
     properties:
       getEmail:
         type: string
@@ -34,7 +34,7 @@ items:
         items:
           0:
             type: object
-            class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
+            class: Gonetto\FCApiClientBundle\Model\Contract
             properties:
               getFee:
                 type: float
@@ -61,11 +61,11 @@ items:
                 type: string
                 value: 29174694
               getPaymentInterval:
-                type: enum
-                value: monatlich
+                type: int
+                value: 1
           1:
             type: object
-            class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
+            class: Gonetto\FCApiClientBundle\Model\Contract
             properties:
               getFee:
                 type: float
@@ -92,11 +92,11 @@ items:
                 type: string
                 value: 00112395-02
               getPaymentInterval:
-                type: string
-                value: halbjährlich
+                type: int
+                value: 2
           2:
             type: object
-            class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
+            class: Gonetto\FCApiClientBundle\Model\Contract
             properties:
               getFee:
                 type: float
@@ -123,11 +123,11 @@ items:
                 type: string
                 value: 4864516/213
               getPaymentInterval:
-                type: string
-                value: vierteljahrlich
+                type: int
+                value: 4
           3:
             type: object
-            class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
+            class: Gonetto\FCApiClientBundle\Model\Contract
             properties:
               getFee:
                 type: float
@@ -154,11 +154,11 @@ items:
                 type: string
                 value: 1095494900
               getPaymentInterval:
-                type: string
-                value: monatlich
+                type: int
+                value: 12
           4:
             type: object
-            class: Gonetto\FCApiClientBundle\Model\FinanceConsultContract
+            class: Gonetto\FCApiClientBundle\Model\Contract
             properties:
               getFee:
                 type: float
@@ -185,11 +185,11 @@ items:
                 type: string
                 value: 24972282
               getPaymentInterval:
-                type: string
-                value: einmalig
+                type: int
+                value: 0
   1:
     type: object
-    class: Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer
+    class: Gonetto\FCApiClientBundle\Model\Customer
     properties:
       getEmail:
         type: string

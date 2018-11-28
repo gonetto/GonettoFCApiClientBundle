@@ -2,7 +2,9 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
-use Gonetto\FCApiClientBundle\Model\FinanceConsult;
+use Gonetto\FCApiClientBundle\EventSubscriber\ContractEventSubscriber;
+use Gonetto\FCApiClientBundle\Model\FinanceConsultResponse;
+use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\SerializerBuilder;
 
 class ResponseMapper
@@ -13,7 +15,16 @@ class ResponseMapper
 
     public function __construct()
     {
-        $this->serializer = SerializerBuilder::create()->build();
+        // Register event subscriber
+        $builder = SerializerBuilder::create();
+        $builder->configureListeners(
+          function (EventDispatcher $dispatcher) {
+              $dispatcher->addSubscriber(new ContractEventSubscriber());
+          }
+        );
+
+        // Get serializer
+        $this->serializer = $builder->build();
     }
 
     /**
@@ -26,8 +37,8 @@ class ResponseMapper
      */
     public function map(string $jsonResponse)
     {
-        /** @var FinanceConsult $response */
-        $response = $this->serializer->deserialize($jsonResponse, FinanceConsult::class, 'json');
+        /** @var FinanceConsultResponse $response */
+        $response = $this->serializer->deserialize($jsonResponse, FinanceConsultResponse::class, 'json');
 
         return $response->getCustomers();
     }

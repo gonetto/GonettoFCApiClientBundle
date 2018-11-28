@@ -5,11 +5,11 @@ namespace Gonetto\FCApiClientBundle\Model;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class FinanceConsultCustomer
+ * Class Customer
  *
  * @package Gonetto\FCApiClientBundle\Model
  */
-class FinanceConsultCustomer
+class Customer
 {
 
     /**
@@ -82,7 +82,7 @@ class FinanceConsultCustomer
     /**
      * @var array
      *
-     * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\FinanceConsultContract>")
+     * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Contract>")
      * @JMS\SerializedName("verträge")
      */
     protected $contracts;
@@ -98,9 +98,9 @@ class FinanceConsultCustomer
     /**
      * @param string $email
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setEmail(string $email): FinanceConsultCustomer
+    public function setEmail(string $email): Customer
     {
         $this->email = $email;
 
@@ -118,9 +118,9 @@ class FinanceConsultCustomer
     /**
      * @param string $firstName
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setFirstName(string $firstName): FinanceConsultCustomer
+    public function setFirstName(string $firstName): Customer
     {
         $this->firstName = $firstName;
 
@@ -138,9 +138,9 @@ class FinanceConsultCustomer
     /**
      * @param string $lastName
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setLastName(string $lastName): FinanceConsultCustomer
+    public function setLastName(string $lastName): Customer
     {
         $this->lastName = $lastName;
 
@@ -158,9 +158,9 @@ class FinanceConsultCustomer
     /**
      * @param string $company
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setCompany(string $company): FinanceConsultCustomer
+    public function setCompany(string $company): Customer
     {
         $this->company = $company;
 
@@ -178,9 +178,9 @@ class FinanceConsultCustomer
     /**
      * @param string $street
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setStreet(string $street): FinanceConsultCustomer
+    public function setStreet(string $street): Customer
     {
         $this->street = $street;
 
@@ -198,9 +198,9 @@ class FinanceConsultCustomer
     /**
      * @param string $houseNumber
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setHouseNumber(string $houseNumber): FinanceConsultCustomer
+    public function setHouseNumber(string $houseNumber): Customer
     {
         $this->houseNumber = $houseNumber;
 
@@ -218,9 +218,9 @@ class FinanceConsultCustomer
     /**
      * @param string $zipCode
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setZipCode(string $zipCode): FinanceConsultCustomer
+    public function setZipCode(string $zipCode): Customer
     {
         $this->zipCode = $zipCode;
 
@@ -238,9 +238,9 @@ class FinanceConsultCustomer
     /**
      * @param string $city
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setCity(string $city): FinanceConsultCustomer
+    public function setCity(string $city): Customer
     {
         $this->city = $city;
 
@@ -258,9 +258,9 @@ class FinanceConsultCustomer
     /**
      * @param string $iban
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setIban(string $iban): FinanceConsultCustomer
+    public function setIban(string $iban): Customer
     {
         $this->iban = $iban;
 
@@ -278,9 +278,9 @@ class FinanceConsultCustomer
     /**
      * @param array $contracts
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function setContracts(array $contracts): FinanceConsultCustomer
+    public function setContracts(array $contracts): Customer
     {
         $this->contracts = $contracts;
 
@@ -288,11 +288,11 @@ class FinanceConsultCustomer
     }
 
     /**
-     * @param FinanceConsultContract $contract
+     * @param Contract $contract
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function addContract(FinanceConsultContract $contract): FinanceConsultCustomer
+    public function addContract(Contract $contract): Customer
     {
         $this->contracts[] = $contract;
 
@@ -300,13 +300,13 @@ class FinanceConsultCustomer
     }
 
     /**
-     * @param FinanceConsultContract $contract
+     * @param Contract $contract
      *
-     * @return FinanceConsultCustomer
+     * @return Customer
      */
-    public function removeContract(FinanceConsultContract $contract): FinanceConsultCustomer
+    public function removeContract(Contract $contract): Customer
     {
-        /** @var \Gonetto\FCApiClientBundle\Model\FinanceConsultContract $currentContract */
+        /** @var \Gonetto\FCApiClientBundle\Model\Contract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {
             if ($contract->getFinanceConsultContractNumber() === $currentContract->getFinanceConsultContractNumber()) {
                 unset($this->contracts[$key]);

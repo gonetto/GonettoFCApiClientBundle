@@ -5,17 +5,17 @@ namespace Gonetto\FCApiClientBundle\Model;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class FinanceConsult
+ * Class FinanceConsultResponse
  *
  * @package Gonetto\FCApiClientBundle\Model
  */
-class FinanceConsult
+class FinanceConsultResponse
 {
 
     /**
      * @var array
      *
-     * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer>")
+     * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Customer>")
      * @JMS\SerializedName("kunden")
      */
     protected $customers;
@@ -31,9 +31,9 @@ class FinanceConsult
     /**
      * @param array $customers
      *
-     * @return FinanceConsult
+     * @return FinanceConsultResponse
      */
-    public function setCustomers(array $customers): FinanceConsult
+    public function setCustomers(array $customers): FinanceConsultResponse
     {
         $this->customers = $customers;
 
@@ -41,11 +41,11 @@ class FinanceConsult
     }
 
     /**
-     * @param FinanceConsultCustomer $customer
+     * @param Customer $customer
      *
-     * @return FinanceConsult
+     * @return FinanceConsultResponse
      */
-    public function addCustomer(FinanceConsultCustomer $customer): FinanceConsult
+    public function addCustomer(Customer $customer): FinanceConsultResponse
     {
         $this->customers[] = $customer;
 
@@ -53,13 +53,13 @@ class FinanceConsult
     }
 
     /**
-     * @param FinanceConsultCustomer $customer
+     * @param Customer $customer
      *
-     * @return FinanceConsult
+     * @return FinanceConsultResponse
      */
-    public function removeCustomer(FinanceConsultCustomer $customer): FinanceConsult
+    public function removeCustomer(Customer $customer): FinanceConsultResponse
     {
-        /**  @var \Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer $currentCustomer */
+        /**  @var \Gonetto\FCApiClientBundle\Model\Customer $currentCustomer */
         foreach ($this->customers as $key => $currentCustomer) {
             if ($customer->getEmail() === $currentCustomer->getEmail()) {
                 unset($this->customers[$key]);
