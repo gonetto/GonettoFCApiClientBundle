@@ -306,8 +306,9 @@ class FinanceConsultCustomer
      */
     public function removeContract(FinanceConsultContract $contract): FinanceConsultCustomer
     {
+        /** @var \Gonetto\FCApiClientBundle\Model\FinanceConsultContract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {
-            if ($contract->getContractNumber() === $currentContract->getContractNumber()) {
+            if ($contract->getFinanceConsultContractNumber() === $currentContract->getFinanceConsultContractNumber()) {
                 unset($this->contracts[$key]);
                 break;
             }

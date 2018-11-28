@@ -2,7 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
-use Gonetto\FCApiClientBundle\Model\FinanceConsultCustomer;
+use Gonetto\FCApiClientBundle\Model\FinanceConsult;
 use JMS\Serializer\SerializerBuilder;
 
 class ResponseMapper
@@ -17,6 +17,8 @@ class ResponseMapper
     }
 
     /**
+     * Deserialize the response
+     *
      * @param string $response
      *
      * @return mixed
@@ -24,27 +26,9 @@ class ResponseMapper
      */
     public function map(string $response)
     {
-        // Decode response
-        $customers = json_decode($response);
+        /** @var FinanceConsult $customers */
+        $customers = $this->serializer->deserialize($response, FinanceConsult::class, 'json');
 
-        $deserializedCustomers = [];
-        foreach ($customers->kunden as $customer) {
-            $deserializedCustomers[] = $this->newMap(json_encode($customer));
-        }
-
-        return $deserializedCustomers;
-    }
-
-    protected function newMap(string $customerJson)
-    {
-        $customers = $this->serializer->deserialize($customerJson, FinanceConsultCustomer::class, 'json');
-
-        echo PHP_EOL.'$customerJson:'.PHP_EOL;
-        var_dump($customerJson);
-
-        echo PHP_EOL.'$customer:'.PHP_EOL;
-        var_dump($customers);
-
-        return $customers;
+        return $customers->getCustomers();
     }
 }

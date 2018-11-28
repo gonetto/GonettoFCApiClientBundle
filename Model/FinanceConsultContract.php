@@ -77,7 +77,7 @@ class FinanceConsultContract
     protected $financeConsultContractNumber;
 
     /**
-     * @var string (Zahlungsweise)
+     * @var string
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("zahlungsweise")
