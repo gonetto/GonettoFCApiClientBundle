@@ -2,37 +2,89 @@
 
 namespace Gonetto\FCApiClientBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
+/**
+ * Class FinanceConsultCustomer
+ *
+ * @package Gonetto\FCApiClientBundle\Model
+ */
 class FinanceConsultCustomer
 {
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
     protected $email;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("vorname")
+     */
     protected $firstName;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("nachname")
+     */
     protected $lastName;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("firma")
+     */
     protected $company;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("strasse")
+     */
     protected $street;
 
-    /** @var string */
+    /**
+     * @var string
+     */
     protected $houseNumber;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("plz")
+     */
     protected $zipCode;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("ort")
+     */
     protected $city;
 
-    /** @var string */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     */
     protected $iban;
 
-    /** @var array */
+    /**
+     * @var array
+     *
+     * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\FinanceConsultContract>")
+     * @JMS\SerializedName("verträge")
+     */
     protected $contracts;
 
     /**
@@ -264,4 +316,3 @@ class FinanceConsultCustomer
         return $this;
     }
 }
-

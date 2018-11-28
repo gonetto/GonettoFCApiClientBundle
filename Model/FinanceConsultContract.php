@@ -2,34 +2,86 @@
 
 namespace Gonetto\FCApiClientBundle\Model;
 
+use JMS\Serializer\Annotation as JMS;
+
+/**
+ * Class FinanceConsultContract
+ *
+ * @package Gonetto\FCApiClientBundle\Model
+ */
 class FinanceConsultContract
 {
 
-    /** @var double (Beitrag) */
+    /**
+     * @var double
+     *
+     * @JMS\Type("double")
+     * @JMS\SerializedName("beitrag")
+     */
     protected $fee;
 
-    /** @var string (Gesellschaft) */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("gesellschaft")
+     */
     protected $insurer;
 
-    /** @var string (gonetto Vertragsnummer) */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("gonetto-id")
+     */
     protected $gonettoContractNumber;
 
-    /** @var \DateTime (Hauptfälligkeit) */
+    /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s', 'Europe/Berlin'>")
+     * @JMS\SerializedName("hauptfälligkeit")
+     */
     protected $mainRenewalDate;
 
-    /** @var string (Produkt) */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("produkt")
+     */
     protected $insuranceType;
 
-    /** @var \DateTime (Vermittlungsdatum) */
+    /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s', 'Europe/Berlin'>")
+     * @JMS\SerializedName("vermittlungsdatum")
+     */
     protected $contractDate;
 
-    /** @var \DateTime (Vertragsende) */
+    /**
+     * @var \DateTime
+     *
+     * @JMS\Type("DateTime<'Y-m-d\TH:i:s', 'Europe/Berlin'>")
+     * @JMS\SerializedName("vertragsende")
+     */
     protected $endOfContract;
 
-    /** @var string (Finance Consult Vertragsnummer) */
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("vertragsnummer")
+     */
     protected $financeConsultContractNumber;
 
-    /** @var string (Zahlungsweise) */
+    /**
+     * @var string (Zahlungsweise)
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("zahlungsweise")
+     */
     protected $paymentInterval;
 
     /**
@@ -212,4 +264,3 @@ class FinanceConsultContract
         return $this;
     }
 }
-

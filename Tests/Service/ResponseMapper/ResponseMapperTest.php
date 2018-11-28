@@ -1,6 +1,6 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service;
+namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper;
 
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
@@ -43,6 +43,8 @@ class ResponseMapperTest extends WebTestCase
      * @param $object
      * @param $schema
      * @param string $error_path
+     *
+     * @throws \Exception
      */
     protected function traversingObject($object, $schema, $error_path = '')
     {
@@ -161,4 +163,3 @@ class ResponseMapperTest extends WebTestCase
         }
     }
 }
-
