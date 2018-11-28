@@ -19,16 +19,16 @@ class ResponseMapper
     /**
      * Deserialize the response
      *
-     * @param string $response
+     * @param string $jsonResponse
      *
      * @return mixed
      * @throws \Exception
      */
-    public function map(string $response)
+    public function map(string $jsonResponse)
     {
-        /** @var FinanceConsult $customers */
-        $customers = $this->serializer->deserialize($response, FinanceConsult::class, 'json');
+        /** @var FinanceConsult $response */
+        $response = $this->serializer->deserialize($jsonResponse, FinanceConsult::class, 'json');
 
-        return $customers->getCustomers();
+        return $response->getCustomers();
     }
 }
