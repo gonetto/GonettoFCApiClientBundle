@@ -219,6 +219,4 @@ items:
         type: array
         items: ~
 
-# TODO:GN:MS: mapping im response mapper mit JMSSerializer teste/umsetzen
-# TODO:GN:MS: enum fixen (umlaute nicht konsistent)
 # TODO:GN:MS: split straße umsetzen?

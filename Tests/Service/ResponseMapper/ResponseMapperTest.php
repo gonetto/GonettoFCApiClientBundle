@@ -25,6 +25,8 @@ class ResponseMapperTest extends WebTestCase
 
     /**
      * Test map() customers with addresses and contacts.
+     *
+     * @throws \Exception
      */
     public function testMapCustomers()
     {

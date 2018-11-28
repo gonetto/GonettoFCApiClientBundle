@@ -7,12 +7,20 @@ use Gonetto\FCApiClientBundle\Model\FinanceConsultResponse;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\SerializerBuilder;
 
+/**
+ * Class ResponseMapper
+ *
+ * @package Gonetto\FCApiClientBundle\Service
+ */
 class ResponseMapper
 {
 
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
 
+    /**
+     * ResponseMapper constructor.
+     */
     public function __construct()
     {
         // Register event subscriber
