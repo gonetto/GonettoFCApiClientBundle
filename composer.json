@@ -23,7 +23,6 @@
     "doctrine/common": "^2.10",
     "eightpoints/guzzle-bundle": "^7.4",
     "justinrainbow/json-schema": "^5.2",
-    "symfony/yaml": "^4.1",
     "jms/serializer": "^1.13"
   },
   "require-dev": {

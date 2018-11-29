@@ -85,7 +85,7 @@ class Customer
      * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Contract>")
      * @JMS\SerializedName("verträge")
      */
-    protected $contracts;
+    protected $contracts = [];
 
     /**
      * @return string
