@@ -85,7 +85,7 @@ class CustomerClient
         // Map response to object list
         $customers = $this->responseMapper->map($content);
 
-        return $customers[0];
+        return $customers;
     }
 
     /**
