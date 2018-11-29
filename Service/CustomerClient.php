@@ -71,6 +71,8 @@ class CustomerClient
      */
     public function getAllSince(\DateTime $since = null): array
     {
+        // TODO:GN:MS: Unittest um zu testen ob dies durch läuft!
+
         // Get data from api
         $content = $this->requestJsonFromFCApi($since);
 
