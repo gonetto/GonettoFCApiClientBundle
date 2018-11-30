@@ -37,16 +37,19 @@ class JSONSchemaCheck
     }
 
     /**
-     * Check array by JSON Schema
+     * Check JSON by Schema
      *
-     * @param array $contracts
+     * @param string $json_string
      * @param string $schema
      *
      * @return bool
      * @throws \Exception
      */
-    public function check($contracts, $schema = '')
+    public function check(string $json_string, $schema = '')
     {
+        // Decode JSON
+        $content = json_decode($json_string);
+
         // Set file
         if (strpos($schema, '.json') !== false) {
             $this->setFile($schema);
@@ -58,7 +61,7 @@ class JSONSchemaCheck
         $this->checkFileReadability();
 
         // Check JSON Data by JSON Schema
-        $this->validator->validate($contracts, (object)['$ref' => 'file://'.$this->file]);
+        $this->validator->validate($content, (object)['$ref' => 'file://'.$this->file]);
 
         return $this->validator->isValid();
     }

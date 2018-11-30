@@ -71,21 +71,19 @@ class CustomerClient
      */
     public function getAllSince(\DateTime $since = null): array
     {
-        // TODO:GN:MS: Unittest um zu testen ob dies durch läuft!
+        // TODO:GN:MS: sync so umbauen, das ich sicher prüfen kann ob alles funktioiert, aber ohne echten cal
 
-        // Get data from api
-        $content = $this->requestJsonFromFCApi($since);
+        // Build api request
+        $request = $this->createApiRequestContent($since);
 
-        // Check response
-        $valid = $this->jsonSchemaCheck->check(json_decode($content), __DIR__.'/../JSONSchema/CustomersSchema.json');
-        if (!$valid) {
-            throw new \Exception(
-              'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'
-            );
-        }
+        // Get json from api
+        $jsonResponse = $this->requestToApi($request);
 
-        // Map response to object list
-        $customers = $this->responseMapper->map($content);
+        // Check json
+        $this->jsonSchemaCheck($jsonResponse);
+
+        // Map json to object
+        $customers = $this->responseMapper->map($jsonResponse);
 
         return $customers;
     }
@@ -94,24 +92,52 @@ class CustomerClient
      * @param \DateTime|null $since
      *
      * @return string
+     */
+    protected function createApiRequestContent(\DateTime $since = null): string
+    {
+        return json_encode(
+          [
+            'token' => $this->financeConsultApiAccessToken,
+            'since' => $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '',
+          ]
+        );
+    }
+
+    /**
+     * @param string $request
+     *
+     * @return string
      * @throws \Exception
      */
-    public function requestJsonFromFCApi(\DateTime $since = null): string
+    protected function requestToApi(string $request): string
     {
-        $date = $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '';
-
         // Get all Finance Consult customer
-        $response = $this->client->get(
-          $this->financeConsultApiPath,
-          ['body' => '{"token":"'.$this->financeConsultApiAccessToken.'","since":"'.$date.'"}']
-        );
-        $content = (string)$response->getBody();
+        $stream = $this->client->get($this->financeConsultApiPath, ['body' => $request]);
+        $response = (string)$stream->getBody();
 
         // Check if valid JSON response
-        if (json_decode($content) === null) {
+        if (json_decode($response) === null) {
             throw new \Exception('Finance Consult API dosen\'t sent valid JSON. Check API Token or the response.');
         }
 
-        return $content;
+        return $response;
+    }
+
+    /**
+     * @param string $jsonResponse
+     *
+     * @throws \Exception
+     */
+    protected function jsonSchemaCheck(string $jsonResponse): void
+    {
+        $valid = $this->jsonSchemaCheck->check(
+          json_decode($jsonResponse),
+          __DIR__.'/../JSONSchema/CustomersSchema.json'
+        );
+        if (!$valid) {
+            throw new \Exception(
+              'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'
+            );
+        }
     }
 }

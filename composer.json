@@ -20,6 +20,7 @@
   ],
   "require": {
     "php": "^7.1",
+    "ext-json": "*",
     "doctrine/common": "^2.9",
     "eightpoints/guzzle-bundle": "^7.4",
     "justinrainbow/json-schema": "^5.2",
