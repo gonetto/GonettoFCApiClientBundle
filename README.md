@@ -41,3 +41,11 @@ class AppKernel extends Kernel
     // ...
 }
 ```
+
+Installation at Drupal Module
+-------------------------
+
+```bach
+$ composer require indigophp/doctrine-annotation-autoload
+$ composer dump-autoload
+```
