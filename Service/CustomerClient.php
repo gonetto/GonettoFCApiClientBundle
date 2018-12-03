@@ -2,6 +2,8 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use JsonSchema\Validator;
+
 /**
  * Class CustomerClient
  *
@@ -16,8 +18,8 @@ class CustomerClient
     /** @var string */
     protected $financeConsultApiAccessToken;
 
-    /** @var JSONSchemaCheck */
-    protected $jsonSchemaCheck;
+    /** @var \JsonSchema\Validator */
+    protected $validator;
 
     /** @var ResponseMapper */
     protected $responseMapper;
@@ -27,19 +29,18 @@ class CustomerClient
      *
      * @param string $token
      * @param ApiClient $client
-     * @param JSONSchemaCheck $jsonSchemaCheck
      * @param ResponseMapper $responseMapper
      */
     public function __construct(
       string $token,
       ApiClient $client,
-      JSONSchemaCheck $jsonSchemaCheck,
       ResponseMapper $responseMapper
     ) {
         $this->financeConsultApiAccessToken = $token;
         $this->client = $client;
-        $this->jsonSchemaCheck = $jsonSchemaCheck;
         $this->responseMapper = $responseMapper;
+
+        $this->validator = new Validator();
     }
 
     /**
@@ -100,13 +101,15 @@ class CustomerClient
      */
     protected function jsonSchemaCheck(string $jsonResponse): void
     {
-        $valid = $this->jsonSchemaCheck->check(
-          $jsonResponse,
-          __DIR__.'/../JSONSchema/CustomersSchema.json'
+        $response = json_decode($jsonResponse);
+        $this->validator->validate(
+          $response,
+          (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/CustomersSchema.json']
         );
-        if (!$valid) {
+        if (!$this->validator->isValid()) {
             throw new \Exception(
-              'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'
+              'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'.PHP_EOL
+              .print_r($this->validator->getErrors(), true)
             );
         }
     }

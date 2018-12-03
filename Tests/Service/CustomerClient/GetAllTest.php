@@ -2,10 +2,10 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\CustomerClient;
 
+use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\CustomerClient;
-use Gonetto\FCApiClientBundle\Service\JSONSchemaCheck;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -53,7 +53,7 @@ class GetAllTest extends WebTestCase
         $this->apiClient->method('send')->willReturn($json);
 
         // Pass mocked api client to customer client
-        $this->customerClient = new CustomerClient('', $this->apiClient, new JSONSchemaCheck(), new ResponseMapper());
+        $this->customerClient = new CustomerClient('', $this->apiClient, new ResponseMapper());
     }
 
     /**
@@ -70,7 +70,21 @@ class GetAllTest extends WebTestCase
             ->setStreet('Musterstr. 1')
             ->setZipCode(12345)
             ->setCity('Musterstadt')
-            ->setIban('DE02120300000000202051'),
+            ->setIban('DE02120300000000202051')
+            ->setContracts(
+              [
+                (new Contract())
+                  ->setFee(82.23)
+                  ->setInsurer('Allianz Versicherungs-AG')
+                  ->setGonettoContractNumber(345)
+                  ->setMainRenewalDate(new \DateTime('2017-08-01'))
+                  ->setInsuranceType('Unfall')
+                  ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
+                  ->setEndOfContract(new \DateTime('2019-08-01'))
+                  ->setFinanceConsultContractNumber('4864516/213')
+                  ->setPaymentInterval(12),
+              ]
+            ),
         ];
     }
 

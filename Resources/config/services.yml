@@ -22,6 +22,5 @@ services:
         arguments:
             - '%gonetto_fc_api_client.api_access_token%'
             - '@Gonetto\FCApiClientBundle\Service\ApiClient'
-            - '@Gonetto\FCApiClientBundle\Service\JSONSchemaCheck'
             - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
         public: true
