@@ -4,18 +4,24 @@ services:
         autoconfigure: true
         public: false
 
+    Gonetto\FCApiClientBundle\Service\ApiClient:
+        class:      Gonetto\FCApiClientBundle\Service\ApiClient
+        arguments:
+            - '%gonetto_fc_api_client.api_path%'
+            - '@eight_points_guzzle.client.finance_consult'
+        public: true
+
+    Gonetto\FCApiClientBundle\Service\JSONSchemaCheck:
+        class:      Gonetto\FCApiClientBundle\Service\JSONSchemaCheck
+
+    Gonetto\FCApiClientBundle\Service\ResponseMapper:
+        class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
+
     Gonetto\FCApiClientBundle\Service\CustomerClient:
         class:      Gonetto\FCApiClientBundle\Service\CustomerClient
         arguments:
             - '%gonetto_fc_api_client.api_access_token%'
-            - '%gonetto_fc_api_client.api_path%'
-            - '@eight_points_guzzle.client.finance_consult'
-            - '@gonetto_fc_api_client.service.json_schema_check'
-            - '@gonetto_fc_api_client.service.response_mapper'
+            - '@Gonetto\FCApiClientBundle\Service\ApiClient'
+            - '@Gonetto\FCApiClientBundle\Service\JSONSchemaCheck'
+            - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
         public: true
-
-    gonetto_fc_api_client.service.response_mapper:
-        class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
-
-    gonetto_fc_api_client.service.json_schema_check:
-        class:      Gonetto\FCApiClientBundle\Service\JSONSchemaCheck

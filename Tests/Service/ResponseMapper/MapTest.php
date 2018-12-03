@@ -1,6 +1,6 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper\Maximum;
+namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper;
 
 use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
@@ -8,11 +8,11 @@ use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Class ResponseMapperTest
+ * Class MapTest
  *
- * @package Tests\Gonetto\FCApiClientBundle\Service
+ * @package Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper
  */
-class ResponseMapperTest extends WebTestCase
+class MapTest extends WebTestCase
 {
 
     /** @var ResponseMapper */

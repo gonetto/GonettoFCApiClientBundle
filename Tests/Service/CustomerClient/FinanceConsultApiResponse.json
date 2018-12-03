@@ -1,0 +1,15 @@
+{
+  "kunden": [
+    {
+      "email": "max.mustermann@web.de",
+      "vorname": "Max",
+      "nachname": "Mustermann",
+      "firma": "Musterfirma",
+      "strasse": "Musterstr. 1",
+      "plz": "12345",
+      "ort": "Musterstadt",
+      "iban": "DE02120300000000202051",
+      "verträge": []
+    }
+  ]
+}

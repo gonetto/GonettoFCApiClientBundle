@@ -2,24 +2,19 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
-use GuzzleHttp\Client;
-
 /**
  * Class CustomerClient
  *
- * @package Gonetto\FCApiClientBundle\Client
+ * @package Gonetto\FCApiClientBundle\Service
  */
 class CustomerClient
 {
 
+    /** @var ApiClient */
+    protected $client;
+
     /** @var string */
     protected $financeConsultApiAccessToken;
-
-    /** @var string */
-    protected $financeConsultApiPath;
-
-    /** @var Client */
-    protected $client;
 
     /** @var JSONSchemaCheck */
     protected $jsonSchemaCheck;
@@ -28,23 +23,20 @@ class CustomerClient
     protected $responseMapper;
 
     /**
-     * RESTAPIClient constructor.
+     * CustomerClient constructor.
      *
-     * @param string $financeConsultApiAccessToken
-     * @param string $financeConsultApiPath
-     * @param Client $client
+     * @param string $token
+     * @param ApiClient $client
      * @param JSONSchemaCheck $jsonSchemaCheck
      * @param ResponseMapper $responseMapper
      */
     public function __construct(
-      string $financeConsultApiAccessToken,
-      string $financeConsultApiPath,
-      Client $client,
+      string $token,
+      ApiClient $client,
       JSONSchemaCheck $jsonSchemaCheck,
       ResponseMapper $responseMapper
     ) {
-        $this->financeConsultApiAccessToken = $financeConsultApiAccessToken;
-        $this->financeConsultApiPath = $financeConsultApiPath;
+        $this->financeConsultApiAccessToken = $token;
         $this->client = $client;
         $this->jsonSchemaCheck = $jsonSchemaCheck;
         $this->responseMapper = $responseMapper;
@@ -71,13 +63,11 @@ class CustomerClient
      */
     public function getAllSince(\DateTime $since = null): array
     {
-        // TODO:GN:MS: sync so umbauen, das ich sicher prüfen kann ob alles funktioiert, aber ohne echten cal
-
         // Build api request
-        $request = $this->createApiRequestContent($since);
+        $body = $this->createApiRequestBody($since);
 
         // Get json from api
-        $jsonResponse = $this->requestToApi($request);
+        $jsonResponse = $this->client->send(['body' => $body]);
 
         // Check json
         $this->jsonSchemaCheck($jsonResponse);
@@ -93,7 +83,7 @@ class CustomerClient
      *
      * @return string
      */
-    protected function createApiRequestContent(\DateTime $since = null): string
+    protected function createApiRequestBody(\DateTime $since = null): string
     {
         return json_encode(
           [
@@ -104,26 +94,6 @@ class CustomerClient
     }
 
     /**
-     * @param string $request
-     *
-     * @return string
-     * @throws \Exception
-     */
-    protected function requestToApi(string $request): string
-    {
-        // Get all Finance Consult customer
-        $stream = $this->client->get($this->financeConsultApiPath, ['body' => $request]);
-        $response = (string)$stream->getBody();
-
-        // Check if valid JSON response
-        if (json_decode($response) === null) {
-            throw new \Exception('Finance Consult API dosen\'t sent valid JSON. Check API Token or the response.');
-        }
-
-        return $response;
-    }
-
-    /**
      * @param string $jsonResponse
      *
      * @throws \Exception
@@ -131,7 +101,7 @@ class CustomerClient
     protected function jsonSchemaCheck(string $jsonResponse): void
     {
         $valid = $this->jsonSchemaCheck->check(
-          json_decode($jsonResponse),
+          $jsonResponse,
           __DIR__.'/../JSONSchema/CustomersSchema.json'
         );
         if (!$valid) {
