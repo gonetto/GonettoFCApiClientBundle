@@ -11,9 +11,6 @@ services:
             - '@eight_points_guzzle.client.finance_consult'
         public: true
 
-    Gonetto\FCApiClientBundle\Service\JSONSchemaCheck:
-        class:      Gonetto\FCApiClientBundle\Service\JSONSchemaCheck
-
     Gonetto\FCApiClientBundle\Service\ResponseMapper:
         class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
 
