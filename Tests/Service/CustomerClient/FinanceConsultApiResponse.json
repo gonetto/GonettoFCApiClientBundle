@@ -1,6 +1,7 @@
 {
   "kunden": [
     {
+      "oid": "RD1PP",
       "email": "max.mustermann@web.de",
       "vorname": "Max",
       "nachname": "Mustermann",
@@ -11,6 +12,7 @@
       "iban": "DE02120300000000202051",
       "verträge": [
         {
+          "oid": "RD1PN",
           "beitrag": 82.23,
           "gesellschaft": "Allianz Versicherungs-AG",
           "gonetto-id": "345",

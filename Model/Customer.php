@@ -16,6 +16,14 @@ class Customer
      * @var string
      *
      * @JMS\Type("string")
+     * @JMS\SerializedName("oid")
+     */
+    protected $fianceConsultId;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
      */
     protected $email;
 
@@ -86,6 +94,26 @@ class Customer
      * @JMS\SerializedName("verträge")
      */
     protected $contracts = [];
+
+    /**
+     * @return string
+     */
+    public function getFianceConsultId(): string
+    {
+        return $this->fianceConsultId;
+    }
+
+    /**
+     * @param string $fianceConsultId
+     *
+     * @return Customer
+     */
+    public function setFianceConsultId(string $fianceConsultId): Customer
+    {
+        $this->fianceConsultId = $fianceConsultId;
+
+        return $this;
+    }
 
     /**
      * @return string
@@ -308,7 +336,7 @@ class Customer
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Contract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {
-            if ($contract->getFinanceConsultContractNumber() === $currentContract->getFinanceConsultContractNumber()) {
+            if ($contract->getContractNumber() === $currentContract->getContractNumber()) {
                 unset($this->contracts[$key]);
                 break;
             }

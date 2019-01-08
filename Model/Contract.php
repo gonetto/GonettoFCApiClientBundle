@@ -13,6 +13,14 @@ class Contract
 {
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("oid")
+     */
+    protected $fianceConsultId;
+
+    /**
      * @var double
      *
      * @JMS\Type("double")
@@ -33,6 +41,8 @@ class Contract
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("gonetto-id")
+     *
+     * @deprecated
      */
     protected $gonettoContractNumber;
 
@@ -73,8 +83,18 @@ class Contract
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("vertragsnummer")
+     *
+     * @deprecated
      */
     protected $financeConsultContractNumber;
+
+    /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("vertragsnummer")
+     */
+    protected $contractNumber;
 
     /**
      * @var int
@@ -83,6 +103,26 @@ class Contract
      * @JMS\SerializedName("zahlungsweise")
      */
     protected $paymentInterval;
+
+    /**
+     * @return string
+     */
+    public function getFianceConsultId(): string
+    {
+        return $this->fianceConsultId;
+    }
+
+    /**
+     * @param string $fianceConsultId
+     *
+     * @return Contract
+     */
+    public function setFianceConsultId(string $fianceConsultId): Contract
+    {
+        $this->fianceConsultId = $fianceConsultId;
+
+        return $this;
+    }
 
     /**
      * @return null|float
@@ -240,6 +280,26 @@ class Contract
     public function setFinanceConsultContractNumber(string $financeConsultContractNumber): Contract
     {
         $this->financeConsultContractNumber = $financeConsultContractNumber;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getContractNumber(): string
+    {
+        return $this->contractNumber;
+    }
+
+    /**
+     * @param string $contractNumber
+     *
+     * @return Contract
+     */
+    public function setContractNumber(string $contractNumber): Contract
+    {
+        $this->contractNumber = $contractNumber;
 
         return $this;
     }

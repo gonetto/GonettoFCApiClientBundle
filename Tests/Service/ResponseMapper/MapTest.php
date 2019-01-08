@@ -55,6 +55,7 @@ class MapTest extends WebTestCase
     {
         $this->customers = [
           (new Customer())
+            ->setFianceConsultId('RD1PP')
             ->setEmail('max.mustermann@web.de')
             ->setFirstName('Max')
             ->setLastName('Mustermann')
@@ -66,6 +67,7 @@ class MapTest extends WebTestCase
             ->setContracts(
               [
                 (new Contract())
+                  ->setFianceConsultId('RD1PN')
                   ->setFee(82.23)
                   ->setInsurer('Allianz Versicherungs-AG')
                   ->setGonettoContractNumber(345)
@@ -74,6 +76,7 @@ class MapTest extends WebTestCase
                   ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
                   ->setEndOfContract(new \DateTime('2019-08-01'))
                   ->setFinanceConsultContractNumber('4864516/213')
+                  ->setContractNumber('4864516/213')
                   ->setPaymentInterval(12),
               ]
             )
