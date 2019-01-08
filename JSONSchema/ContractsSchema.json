@@ -35,7 +35,19 @@
       },
       "zahlungsweise": {
         "type": "string",
-        "enum": ["jahrlich", "halbjährlich", "vierteljahrlich", "monatlich", "einmalig"]
+        "enum": [
+          "jährlich",
+          "jaehrlich",
+          "jahrlich",
+          "halbjährlich",
+          "halbjaehrlich",
+          "halbjahrlich",
+          "vierteljährlich",
+          "vierteljaehrlich",
+          "vierteljahrlich",
+          "monatlich",
+          "einmalig"
+        ]
       }
     },
     "required": [
