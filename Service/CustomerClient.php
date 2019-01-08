@@ -46,23 +46,26 @@ class CustomerClient
     /**
      * Get all customers from Finance Consult API
      *
-     * @return mixed
+     * @param bool $get_src_json
+     *
+     * @return array|string
      * @throws \Exception
      */
-    public function getAll(): array
+    public function getAll($get_src_json = false): array
     {
-        return $this->getAllSince();
+        return $this->getAllSince(null, $get_src_json);
     }
 
     /**
      * Get all customers from Finance Consult API since specific date
      *
      * @param \DateTime|null $since
+     * @param bool $get_src_json
      *
-     * @return mixed
+     * @return array|string
      * @throws \Exception
      */
-    public function getAllSince(\DateTime $since = null): array
+    public function getAllSince(\DateTime $since = null, $get_src_json = false): array
     {
         // Build api request
         $body = $this->createApiRequestBody($since);
@@ -72,6 +75,11 @@ class CustomerClient
 
         // Check json
         $this->jsonSchemaCheck($jsonResponse);
+
+        // Return json string src
+        if ($get_src_json) {
+            return $jsonResponse;
+        }
 
         // Map json to object
         $customers = $this->responseMapper->map($jsonResponse);
