@@ -96,6 +96,14 @@ class Customer
     protected $contracts = [];
 
     /**
+     * @var array
+     *
+     * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Document>")
+     * @JMS\SerializedName("dokumente")
+     */
+    protected $documents = [];
+
+    /**
      * @return string
      */
     public function getFianceConsultId(): string
@@ -338,6 +346,56 @@ class Customer
         foreach ($this->contracts as $key => $currentContract) {
             if ($contract->getContractNumber() === $currentContract->getContractNumber()) {
                 unset($this->contracts[$key]);
+                break;
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return array
+     */
+    public function getDocuments(): array
+    {
+        return $this->documents;
+    }
+
+    /**
+     * @param array $documents
+     *
+     * @return Customer
+     */
+    public function setDocuments(array $documents): Customer
+    {
+        $this->documents = $documents;
+
+        return $this;
+    }
+
+    /**
+     * @param Document $contract
+     *
+     * @return Customer
+     */
+    public function addDocument(Document $contract): Customer
+    {
+        $this->documents[] = $contract;
+
+        return $this;
+    }
+
+    /**
+     * @param Document $contract
+     *
+     * @return Customer
+     */
+    public function removeDocument(Document $contract): Customer
+    {
+        /** @var \Gonetto\FCApiClientBundle\Model\Document $currentDocument */
+        foreach ($this->documents as $key => $currentDocument) {
+            if ($contract->getFianceConsultId() === $currentDocument->getFianceConsultId()) {
+                unset($this->documents[$key]);
                 break;
             }
         }

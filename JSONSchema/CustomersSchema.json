@@ -1,57 +1,62 @@
 {
-  "$schema": "http://json-schema.org/schema#",
-  "title": "Match customers",
-  "description": "This is a schema that matches customers.",
-  "type": "object",
-  "properties": {
-    "kunden": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "properties": {
-          "oid": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "vorname": {
-            "type": "string"
-          },
-          "nachname": {
-            "type": "string"
-          },
-          "firma": {
-            "type": "string"
-          },
-          "strasse": {
-            "type": "string"
-          },
-          "plz": {
-            "type": "string"
-          },
-          "ort": {
-            "type": "string"
-          },
-          "iban": {
-            "type": "string"
-          },
-          "verträge": {
-            "$ref": "ContractsSchema.json"
-          }
-        },
-        "required": [
-          "email",
-          "vorname",
-          "nachname",
-          "firma",
-          "strasse",
-          "plz",
-          "ort",
-          "iban",
-          "verträge"
-        ]
-      }
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Match customers",
+    "description": "This is a schema that matches customers.",
+    "type": "object",
+    "properties": {
+        "kunden": {
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "oid": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "vorname": {
+                        "type": "string"
+                    },
+                    "nachname": {
+                        "type": "string"
+                    },
+                    "firma": {
+                        "type": "string"
+                    },
+                    "strasse": {
+                        "type": "string"
+                    },
+                    "plz": {
+                        "type": "string"
+                    },
+                    "ort": {
+                        "type": "string"
+                    },
+                    "iban": {
+                        "type": "string"
+                    },
+                    "verträge": {
+                        "$ref": "ContractsSchema.json"
+                    },
+                    "dokumente": {
+                        "$ref": "DocumentsSchema.json"
+                    }
+                },
+                "required": [
+                    "oid",
+                    "email",
+                    "vorname",
+                    "nachname",
+                    "firma",
+                    "strasse",
+                    "plz",
+                    "ort",
+                    "iban",
+                    "verträge",
+                    "dokumente"
+                ]
+            }
+        }
     }
-  }
 }
