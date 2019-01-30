@@ -46,26 +46,59 @@ class CustomerClient
     /**
      * Get all customers from Finance Consult API
      *
-     * @param bool $get_src_json
-     *
-     * @return array|string
+     * @return array
      * @throws \Exception
      */
-    public function getAll($get_src_json = false): array
+    public function getAll(): array
     {
-        return $this->getAllSince(null, $get_src_json);
+        return $this->getAllSince(null);
     }
 
     /**
      * Get all customers from Finance Consult API since specific date
      *
      * @param \DateTime|null $since
-     * @param bool $get_src_json
      *
-     * @return array|string
+     * @return array
      * @throws \Exception
      */
-    public function getAllSince(\DateTime $since = null, $get_src_json = false): array
+    public function getAllSince(\DateTime $since = null): array
+    {
+        // Build api request
+        $body = $this->createApiRequestBody($since);
+
+        // Get json from api
+        $jsonResponse = $this->client->send(['body' => $body]);
+
+        // Check json
+        $this->jsonSchemaCheck($jsonResponse);
+
+        // Map json to object
+        $customers = $this->responseMapper->map($jsonResponse);
+
+        return $customers;
+    }
+
+    /**
+     * Get all customers from Finance Consult API
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function getAllJson(): string
+    {
+        return $this->getAllSinceJson(null);
+    }
+
+    /**
+     * Get all customers from Finance Consult API since specific date
+     *
+     * @param \DateTime|null $since
+     *
+     * @return string
+     * @throws \Exception
+     */
+    public function getAllSinceJson(\DateTime $since = null): string
     {
         // Build api request
         $body = $this->createApiRequestBody($since);
@@ -77,14 +110,7 @@ class CustomerClient
         $this->jsonSchemaCheck($jsonResponse);
 
         // Return json string src
-        if ($get_src_json) {
-            return $jsonResponse;
-        }
-
-        // Map json to object
-        $customers = $this->responseMapper->map($jsonResponse);
-
-        return $customers;
+        return $jsonResponse;
     }
 
     /**
