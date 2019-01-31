@@ -44,7 +44,10 @@ class ApiClient
 
         // Check if valid JSON response
         if (json_decode($response) === null) {
-            throw new \Exception('Finance Consult API dosen\'t sent valid JSON. Check API Token or the response.');
+            throw new \Exception(
+                'Finance Consult API dosen\'t sent valid JSON. Check the response.'
+                .' (Response: "'.$response.'")'
+            );
         }
 
         return $response;
