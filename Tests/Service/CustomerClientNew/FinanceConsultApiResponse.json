@@ -1,0 +1,47 @@
+{
+    "kunden": [
+        {
+            "oid": "19P1CF",
+            "email": "swen.tyrasa@gmail.com",
+            "vorname": "Swen",
+            "nachname": "Tyrasa",
+            "firma": "",
+            "strasse": "Dorfstr.  21",
+            "plz": "07646",
+            "ort": "Eineborn",
+            "iban": ""
+        }
+    ],
+    "kundenDeleted": [
+        "1B6PS1"
+    ],
+    "vertraege": [
+        {
+            "oid": "SB1CK",
+            "kundeID": "S89YN",
+            "beitrag": 656.9,
+            "gesellschaft": "DEVK Versicherungen",
+            "gonetto-id": "",
+            "hauptfälligkeit": "2006-04-01T00:00:00",
+            "produkt": "Wohngebäude",
+            "vermittlungsdatum": "2018-03-27T00:00:00",
+            "vertragsende": "2019-04-01T00:00:00",
+            "vertragsnummer": "00011663394",
+            "zahlungsweise": "jahrlich"
+        }
+    ],
+    "vertraegeDeleted": [
+        "AB45U"
+    ],
+    "dokumente": [
+        {
+            "oid": "1B5O3V",
+            "vertragID": "19DB5Y",
+            "beschreibung": "Röthel, Thomas",
+            "datum": "2019-02-04T13:26:58"
+        }
+    ],
+    "dokumenteDeleted": [
+        "19CTC5"
+    ]
+}
