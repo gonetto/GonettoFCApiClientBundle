@@ -89,16 +89,6 @@ class GetAllTest extends WebTestCase
                             ->setPaymentInterval(12),
                     ]
                 )
-                ->setDocuments(
-                    [
-                        (new Document())
-                            ->setFianceConsultId('21791188')
-                            ->setUrl('DCS5Net/DocumentView.aspx?KundeDokumentID=21791188')
-                            ->setType('')
-                            ->setAddDate(new \DateTime('2019-01-18'))
-                            ->setAddedBy('docsu'),
-                    ]
-                ),
         ];
     }
 

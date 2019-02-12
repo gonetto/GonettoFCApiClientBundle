@@ -23,15 +23,6 @@
                     "vertragsnummer": "4864516/213",
                     "zahlungsweise": "monatlich"
                 }
-            ],
-            "dokumente": [
-                {
-                    "oid": "21791188",
-                    "url": "DCS5Net/DocumentView.aspx?KundeDokumentID=21791188",
-                    "art": "",
-                    "angelegt-am": "2019-01-18T00:00:00",
-                    "angelegt-von": "docsu"
-                }
             ]
         }
     ]
