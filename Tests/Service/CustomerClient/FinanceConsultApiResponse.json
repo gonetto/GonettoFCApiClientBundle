@@ -2,7 +2,7 @@
     "kunden": [
         {
             "oid": "RD1PP",
-            "email": "max.mustermann@web.de",
+            "email": "max.mustermann@domain.tld",
             "vorname": "Max",
             "nachname": "Mustermann",
             "firma": "Musterfirma",

@@ -55,7 +55,7 @@ class MapTest extends WebTestCase
         $this->customers = [
           (new Customer())
             ->setFianceConsultId('RD1PP')
-            ->setEmail('max.mustermann@web.de')
+            ->setEmail('max.mustermann@domain.tld')
         ];
     }
 }

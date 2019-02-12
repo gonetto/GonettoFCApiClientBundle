@@ -266,6 +266,8 @@ class Contract
 
     /**
      * @return string
+     *
+     * @deprecated
      */
     public function getFinanceConsultContractNumber(): string
     {
@@ -276,6 +278,8 @@ class Contract
      * @param string $financeConsultContractNumber
      *
      * @return Contract
+     *
+     * @deprecated
      */
     public function setFinanceConsultContractNumber(string $financeConsultContractNumber): Contract
     {

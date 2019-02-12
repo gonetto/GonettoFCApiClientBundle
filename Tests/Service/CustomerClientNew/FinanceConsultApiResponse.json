@@ -2,14 +2,14 @@
     "kunden": [
         {
             "oid": "19P1CF",
-            "email": "swen.tyrasa@gmail.com",
-            "vorname": "Swen",
-            "nachname": "Tyrasa",
-            "firma": "",
-            "strasse": "Dorfstr.  21",
-            "plz": "07646",
-            "ort": "Eineborn",
-            "iban": ""
+            "email": "anna.musterfrau@domain.tld",
+            "vorname": "Anna",
+            "nachname": "Musterfrau",
+            "firma": "Beispielfirma",
+            "strasse": "Beispielstr. 2",
+            "plz": "54321",
+            "ort": "Beispielstadt",
+            "iban": "DE02500105170137075030"
         }
     ],
     "kundenDeleted": [
@@ -18,10 +18,9 @@
     "vertraege": [
         {
             "oid": "SB1CK",
-            "kundeID": "S89YN",
+            "kundeID": "19P1CF",
             "beitrag": 656.9,
             "gesellschaft": "DEVK Versicherungen",
-            "gonetto-id": "",
             "hauptfälligkeit": "2006-04-01T00:00:00",
             "produkt": "Wohngebäude",
             "vermittlungsdatum": "2018-03-27T00:00:00",

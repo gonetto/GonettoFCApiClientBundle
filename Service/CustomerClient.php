@@ -112,7 +112,7 @@ class CustomerClient
         $response = json_decode($jsonResponse);
         $this->validator->validate(
           $response,
-          (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/CustomersSchema.json']
+          (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/ApiResponseSchema.json']
         );
         if (!$this->validator->isValid()) {
             throw new \Exception(

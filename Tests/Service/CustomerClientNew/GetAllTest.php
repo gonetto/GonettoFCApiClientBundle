@@ -62,43 +62,55 @@ class GetAllTest extends WebTestCase
      */
     protected function loadDataFixtures()
     {
+        // TODO:GN:MS: Test alte Struktur
+
+        // TODO:GN:MS: Alte Struktur als depricated markieren
+
+        // TODO:GN:MS: Customer client entfernen und als depricated markieren
+
+        // TODO:GN:MS: JSON Schema umbauen. Aber so, das die alte Struktur funktioniert!
+
+        // TODO:GN:MS: Test neue Struktur
+
         $this->customers = [
             (new Customer())
-                ->setFianceConsultId('RD1PP')
-                ->setEmail('max.mustermann@web.de')
-                ->setFirstName('Max')
-                ->setLastName('Mustermann')
-                ->setCompany('Musterfirma')
-                ->setStreet('Musterstr. 1')
-                ->setZipCode(12345)
-                ->setCity('Musterstadt')
-                ->setIban('DE02120300000000202051')
+                ->setFianceConsultId('19P1CF')
+                ->setEmail('anna.musterfrau@domain.tld')
+                ->setFirstName('Anna')
+                ->setLastName('Musterfrau')
+                ->setCompany('Beispielfirma')
+                ->setStreet('Beispielstr. 2')
+                ->setZipCode(54321)
+                ->setCity('Beispielstadt')
+                ->setIban('DE02500105170137075030')
                 ->setContracts(
                     [
                         (new Contract())
-                            ->setFianceConsultId('RD1PN')
-                            ->setFee(82.23)
-                            ->setInsurer('Allianz Versicherungs-AG')
+                            ->setFianceConsultId('SB1CK')
+                            ->setFee(656.9)
+                            ->setInsurer('DEVK Versicherungen')
                             ->setGonettoContractNumber(345)
-                            ->setMainRenewalDate(new \DateTime('2017-08-01'))
-                            ->setInsuranceType('Unfall')
-                            ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
-                            ->setEndOfContract(new \DateTime('2019-08-01'))
-                            ->setFinanceConsultContractNumber('4864516/213')
-                            ->setContractNumber('4864516/213')
-                            ->setPaymentInterval(12),
+                            ->setMainRenewalDate(new \DateTime('2006-04-01'))
+                            ->setInsuranceType('Wohngebäude')
+                            ->setContractDate(new \DateTime('2018-03-27T00:00:0'))
+                            ->setEndOfContract(new \DateTime('2019-04-01'))
+                            ->setFinanceConsultContractNumber('00011663394')
+                            ->setContractNumber('00011663394')
+                            ->setPaymentInterval(1),
                     ]
                 )
+                /*
                 ->setDocuments(
                     [
                         (new Document())
-                            ->setFianceConsultId('21791188')
+                            ->setFianceConsultId('1B5O3V')
                             ->setUrl('DCS5Net/DocumentView.aspx?KundeDokumentID=21791188')
                             ->setType('')
                             ->setAddDate(new \DateTime('2019-01-18'))
                             ->setAddedBy('docsu'),
                     ]
                 ),
+                */
         ];
     }
 
