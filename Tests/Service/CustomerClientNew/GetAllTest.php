@@ -47,7 +47,7 @@ class GetAllTest extends WebTestCase
     protected function mockApiClient()
     {
         // Api response
-        $json = file_get_contents(__DIR__.'/FinanceConsultApiResponse.json');
+        $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
 
         // Mock client
         $this->apiClient = $this->createMock(ApiClient::class);
@@ -93,10 +93,10 @@ class GetAllTest extends WebTestCase
                             ->setGonettoContractNumber(345)
                             ->setMainRenewalDate(new \DateTime('2006-04-01'))
                             ->setInsuranceType('Wohngebäude')
-                            ->setContractDate(new \DateTime('2018-03-27T00:00:0'))
+                            ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
                             ->setEndOfContract(new \DateTime('2019-04-01'))
-                            ->setFinanceConsultContractNumber('00011663394')
-                            ->setContractNumber('00011663394')
+                            ->setFinanceConsultContractNumber('2397868001')
+                            ->setContractNumber('2397868001')
                             ->setPaymentInterval(1),
                     ]
                 )

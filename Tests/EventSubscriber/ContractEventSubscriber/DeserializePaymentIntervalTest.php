@@ -41,7 +41,7 @@ class DeserializePaymentIntervalTest extends WebTestCase
     public function testMapCustomers()
     {
         // Deserialize JSON with JMS Serializer
-        $json = file_get_contents(__DIR__.'/FinanceConsultApiResponse.json');
+        $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
         $customers = $this->responseMapper->map($json);
 
         // Compare result

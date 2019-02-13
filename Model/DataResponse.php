@@ -5,11 +5,11 @@ namespace Gonetto\FCApiClientBundle\Model;
 use JMS\Serializer\Annotation as JMS;
 
 /**
- * Class ApiResponse
+ * Class DataResponse
  *
  * @package Gonetto\FCApiClientBundle\Model
  */
-class ApiResponse
+class DataResponse
 {
 
     /**
@@ -47,9 +47,9 @@ class ApiResponse
     /**
      * @param array $customers
      *
-     * @return ApiResponse
+     * @return DataResponse
      */
-    public function setCustomers(array $customers): ApiResponse
+    public function setCustomers(array $customers): DataResponse
     {
         $this->customers = $customers;
 
@@ -59,9 +59,9 @@ class ApiResponse
     /**
      * @param Customer $customer
      *
-     * @return ApiResponse
+     * @return DataResponse
      */
-    public function addCustomer(Customer $customer): ApiResponse
+    public function addCustomer(Customer $customer): DataResponse
     {
         $this->customers[] = $customer;
 
@@ -71,9 +71,9 @@ class ApiResponse
     /**
      * @param Customer $customer
      *
-     * @return ApiResponse
+     * @return DataResponse
      */
-    public function removeCustomer(Customer $customer): ApiResponse
+    public function removeCustomer(Customer $customer): DataResponse
     {
         /**  @var \Gonetto\FCApiClientBundle\Model\Customer $currentCustomer */
         foreach ($this->customers as $key => $currentCustomer) {
@@ -99,7 +99,7 @@ class ApiResponse
      *
      * @return Customer
      */
-    public function setContracts(array $contracts): ApiResponse
+    public function setContracts(array $contracts): DataResponse
     {
         $this->contracts = $contracts;
 
@@ -111,7 +111,7 @@ class ApiResponse
      *
      * @return Customer
      */
-    public function addContract(Contract $contract): ApiResponse
+    public function addContract(Contract $contract): DataResponse
     {
         $this->contracts[] = $contract;
 
@@ -123,7 +123,7 @@ class ApiResponse
      *
      * @return Customer
      */
-    public function removeContract(Contract $contract): ApiResponse
+    public function removeContract(Contract $contract): DataResponse
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Contract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {
@@ -149,7 +149,7 @@ class ApiResponse
      *
      * @return Customer
      */
-    public function setDocuments(array $documents): ApiResponse
+    public function setDocuments(array $documents): DataResponse
     {
         $this->documents = $documents;
 
@@ -161,7 +161,7 @@ class ApiResponse
      *
      * @return Customer
      */
-    public function addDocument(Document $contract): ApiResponse
+    public function addDocument(Document $contract): DataResponse
     {
         $this->documents[] = $contract;
 
@@ -173,7 +173,7 @@ class ApiResponse
      *
      * @return Customer
      */
-    public function removeDocument(Document $contract): ApiResponse
+    public function removeDocument(Document $contract): DataResponse
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Document $currentDocument */
         foreach ($this->documents as $key => $currentDocument) {

@@ -23,9 +23,9 @@
             "gesellschaft": "DEVK Versicherungen",
             "hauptfälligkeit": "2006-04-01T00:00:00",
             "produkt": "Wohngebäude",
-            "vermittlungsdatum": "2018-03-27T00:00:00",
+            "vermittlungsdatum": "2018-03-27T11:21:37",
             "vertragsende": "2019-04-01T00:00:00",
-            "vertragsnummer": "00011663394",
+            "vertragsnummer": "2397868001",
             "zahlungsweise": "jahrlich"
         }
     ],
@@ -37,6 +37,7 @@
             "oid": "1B5O3V",
             "vertragID": "19DB5Y",
             "beschreibung": "Röthel, Thomas",
+            "art": 2,
             "datum": "2019-02-04T13:26:58"
         }
     ],
