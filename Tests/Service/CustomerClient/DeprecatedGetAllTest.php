@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\CustomerClient;
 
+use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\CustomerClient;
@@ -13,7 +14,7 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  *
  * @package Gonetto\FCApiClientBundle\Tests\Service\CustomerClient
  */
-class GetAllTest extends WebTestCase
+class DeprecatedGetAllTest extends WebTestCase
 {
 
     /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
@@ -45,7 +46,7 @@ class GetAllTest extends WebTestCase
     protected function mockApiClient()
     {
         // Api response
-        $json = file_get_contents(__DIR__.'/ApiDataResponseNew.json');
+        $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
 
         // Mock client
         $this->apiClient = $this->createMock(ApiClient::class);
@@ -62,15 +63,31 @@ class GetAllTest extends WebTestCase
     {
         $this->customers = [
             (new Customer())
-                ->setFianceConsultId('19P1CF')
-                ->setEmail('anna.musterfrau@domain.tld')
-                ->setFirstName('Anna')
-                ->setLastName('Musterfrau')
-                ->setCompany('Beispielfirma')
-                ->setStreet('Beispielstr. 2')
-                ->setZipCode(54321)
-                ->setCity('Beispielstadt')
-                ->setIban('DE02500105170137075030')
+                ->setFianceConsultId('RD1PP')
+                ->setEmail('max.mustermann@domain.tld')
+                ->setFirstName('Max')
+                ->setLastName('Mustermann')
+                ->setCompany('Musterfirma')
+                ->setStreet('Musterstr. 1')
+                ->setZipCode(12345)
+                ->setCity('Musterstadt')
+                ->setIban('DE02120300000000202051')
+                ->setContracts(
+                    [
+                        (new Contract())
+                            ->setFianceConsultId('RD1PN')
+                            ->setFee(82.23)
+                            ->setInsurer('Allianz Versicherungs-AG')
+                            ->setGonettoContractNumber(345)
+                            ->setMainRenewalDate(new \DateTime('2017-08-01'))
+                            ->setInsuranceType('Unfall')
+                            ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
+                            ->setEndOfContract(new \DateTime('2019-08-01'))
+                            ->setFinanceConsultContractNumber('4864516/213')
+                            ->setContractNumber('4864516/213')
+                            ->setPaymentInterval(12),
+                    ]
+                )
         ];
     }
 

@@ -8,6 +8,9 @@ use JsonSchema\Validator;
  * Class CustomerClient
  *
  * @package Gonetto\FCApiClientBundle\Service
+ *
+ * @deprecated
+ * @see \Gonetto\FCApiClientBundle\Service\DataClient
  */
 class CustomerClient
 {
