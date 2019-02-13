@@ -12,8 +12,8 @@
             "vertragID": {
                 "type": "string"
             },
-            "beschreibung": {
-                "type": "string"
+            "art": {
+                "type": "integer"
             },
             "datum": {
                 "type": "string",
@@ -23,7 +23,7 @@
         "required": [
             "oid",
             "vertragID",
-            "beschreibung",
+            "art",
             "datum"
         ]
     }
