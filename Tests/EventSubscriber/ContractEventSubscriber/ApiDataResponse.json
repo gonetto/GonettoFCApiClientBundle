@@ -1,23 +1,19 @@
 {
-  "kunden": [
-    {
-      "verträge": [
+    "vertraege": [
         {
-          "zahlungsweise": "monatlich"
+            "zahlungsweise": "monatlich"
         },
         {
-          "zahlungsweise": "vierteljahrlich"
+            "zahlungsweise": "vierteljahrlich"
         },
         {
-          "zahlungsweise": "halbjährlich"
+            "zahlungsweise": "halbjährlich"
         },
         {
-          "zahlungsweise": "jahrlich"
+            "zahlungsweise": "jahrlich"
         },
         {
-          "zahlungsweise": "einmalig"
+            "zahlungsweise": "einmalig"
         }
-      ]
-    }
-  ]
+    ]
 }

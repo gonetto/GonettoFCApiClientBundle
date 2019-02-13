@@ -85,7 +85,7 @@ class CustomerClient
         }
 
         // Map json to object
-        $customers = $this->responseMapper->map($jsonResponse);
+        $customers = $this->responseMapper->mapCustomers($jsonResponse);
 
         return $customers;
     }

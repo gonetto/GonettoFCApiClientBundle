@@ -21,3 +21,11 @@ services:
             - '@Gonetto\FCApiClientBundle\Service\ApiClient'
             - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
         public: true
+
+    Gonetto\FCApiClientBundle\Service\DataClient:
+        class:      Gonetto\FCApiClientBundle\Service\DataClient
+        arguments:
+            - '%gonetto_fc_api_client.api_access_token%'
+            - '@Gonetto\FCApiClientBundle\Service\ApiClient'
+            - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
+        public: true

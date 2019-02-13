@@ -14,6 +14,7 @@ use JMS\Serializer\SerializerBuilder;
  */
 class ResponseMapper
 {
+    // TODO:GN:MS: inn factory umbauen
 
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
@@ -40,14 +41,29 @@ class ResponseMapper
      *
      * @param string $jsonResponse
      *
-     * @return mixed
+     * @return array
      * @throws \Exception
+     *
+     * @deprecated
+     * @see \Gonetto\FCApiClientBundle\Service\ResponseMapper::map()
      */
-    public function map(string $jsonResponse)
+    public function mapCustomers(string $jsonResponse): array
     {
         /** @var DataResponse $response */
         $response = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
 
         return $response->getCustomers();
+    }
+
+    /**
+     * Deserialize the response
+     *
+     * @param string $jsonResponse
+     *
+     * @return \Gonetto\FCApiClientBundle\Model\DataResponse
+     */
+    public function map(string $jsonResponse): DataResponse
+    {
+        return $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
     }
 }

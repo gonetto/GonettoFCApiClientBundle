@@ -3,7 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper\Minimum;
 
 use Gonetto\FCApiClientBundle\Model\Contract;
-use Gonetto\FCApiClientBundle\Model\DataResponse;
+use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
@@ -12,14 +12,14 @@ use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
  *
  * @package Tests\Gonetto\FCApiClientBundle\Service
  */
-class DeserializePaymentIntervalTest extends WebTestCase
+class DeprecatedDeserializePaymentIntervalTest extends WebTestCase
 {
 
     /** @var ResponseMapper */
     protected $responseMapper;
 
-    /** @var \Gonetto\FCApiClientBundle\Model\DataResponse */
-    protected $data;
+    /** @var array of Customers with Contracts */
+    protected $customers;
 
     /**
      * {@inheritDoc}
@@ -40,12 +40,12 @@ class DeserializePaymentIntervalTest extends WebTestCase
      */
     public function testMapCustomers()
     {
-        // Deserialize JSON
-        $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
-        $dataResponse = $this->responseMapper->map($json);
+        // Deserialize JSON with JMS Serializer
+        $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
+        $customers = $this->responseMapper->mapCustomers($json);
 
         // Compare result
-        $this->assertEquals($this->data, $dataResponse);
+        $this->assertEquals($this->customers, $customers);
     }
 
     /**
@@ -53,15 +53,16 @@ class DeserializePaymentIntervalTest extends WebTestCase
      */
     protected function loadDataFixtures()
     {
-        $this->data = (new DataResponse())
-            ->setContracts(
-                [
-                    (new Contract())->setPaymentInterval(12),
-                    (new Contract())->setPaymentInterval(4),
-                    (new Contract())->setPaymentInterval(2),
-                    (new Contract())->setPaymentInterval(1),
-                    (new Contract())->setPaymentInterval(0),
-                ]
-            );
+        $this->customers = [
+          (new Customer())->setContracts(
+            [
+              (new Contract())->setPaymentInterval(12),
+              (new Contract())->setPaymentInterval(4),
+              (new Contract())->setPaymentInterval(2),
+              (new Contract())->setPaymentInterval(1),
+              (new Contract())->setPaymentInterval(0),
+            ]
+          ),
+        ];
     }
 }
