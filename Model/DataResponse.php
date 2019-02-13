@@ -97,7 +97,7 @@ class DataResponse
     /**
      * @param array $contracts
      *
-     * @return Customer
+     * @return DataResponse
      */
     public function setContracts(array $contracts): DataResponse
     {
@@ -109,7 +109,7 @@ class DataResponse
     /**
      * @param Contract $contract
      *
-     * @return Customer
+     * @return DataResponse
      */
     public function addContract(Contract $contract): DataResponse
     {
@@ -121,7 +121,7 @@ class DataResponse
     /**
      * @param Contract $contract
      *
-     * @return Customer
+     * @return DataResponse
      */
     public function removeContract(Contract $contract): DataResponse
     {
@@ -147,7 +147,7 @@ class DataResponse
     /**
      * @param array $documents
      *
-     * @return Customer
+     * @return DataResponse
      */
     public function setDocuments(array $documents): DataResponse
     {
@@ -159,7 +159,7 @@ class DataResponse
     /**
      * @param Document $contract
      *
-     * @return Customer
+     * @return DataResponse
      */
     public function addDocument(Document $contract): DataResponse
     {
@@ -171,7 +171,7 @@ class DataResponse
     /**
      * @param Document $contract
      *
-     * @return Customer
+     * @return DataResponse
      */
     public function removeDocument(Document $contract): DataResponse
     {
