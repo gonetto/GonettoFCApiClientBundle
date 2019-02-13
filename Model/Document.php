@@ -24,33 +24,25 @@ class Document
      * @var string
      *
      * @JMS\Type("string")
-     * @JMS\SerializedName("url")
+     * @JMS\SerializedName("vertragID")
      */
-    protected $url;
+    protected $contractId;
 
     /**
      * @var string
      *
      * @JMS\Type("string")
-     * @JMS\SerializedName("art")
+     * @JMS\SerializedName("beschreibung")
      */
-    protected $type;
+    protected $description;
 
     /**
      * @var \DateTime
      *
      * @JMS\Type("DateTime<'Y-m-d\TH:i:s', 'Europe/Berlin'>")
-     * @JMS\SerializedName("angelegt-am")
+     * @JMS\SerializedName("datum")
      */
-    protected $addDate;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("angelegt-von")
-     */
-    protected $addedBy;
+    protected $date;
 
     /**
      * @return string
@@ -75,19 +67,19 @@ class Document
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getContractId(): string
     {
-        return $this->url;
+        return $this->contractId;
     }
 
     /**
-     * @param string $url
+     * @param string $contractId
      *
      * @return Document
      */
-    public function setUrl(string $url): Document
+    public function setContractId(string $contractId): Document
     {
-        $this->url = $url;
+        $this->contractId = $contractId;
 
         return $this;
     }
@@ -95,19 +87,19 @@ class Document
     /**
      * @return string
      */
-    public function getType(): string
+    public function getDescription(): string
     {
-        return $this->type;
+        return $this->description;
     }
 
     /**
-     * @param string $type
+     * @param string $description
      *
      * @return Document
      */
-    public function setType(string $type): Document
+    public function setDescription(string $description): Document
     {
-        $this->type = $type;
+        $this->description = $description;
 
         return $this;
     }
@@ -115,39 +107,19 @@ class Document
     /**
      * @return \DateTime
      */
-    public function getAddDate(): \DateTime
+    public function getDate(): \DateTime
     {
-        return $this->addDate;
+        return $this->date;
     }
 
     /**
-     * @param \DateTime $addDate
+     * @param \DateTime $date
      *
      * @return Document
      */
-    public function setAddDate(\DateTime $addDate): Document
+    public function setDate(\DateTime $date): Document
     {
-        $this->addDate = $addDate;
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getAddedBy(): string
-    {
-        return $this->addedBy;
-    }
-
-    /**
-     * @param string $addedBy
-     *
-     * @return Document
-     */
-    public function setAddedBy(string $addedBy): Document
-    {
-        $this->addedBy = $addedBy;
+        $this->date = $date;
 
         return $this;
     }

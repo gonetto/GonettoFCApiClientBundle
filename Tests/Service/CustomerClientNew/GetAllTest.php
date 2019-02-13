@@ -62,7 +62,7 @@ class GetAllTest extends WebTestCase
      */
     protected function loadDataFixtures()
     {
-        // TODO:GN:MS: Test alte Struktur
+        // TODO:GN:MS: Test alte response zu neuer convertieren?!
 
         // TODO:GN:MS: Alte Struktur als depricated markieren
 
@@ -83,6 +83,7 @@ class GetAllTest extends WebTestCase
                 ->setZipCode(54321)
                 ->setCity('Beispielstadt')
                 ->setIban('DE02500105170137075030')
+                /*
                 ->setContracts(
                     [
                         (new Contract())
@@ -99,6 +100,7 @@ class GetAllTest extends WebTestCase
                             ->setPaymentInterval(1),
                     ]
                 )
+                */
                 /*
                 ->setDocuments(
                     [
