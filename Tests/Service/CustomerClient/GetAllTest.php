@@ -45,7 +45,7 @@ class GetAllTest extends WebTestCase
     protected function mockApiClient()
     {
         // Api response
-        $json = file_get_contents(__DIR__.'/ApiDataResponseNew.json');
+        $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
 
         // Mock client
         $this->apiClient = $this->createMock(ApiClient::class);
