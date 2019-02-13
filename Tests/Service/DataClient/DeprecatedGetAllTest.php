@@ -4,7 +4,7 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
 use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
-use Gonetto\FCApiClientBundle\Model\Document;
+use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
@@ -21,8 +21,8 @@ class DeprecatedGetAllTest extends WebTestCase
     /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
     protected $apiClient;
 
-    /** @var array of Customers with Contracts */
-    protected $customers;
+    /** @var DataResponse */
+    protected $data;
 
     /** @var DataClient */
     protected $dataClient;
@@ -62,58 +62,32 @@ class DeprecatedGetAllTest extends WebTestCase
      */
     protected function loadDataFixtures()
     {
-        // TODO:GN:MS: Test alte response zu neuer convertieren?!
-
-        // TODO:GN:MS: Alte Struktur als depricated markieren
-
-        // TODO:GN:MS: Customer client entfernen und als depricated markieren
-
-        // TODO:GN:MS: JSON Schema umbauen. Aber so, das die alte Struktur funktioniert!
-
-        // TODO:GN:MS: Test neue Struktur
-
-        $this->customers = [
-            (new Customer())
-                ->setFianceConsultId('RD1PP')
-                ->setEmail('max.mustermann@domain.tld')
-                ->setFirstName('Max')
-                ->setLastName('Mustermann')
-                ->setCompany('Musterfirma')
-                ->setStreet('Musterstr. 1')
-                ->setZipCode(12345)
-                ->setCity('Musterstadt')
-                ->setIban('DE02120300000000202051')
-                /*
-                ->setContracts(
-                    [
-                        (new Contract())
-                            ->setFianceConsultId('SB1CK')
-                            ->setFee(656.9)
-                            ->setInsurer('DEVK Versicherungen')
-                            ->setGonettoContractNumber(345)
-                            ->setMainRenewalDate(new \DateTime('2006-04-01'))
-                            ->setInsuranceType('Wohngebäude')
-                            ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
-                            ->setEndOfContract(new \DateTime('2019-04-01'))
-                            ->setFinanceConsultContractNumber('2397868001')
-                            ->setContractNumber('2397868001')
-                            ->setPaymentInterval(1),
-                    ]
-                )
-                */
-                /*
-                ->setDocuments(
-                    [
-                        (new Document())
-                            ->setFianceConsultId('1B5O3V')
-                            ->setUrl('DCS5Net/DocumentView.aspx?KundeDokumentID=21791188')
-                            ->setType('')
-                            ->setAddDate(new \DateTime('2019-01-18'))
-                            ->setAddedBy('docsu'),
-                    ]
-                ),
-                */
-        ];
+        $this->data = (new DataResponse())
+            ->addCustomer(
+                (new Customer())
+                    ->setFianceConsultId('RD1PP')
+                    ->setEmail('max.mustermann@domain.tld')
+                    ->setFirstName('Max')
+                    ->setLastName('Mustermann')
+                    ->setCompany('Musterfirma')
+                    ->setStreet('Musterstr. 1')
+                    ->setZipCode(12345)
+                    ->setCity('Musterstadt')
+                    ->setIban('DE02120300000000202051')
+            )
+            ->addContract(
+                (new Contract())
+                    ->setFianceConsultId('SB1CK')
+                    ->setFee(656.9)
+                    ->setInsurer('DEVK Versicherungen')
+                    ->setGonettoContractNumber(345)
+                    ->setMainRenewalDate(new \DateTime('2006-04-01'))
+                    ->setInsuranceType('Wohngebäude')
+                    ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
+                    ->setEndOfContract(new \DateTime('2019-04-01'))
+                    ->setContractNumber('2397868001')
+                    ->setPaymentInterval(1)
+            );
     }
 
     /**
@@ -124,9 +98,9 @@ class DeprecatedGetAllTest extends WebTestCase
     public function testGetAllSince()
     {
         // Deserialize JSON with JMS Serializer
-        $customers = $this->dataClient->getAll();
+        $dataResponse = $this->dataClient->getAll();
 
         // Compare result
-        $this->assertEquals($this->customers, $customers);
+        $this->assertEquals($this->data, $dataResponse);
     }
 }

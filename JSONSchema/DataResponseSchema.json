@@ -7,11 +7,20 @@
         "kunden": {
             "$ref": "CustomersSchema.json"
         },
+        "kundenDeleted": {
+            "$ref": "DeletedSchema.json"
+        },
         "vertraege": {
             "$ref": "ContractsSchema.json"
         },
+        "vertraegeDeleted": {
+            "$ref": "DeletedSchema.json"
+        },
         "dokumente": {
             "$ref": "DocumentsSchema.json"
+        },
+        "dokumenteDeleted": {
+            "$ref": "DeletedSchema.json"
         }
     }
 }

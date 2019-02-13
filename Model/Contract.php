@@ -21,6 +21,14 @@ class Contract
     protected $fianceConsultId;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("kundeID")
+     */
+    protected $customerId;
+
+    /**
      * @var double
      *
      * @JMS\Type("double")
@@ -83,16 +91,6 @@ class Contract
      *
      * @JMS\Type("string")
      * @JMS\SerializedName("vertragsnummer")
-     *
-     * @deprecated
-     */
-    protected $financeConsultContractNumber;
-
-    /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("vertragsnummer")
      */
     protected $contractNumber;
 
@@ -120,6 +118,26 @@ class Contract
     public function setFianceConsultId(string $fianceConsultId): Contract
     {
         $this->fianceConsultId = $fianceConsultId;
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getCustomerId(): string
+    {
+        return $this->customerId;
+    }
+
+    /**
+     * @param string $customerId
+     *
+     * @return Contract
+     */
+    public function setCustomerId(string $customerId): Contract
+    {
+        $this->customerId = $customerId;
 
         return $this;
     }
@@ -268,22 +286,24 @@ class Contract
      * @return string
      *
      * @deprecated
+     * @see Contract::getContractNumber()
      */
     public function getFinanceConsultContractNumber(): string
     {
-        return $this->financeConsultContractNumber;
+        return $this->getContractNumber();
     }
 
     /**
-     * @param string $financeConsultContractNumber
+     * @param string $contractNumber
      *
      * @return Contract
      *
      * @deprecated
+     * @see Contract::setContractNumber()
      */
-    public function setFinanceConsultContractNumber(string $financeConsultContractNumber): Contract
+    public function setFinanceConsultContractNumber(string $contractNumber): Contract
     {
-        $this->financeConsultContractNumber = $financeConsultContractNumber;
+        $this->setContractNumber($contractNumber);
 
         return $this;
     }

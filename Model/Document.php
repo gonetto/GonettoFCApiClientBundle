@@ -31,10 +31,10 @@ class Document
     /**
      * @var string
      *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("beschreibung")
+     * @JMS\Type("integer")
+     * @JMS\SerializedName("art")
      */
-    protected $description;
+    protected $type;
 
     /**
      * @var \DateTime
@@ -87,19 +87,19 @@ class Document
     /**
      * @return string
      */
-    public function getDescription(): string
+    public function getType(): string
     {
-        return $this->description;
+        return $this->type;
     }
 
     /**
-     * @param string $description
+     * @param string $type
      *
      * @return Document
      */
-    public function setDescription(string $description): Document
+    public function setType(string $type): Document
     {
-        $this->description = $description;
+        $this->type = $type;
 
         return $this;
     }

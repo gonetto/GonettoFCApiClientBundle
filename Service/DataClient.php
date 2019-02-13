@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Gonetto\FCApiClientBundle\Model\DataResponse;
 use JsonSchema\Validator;
 
 /**
@@ -48,10 +49,10 @@ class DataClient
      *
      * @param bool $get_src_json
      *
-     * @return array|string
+     * @return DataResponse|string
      * @throws \Exception
      */
-    public function getAll($get_src_json = false): array
+    public function getAll($get_src_json = false)
     {
         return $this->getAllSince(null, $get_src_json);
     }
@@ -62,10 +63,10 @@ class DataClient
      * @param \DateTime|null $since
      * @param bool $get_src_json
      *
-     * @return array|string
+     * @return DataResponse|string
      * @throws \Exception
      */
-    public function getAllSince(\DateTime $since = null, $get_src_json = false): array
+    public function getAllSince(\DateTime $since = null, $get_src_json = false)
     {
         // Build api request
         $body = $this->createApiRequestBody($since);
@@ -82,9 +83,9 @@ class DataClient
         }
 
         // Map json to object
-        $customers = $this->responseMapper->map($jsonResponse);
+        $dataResponse = $this->responseMapper->map($jsonResponse);
 
-        return $customers;
+        return $dataResponse;
     }
 
     /**

@@ -9,6 +9,9 @@
             "oid": {
                 "type": "string"
             },
+            "kundeID": {
+                "type": "string"
+            },
             "beitrag": {
                 "type": "number"
             },
