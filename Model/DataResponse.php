@@ -24,7 +24,7 @@ class DataResponse
      * @var array
      *
      * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Contract>")
-     * @JMS\SerializedName("verträge")
+     * @JMS\SerializedName("vertraege")
      */
     protected $contracts = [];
 

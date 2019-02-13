@@ -7,14 +7,11 @@
         "kunden": {
             "$ref": "CustomersSchema.json"
         },
-        "verträge": {
+        "vertraege": {
             "$ref": "ContractsSchema.json"
         },
         "dokumente": {
             "$ref": "DocumentsSchema.json"
         }
-    },
-    "required": [
-        "kunden"
-    ]
+    }
 }
