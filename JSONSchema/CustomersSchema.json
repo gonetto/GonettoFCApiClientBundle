@@ -35,9 +35,6 @@
             },
             "verträge": {
                 "$ref": "ContractsSchema.json"
-            },
-            "dokumente": {
-                "$ref": "DocumentsSchema.json"
             }
         },
         "required": [
