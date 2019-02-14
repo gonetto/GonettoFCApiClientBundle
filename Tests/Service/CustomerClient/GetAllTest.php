@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\CustomerClient;
 
+use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\CustomerClient;
@@ -71,6 +72,38 @@ class GetAllTest extends WebTestCase
                 ->setZipCode(54321)
                 ->setCity('Beispielstadt')
                 ->setIban('DE02500105170137075030')
+                ->setContracts(
+                    [
+                        (new Contract())
+                            ->setFianceConsultId('SB1CK')
+                            ->setCustomerId('19P1CF')
+                            ->setFee(656.9)
+                            ->setInsurer('DEVK Versicherungen')
+                            ->setMainRenewalDate(new \DateTime('2006-04-01'))
+                            ->setInsuranceType('Wohngebäude')
+                            ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
+                            ->setEndOfContract(new \DateTime('2019-04-01'))
+                            ->setContractNumber('2397868001')
+                            ->setPaymentInterval(1),
+                    ]
+                ),
+            (new Customer())
+                ->setFianceConsultId('1B37N8')
+                ->setContracts(
+                    [
+                        (new Contract())
+                            ->setFianceConsultId('1B37N6')
+                            ->setCustomerId('1B37N8')
+                            ->setFee(164.51)
+                            ->setInsurer('NV-Versicherungen VVaG')
+                            ->setMainRenewalDate(new \DateTime('2019-01-24'))
+                            ->setInsuranceType('Unfall')
+                            ->setContractDate(new \DateTime('2019-01-24T11:21:37'))
+                            ->setEndOfContract(new \DateTime('2020-01-24'))
+                            ->setContractNumber('6667030')
+                            ->setPaymentInterval(1),
+                    ]
+                ),
         ];
     }
 

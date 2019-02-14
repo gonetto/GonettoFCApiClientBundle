@@ -2,6 +2,8 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Gonetto\FCApiClientBundle\Model\Customer;
+use Gonetto\FCApiClientBundle\Model\DataResponse;
 use JsonSchema\Validator;
 
 /**
@@ -35,9 +37,9 @@ class CustomerClient
      * @param ResponseMapper $responseMapper
      */
     public function __construct(
-      string $token,
-      ApiClient $client,
-      ResponseMapper $responseMapper
+        string $token,
+        ApiClient $client,
+        ResponseMapper $responseMapper
     ) {
         $this->financeConsultApiAccessToken = $token;
         $this->client = $client;
@@ -85,7 +87,11 @@ class CustomerClient
         }
 
         // Map json to object
-        $customers = $this->responseMapper->mapCustomers($jsonResponse);
+        $dataResponse = $this->responseMapper->map($jsonResponse);
+
+        // Refactor new response to deprecated structure
+        $dataResponse = $this->moveContractsToDeprecatedNested($dataResponse);
+        $customers = $dataResponse->getCustomers();
 
         return $customers;
     }
@@ -98,10 +104,10 @@ class CustomerClient
     protected function createApiRequestBody(\DateTime $since = null): string
     {
         return json_encode(
-          [
-            'token' => $this->financeConsultApiAccessToken,
-            'since' => $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '',
-          ]
+            [
+                'token' => $this->financeConsultApiAccessToken,
+                'since' => $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '',
+            ]
         );
     }
 
@@ -114,14 +120,57 @@ class CustomerClient
     {
         $response = json_decode($jsonResponse);
         $this->validator->validate(
-          $response,
-          (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/DataResponseSchema.json']
+            $response,
+            (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/DataResponseSchema.json']
         );
         if (!$this->validator->isValid()) {
             throw new \Exception(
-              'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'.PHP_EOL
-              .print_r($this->validator->getErrors(), true)
+                'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'.PHP_EOL
+                .print_r($this->validator->getErrors(), true)
             );
         }
+    }
+
+    /**
+     * @param \Gonetto\FCApiClientBundle\Model\DataResponse $dataResponse
+     *
+     * @return \Gonetto\FCApiClientBundle\Model\DataResponse
+     */
+    protected function moveContractsToDeprecatedNested(DataResponse $dataResponse): DataResponse
+    {
+        // Move contracts in customer nested
+        /** @var \Gonetto\FCApiClientBundle\Model\Contract $contract */
+        foreach ($dataResponse->getContracts() as $contract) {
+
+            // Find matching user
+            $found = false;
+            /** @var \Gonetto\FCApiClientBundle\Model\Customer $customer */
+            foreach ($dataResponse->getCustomers() as &$customer) {
+                // Skip not matching user
+                if ($contract->getCustomerId() !== $customer->getFianceConsultId()) {
+                    continue;
+                }
+
+                // Safe contract to customer
+                $customer->addContract($contract);
+
+                // Remove contract from nested list
+                $dataResponse->removeContract($contract);
+
+                $found = true;
+                break;
+            }
+
+            // Add not founded user
+            if (!$found) {
+                $dataResponse->addCustomer(
+                    (new Customer())
+                        ->setFianceConsultId($contract->getCustomerId())
+                        ->addContract($contract)
+                );
+            }
+        }
+
+        return $dataResponse;
     }
 }

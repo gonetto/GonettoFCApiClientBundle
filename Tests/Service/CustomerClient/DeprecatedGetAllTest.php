@@ -78,7 +78,6 @@ class DeprecatedGetAllTest extends WebTestCase
                             ->setFianceConsultId('RD1PN')
                             ->setFee(82.23)
                             ->setInsurer('Allianz Versicherungs-AG')
-                            ->setGonettoContractNumber(345)
                             ->setMainRenewalDate(new \DateTime('2017-08-01'))
                             ->setInsuranceType('Unfall')
                             ->setContractDate(new \DateTime('2018-06-15T11:47:49'))

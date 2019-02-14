@@ -184,6 +184,8 @@ class Contract
 
     /**
      * @return null|string
+     *
+     * @deprecated
      */
     public function getGonettoContractNumber(): ?string
     {
@@ -194,6 +196,8 @@ class Contract
      * @param string $gonettoContractNumber
      *
      * @return Contract
+     *
+     * @deprecated
      */
     public function setGonettoContractNumber(string $gonettoContractNumber): Contract
     {
