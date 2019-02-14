@@ -1,0 +1,9 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Match customers",
+    "description": "This is a schema that matches customers.",
+    "type": "array",
+    "items": {
+        "type": "string"
+    }
+}

@@ -3,23 +3,22 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper;
 
 use Gonetto\FCApiClientBundle\Model\Customer;
-use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
 /**
- * Class MapTest
+ * Class DeprecatedMapTest
  *
  * @package Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper
  */
-class MapTest extends WebTestCase
+class DeprecatedMapTest extends WebTestCase
 {
 
     /** @var ResponseMapper */
     protected $responseMapper;
 
-    /** @var \Gonetto\FCApiClientBundle\Model\DataResponse */
-    protected $data;
+    /** @var array of Customers with Contracts */
+    protected $customers;
 
     /**
      * {@inheritDoc}
@@ -38,14 +37,15 @@ class MapTest extends WebTestCase
      *
      * @throws \Exception
      */
-    public function testMapCustomers()
+    public function testMap()
     {
         // Deserialize JSON with JMS Serializer
         $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
         $dataResponse = $this->responseMapper->map($json);
+        $customers = $dataResponse->getCustomers();
 
         // Compare result
-        $this->assertEquals($this->data, $dataResponse);
+        $this->assertEquals($this->customers, $customers);
     }
 
     /**
@@ -53,11 +53,10 @@ class MapTest extends WebTestCase
      */
     protected function loadDataFixtures()
     {
-        $this->data = (new DataResponse())
-            ->addCustomer(
-                (new Customer())
-                    ->setFianceConsultId('RD1PP')
-                    ->setEmail('max.mustermann@domain.tld')
-            );
+        $this->customers = [
+          (new Customer())
+            ->setFianceConsultId('RD1PP')
+            ->setEmail('max.mustermann@domain.tld')
+        ];
     }
 }

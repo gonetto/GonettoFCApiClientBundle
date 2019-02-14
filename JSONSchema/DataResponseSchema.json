@@ -1,0 +1,26 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Match customers",
+    "description": "This is a schema that matches customers.",
+    "type": "object",
+    "properties": {
+        "kunden": {
+            "$ref": "CustomersSchema.json"
+        },
+        "kundenDeleted": {
+            "$ref": "DeletedSchema.json"
+        },
+        "vertraege": {
+            "$ref": "ContractsSchema.json"
+        },
+        "vertraegeDeleted": {
+            "$ref": "DeletedSchema.json"
+        },
+        "dokumente": {
+            "$ref": "DocumentsSchema.json"
+        },
+        "dokumenteDeleted": {
+            "$ref": "DeletedSchema.json"
+        }
+    }
+}

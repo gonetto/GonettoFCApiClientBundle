@@ -12,6 +12,8 @@ use GuzzleHttp\Client;
 class ApiClient
 {
 
+    // TODO:GN:MS: ClientFactory bauen statt service!
+
     /** @var Client */
     protected $client;
 

@@ -3,7 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Service;
 
 use Gonetto\FCApiClientBundle\EventSubscriber\ContractEventSubscriber;
-use Gonetto\FCApiClientBundle\Model\FinanceConsultResponse;
+use Gonetto\FCApiClientBundle\Model\DataResponse;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\SerializerBuilder;
 
@@ -14,6 +14,7 @@ use JMS\Serializer\SerializerBuilder;
  */
 class ResponseMapper
 {
+    // TODO:GN:MS: inn factory umbauen
 
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
@@ -40,14 +41,10 @@ class ResponseMapper
      *
      * @param string $jsonResponse
      *
-     * @return mixed
-     * @throws \Exception
+     * @return \Gonetto\FCApiClientBundle\Model\DataResponse
      */
-    public function map(string $jsonResponse)
+    public function map(string $jsonResponse): DataResponse
     {
-        /** @var FinanceConsultResponse $response */
-        $response = $this->serializer->deserialize($jsonResponse, FinanceConsultResponse::class, 'json');
-
-        return $response->getCustomers();
+        return $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
     }
 }

@@ -2,19 +2,15 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
-use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use JsonSchema\Validator;
 
 /**
- * Class CustomerClient
+ * Class DataClient
  *
  * @package Gonetto\FCApiClientBundle\Service
- *
- * @deprecated
- * @see \Gonetto\FCApiClientBundle\Service\DataClient
  */
-class CustomerClient
+class DataClient
 {
 
     /** @var ApiClient */
@@ -51,63 +47,26 @@ class CustomerClient
     /**
      * Get all customers from Finance Consult API
      *
-     * @return array
+     * @param bool $get_src_json
+     *
+     * @return DataResponse|string
      * @throws \Exception
      */
-    public function getAll(): array
+    public function getAll($get_src_json = false)
     {
-        return $this->getAllSince(null);
+        return $this->getAllSince(null, $get_src_json);
     }
 
     /**
      * Get all customers from Finance Consult API since specific date
      *
      * @param \DateTime|null $since
+     * @param bool $get_src_json
      *
-     * @return array
+     * @return DataResponse|string
      * @throws \Exception
      */
-    public function getAllSince(\DateTime $since = null): array
-    {
-        // Build api request
-        $body = $this->createApiRequestBody($since);
-
-        // Get json from api
-        $jsonResponse = $this->client->send(['body' => $body]);
-
-        // Check json
-        $this->jsonSchemaCheck($jsonResponse);
-
-        // Map json to object
-        $dataResponse = $this->responseMapper->map($jsonResponse);
-
-        // Refactor new response to deprecated structure
-        $dataResponse = $this->moveContractsToDeprecatedNested($dataResponse);
-        $customers = $dataResponse->getCustomers();
-
-        return $customers;
-    }
-
-    /**
-     * Get all customers from Finance Consult API
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function getAllJson(): string
-    {
-        return $this->getAllSinceJson(null);
-    }
-
-    /**
-     * Get all customers from Finance Consult API since specific date
-     *
-     * @param \DateTime|null $since
-     *
-     * @return string
-     * @throws \Exception
-     */
-    public function getAllSinceJson(\DateTime $since = null): string
+    public function getAllSince(\DateTime $since = null, $get_src_json = false)
     {
         // Build api request
         $body = $this->createApiRequestBody($since);
@@ -119,7 +78,17 @@ class CustomerClient
         $this->jsonSchemaCheck($jsonResponse);
 
         // Return json string src
-        return $jsonResponse;
+        if ($get_src_json) {
+            return $jsonResponse;
+        }
+
+        // Map json to object
+        $dataResponse = $this->responseMapper->map($jsonResponse);
+
+        // Refactor deprecated response
+        $dataResponse = $this->moveDeprecatedNestedContracts($dataResponse);
+
+        return $dataResponse;
     }
 
     /**
@@ -162,38 +131,22 @@ class CustomerClient
      *
      * @return \Gonetto\FCApiClientBundle\Model\DataResponse
      */
-    protected function moveContractsToDeprecatedNested(DataResponse $dataResponse): DataResponse
+    protected function moveDeprecatedNestedContracts(DataResponse $dataResponse): DataResponse
     {
-        // Move contracts in customer nested
-        /** @var \Gonetto\FCApiClientBundle\Model\Contract $contract */
-        foreach ($dataResponse->getContracts() as $contract) {
+        // Search nested contracts
+        /** @var \Gonetto\FCApiClientBundle\Model\Customer $customer */
+        foreach ($dataResponse->getCustomers() as &$customer) {
+            /** @var \Gonetto\FCApiClientBundle\Model\Contract $contract */
+            foreach ($customer->getContracts() as $contract) {
 
-            // Find matching user
-            $found = false;
-            /** @var \Gonetto\FCApiClientBundle\Model\Customer $customer */
-            foreach ($dataResponse->getCustomers() as &$customer) {
-                // Skip not matching user
-                if ($contract->getCustomerId() !== $customer->getFianceConsultId()) {
-                    continue;
-                }
+                // Set customer id to contract
+                $contract->setCustomerId($customer->getFianceConsultId());
 
-                // Safe contract to customer
-                $customer->addContract($contract);
+                // Safe contract to root list
+                $dataResponse->addContract($contract);
 
                 // Remove contract from nested list
-                $dataResponse->removeContract($contract);
-
-                $found = true;
-                break;
-            }
-
-            // Add not founded user
-            if (!$found) {
-                $dataResponse->addCustomer(
-                    (new Customer())
-                        ->setFianceConsultId($contract->getCustomerId())
-                        ->addContract($contract)
-                );
+                $customer->removeContract($contract);
             }
         }
 
