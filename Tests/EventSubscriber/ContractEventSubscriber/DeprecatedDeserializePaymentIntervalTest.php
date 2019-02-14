@@ -38,11 +38,12 @@ class DeprecatedDeserializePaymentIntervalTest extends WebTestCase
      *
      * @throws \Exception
      */
-    public function testMapCustomers()
+    public function testMap()
     {
         // Deserialize JSON with JMS Serializer
         $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
-        $customers = $this->responseMapper->mapCustomers($json);
+        $dataResponse = $this->responseMapper->map($json);
+        $customers = $dataResponse->getCustomers();
 
         // Compare result
         $this->assertEquals($this->customers, $customers);

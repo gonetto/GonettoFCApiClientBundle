@@ -41,25 +41,6 @@ class ResponseMapper
      *
      * @param string $jsonResponse
      *
-     * @return array
-     * @throws \Exception
-     *
-     * @deprecated
-     * @see \Gonetto\FCApiClientBundle\Service\ResponseMapper::map()
-     */
-    public function mapCustomers(string $jsonResponse): array
-    {
-        /** @var DataResponse $response */
-        $response = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
-
-        return $response->getCustomers();
-    }
-
-    /**
-     * Deserialize the response
-     *
-     * @param string $jsonResponse
-     *
      * @return \Gonetto\FCApiClientBundle\Model\DataResponse
      */
     public function map(string $jsonResponse): DataResponse
