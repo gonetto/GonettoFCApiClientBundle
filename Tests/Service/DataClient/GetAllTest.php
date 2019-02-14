@@ -63,8 +63,6 @@ class GetAllTest extends WebTestCase
      */
     protected function loadDataFixtures()
     {
-        // TODO:GN:MS: Test alte response zu neuer convertieren?!
-
         $this->data = (new DataResponse())
             ->addCustomer(
                 (new Customer())
