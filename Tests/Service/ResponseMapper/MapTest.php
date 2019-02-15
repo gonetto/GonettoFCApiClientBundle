@@ -5,14 +5,14 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class MapTest
  *
  * @package Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper
  */
-class MapTest extends WebTestCase
+class MapTest extends KernelTestCase
 {
 
     /** @var ResponseMapper */

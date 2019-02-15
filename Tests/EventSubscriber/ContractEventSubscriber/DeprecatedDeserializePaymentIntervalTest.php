@@ -5,14 +5,14 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper\Minimum;
 use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class ResponseMapperTest
  *
  * @package Tests\Gonetto\FCApiClientBundle\Service
  */
-class DeprecatedDeserializePaymentIntervalTest extends WebTestCase
+class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
 {
 
     /** @var ResponseMapper */

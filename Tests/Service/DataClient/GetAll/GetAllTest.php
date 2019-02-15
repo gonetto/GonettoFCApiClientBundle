@@ -9,14 +9,14 @@ use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class GetAllSinceTest
  *
  * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient
  */
-class GetAllTest extends WebTestCase
+class GetAllTest extends KernelTestCase
 {
 
     /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
@@ -96,7 +96,6 @@ class GetAllTest extends WebTestCase
                     ->setFianceConsultId('1B5O3V')
                     ->setContractId('19DB5Y')
                     ->setType(2)
-                    // TODO:GN:MS: wie bei zahlweise mapper auch art mapper bauen, aber clsse mit values? und generiert aus csv/yml?!
                     ->setDate(new \DateTime('2019-02-04T13:26:58'))
             )
             ->addDocumentDeleted('19CTC5');

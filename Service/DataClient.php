@@ -2,7 +2,10 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Gonetto\FCApiClientBundle\Model\DataRequest;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
+use JMS\Serializer\Serializer;
+use JMS\Serializer\SerializerBuilder;
 use JsonSchema\Validator;
 
 /**
@@ -13,17 +16,22 @@ use JsonSchema\Validator;
 class DataClient
 {
 
+    // TODO:GN:MS: DataClient file abholen schnittstelle
+
     /** @var ApiClient */
     protected $client;
 
     /** @var string */
     protected $financeConsultApiAccessToken;
 
-    /** @var \JsonSchema\Validator */
-    protected $validator;
-
     /** @var ResponseMapper */
     protected $responseMapper;
+
+    /** @var Serializer */
+    protected $serializer;
+
+    /** @var \JsonSchema\Validator */
+    protected $validator;
 
     /**
      * CustomerClient constructor.
@@ -41,6 +49,7 @@ class DataClient
         $this->client = $client;
         $this->responseMapper = $responseMapper;
 
+        $this->serializer = (new SerializerBuilder())->build();
         $this->validator = new Validator();
     }
 
@@ -98,12 +107,12 @@ class DataClient
      */
     protected function createApiRequestBody(\DateTime $since = null): string
     {
-        return json_encode(
-            [
-                'token' => $this->financeConsultApiAccessToken,
-                'since' => $since ? $since->format('Y-m-d\TH:i:s.v\Z') : '',
-            ]
-        );
+        $request = (new DataRequest());
+        $request->setToken($this->financeConsultApiAccessToken);
+        if ($since) {
+            $request->setSinceDate($since);
+        }
+        return $this->serializer->serialize($request, 'json');
     }
 
     /**

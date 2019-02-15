@@ -18,7 +18,7 @@ class DataResponse
      * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Customer>")
      * @JMS\SerializedName("kunden")
      */
-    protected $customers;
+    protected $customers = [];
 
     /**
      * @var array

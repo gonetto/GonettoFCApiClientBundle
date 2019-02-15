@@ -14,6 +14,7 @@ use JMS\Serializer\SerializerBuilder;
  */
 class ResponseMapper
 {
+
     // TODO:GN:MS: inn factory umbauen
 
     /** @var \JMS\Serializer\Serializer */
@@ -25,15 +26,13 @@ class ResponseMapper
     public function __construct()
     {
         // Register event subscriber
-        $builder = SerializerBuilder::create();
-        $builder->configureListeners(
-          function (EventDispatcher $dispatcher) {
-              $dispatcher->addSubscriber(new ContractEventSubscriber());
-          }
-        );
-
-        // Get serializer
-        $this->serializer = $builder->build();
+        $this->serializer = SerializerBuilder::create()
+            ->configureListeners(
+                function (EventDispatcher $dispatcher) {
+                    $dispatcher->addSubscriber(new ContractEventSubscriber());
+                }
+            )
+            ->build();
     }
 
     /**

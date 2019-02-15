@@ -28,6 +28,8 @@ class ContractEventSubscriber implements EventSubscriberInterface
         ];
     }
 
+    // TODO:GN:MS: wie bei zahlweise mapper auch art mapper bauen, aber clsse mit values? und generiert aus csv/yml?!
+
     /**
      * @param \JMS\Serializer\EventDispatcher\ObjectEvent $event
      */

@@ -7,14 +7,14 @@ use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\CustomerClient;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class GetAllSinceTest
  *
  * @package Gonetto\FCApiClientBundle\Tests\Service\CustomerClient
  */
-class DeprecatedGetAllTest extends WebTestCase
+class DeprecatedGetAllTest extends KernelTestCase
 {
 
     /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
