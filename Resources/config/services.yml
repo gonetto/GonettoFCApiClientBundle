@@ -22,10 +22,23 @@ services:
             - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
         public: true
 
+    Gonetto\FCApiClientBundle\Model\DataRequest:
+        factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createResponse'
+        class: Gonetto\FCApiClientBundle\Model\DataRequest
+        shard: false
+        arguments: ['%gonetto_fc_api_client.api_access_token%']
+
+    Gonetto\FCApiClientBundle\Model\FileRequest:
+        factory: 'Gonetto\FCApiClientBundle\Service\FileRequestFactory:createResponse'
+        class: Gonetto\FCApiClientBundle\Model\FileRequest
+        shard: false
+        arguments: ['%gonetto_fc_api_client.api_access_token%']
+
     Gonetto\FCApiClientBundle\Service\DataClient:
         class:      Gonetto\FCApiClientBundle\Service\DataClient
         arguments:
-            - '%gonetto_fc_api_client.api_access_token%'
             - '@Gonetto\FCApiClientBundle\Service\ApiClient'
+            - '@Gonetto\FCApiClientBundle\Model\DataRequest'
+            - '@Gonetto\FCApiClientBundle\Model\FileRequest'
             - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
         public: true

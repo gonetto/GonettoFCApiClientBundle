@@ -9,7 +9,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @package Gonetto\FCApiClientBundle\Model
  */
-class DataRequest
+class DataRequest implements RequestInterface
 {
 
     /**
@@ -21,20 +21,20 @@ class DataRequest
     protected $token;
 
     /**
+     * @var string
+     *
+     * @JMS\Type("string")
+     * @JMS\SerializedName("action")
+     */
+    protected $action = 'data';
+
+    /**
      * @var \DateTime
      *
      * @JMS\Type("DateTime<'Y-m-d\TH:i:s.v\Z', 'Europe/Berlin'>")
      * @JMS\SerializedName("since")
      */
     protected $sinceDate;
-
-    /**
-     * @return string
-     */
-    public function getToken(): string
-    {
-        return $this->token;
-    }
 
     /**
      * @param string $token
@@ -46,6 +46,14 @@ class DataRequest
         $this->token = $token;
 
         return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getAction(): string
+    {
+        return $this->action;
     }
 
     /**
@@ -61,7 +69,7 @@ class DataRequest
      *
      * @return DataRequest
      */
-    public function setSinceDate(\DateTime $sinceDate): DataRequest
+    public function setSinceDate(?\DateTime $sinceDate): DataRequest
     {
         $this->sinceDate = $sinceDate;
 

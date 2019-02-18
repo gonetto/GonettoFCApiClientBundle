@@ -4,7 +4,9 @@ namespace Gonetto\FCApiClientBundle\Service;
 
 use Gonetto\FCApiClientBundle\Model\DataRequest;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
-use JMS\Serializer\Serializer;
+use Gonetto\FCApiClientBundle\Model\Document;
+use Gonetto\FCApiClientBundle\Model\FileRequest;
+use Gonetto\FCApiClientBundle\Model\RequestInterface;
 use JMS\Serializer\SerializerBuilder;
 use JsonSchema\Validator;
 
@@ -18,35 +20,41 @@ class DataClient
 
     // TODO:GN:MS: DataClient file abholen schnittstelle
 
-    /** @var ApiClient */
+    /** @var \Gonetto\FCApiClientBundle\Service\ApiClient */
     protected $client;
 
-    /** @var string */
-    protected $financeConsultApiAccessToken;
+    /** @var \Gonetto\FCApiClientBundle\Service\DataRequestFactory */
+    protected $dataRequest;
 
-    /** @var ResponseMapper */
+    /** @var \Gonetto\FCApiClientBundle\Model\FileRequest */
+    protected $fileRequest;
+
+    /** @var \Gonetto\FCApiClientBundle\Service\ResponseMapper */
     protected $responseMapper;
 
-    /** @var Serializer */
+    /** @var \JMS\Serializer\Serializer */
     protected $serializer;
 
     /** @var \JsonSchema\Validator */
     protected $validator;
 
     /**
-     * CustomerClient constructor.
+     * DataClient constructor.
      *
-     * @param string $token
-     * @param ApiClient $client
-     * @param ResponseMapper $responseMapper
+     * @param \Gonetto\FCApiClientBundle\Service\ApiClient $client
+     * @param \Gonetto\FCApiClientBundle\Model\DataRequest $dataRequest
+     * @param \Gonetto\FCApiClientBundle\Model\FileRequest $fileRequest
+     * @param \Gonetto\FCApiClientBundle\Service\ResponseMapper $responseMapper
      */
     public function __construct(
-        string $token,
         ApiClient $client,
+        DataRequest $dataRequest,
+        FileRequest $fileRequest,
         ResponseMapper $responseMapper
     ) {
-        $this->financeConsultApiAccessToken = $token;
         $this->client = $client;
+        $this->dataRequest = $dataRequest;
+        $this->fileRequest = $fileRequest;
         $this->responseMapper = $responseMapper;
 
         $this->serializer = (new SerializerBuilder())->build();
@@ -58,7 +66,7 @@ class DataClient
      *
      * @param bool $get_src_json
      *
-     * @return DataResponse|string
+     * @return \Gonetto\FCApiClientBundle\Model\DataResponse|string
      * @throws \Exception
      */
     public function getAll($get_src_json = false)
@@ -72,21 +80,21 @@ class DataClient
      * @param \DateTime|null $since
      * @param bool $get_src_json
      *
-     * @return DataResponse|string
+     * @return \Gonetto\FCApiClientBundle\Model\DataResponse|string
      * @throws \Exception
      */
     public function getAllSince(\DateTime $since = null, $get_src_json = false)
     {
-        // Build api request
-        $body = $this->createApiRequestBody($since);
+        // Prepare request
+        $this->dataRequest->setSinceDate($since);
 
-        // Get json from api
-        $jsonResponse = $this->client->send(['body' => $body]);
+        // Send request
+        $jsonResponse = $this->sendRequest($this->dataRequest);
 
-        // Check json
-        $this->jsonSchemaCheck($jsonResponse);
+        // Check response
+        $this->jsonSchemaCheck($jsonResponse, 'DataResponseSchema');
 
-        // Return json string src
+        // Return json string
         if ($get_src_json) {
             return $jsonResponse;
         }
@@ -101,31 +109,63 @@ class DataClient
     }
 
     /**
-     * @param \DateTime|null $since
+     * @param \Gonetto\FCApiClientBundle\Model\Document $document
+     * @param bool $get_src_json
+     *
+     * @return \Gonetto\FCApiClientBundle\Model\FileResponse|string
+     * @throws \Exception
+     */
+    public function getFile(Document $document, $get_src_json = false)
+    {
+        // Prepare request
+        $this->fileRequest
+            ->setDocumentId($document->getFianceConsultId())
+            ->setContractId($document->getContractId());
+
+        // Send request
+        $jsonResponse = $this->sendRequest($this->fileRequest);
+
+        // Check response
+        $this->jsonSchemaCheck($jsonResponse, 'FileResponseSchema');
+
+        // Return json string
+        if ($get_src_json) {
+            return $jsonResponse;
+        }
+
+        // Map json to object
+        $fileResponse = $this->responseMapper->map($jsonResponse);
+        // FIXME:GN:MS: factory service draus machen und richtig files mappen
+
+        return $fileResponse;
+    }
+
+    /**
+     * @param \Gonetto\FCApiClientBundle\Model\RequestInterface $request
      *
      * @return string
+     * @throws \Exception
      */
-    protected function createApiRequestBody(\DateTime $since = null): string
+    protected function sendRequest(RequestInterface $request)
     {
-        $request = (new DataRequest());
-        $request->setToken($this->financeConsultApiAccessToken);
-        if ($since) {
-            $request->setSinceDate($since);
-        }
-        return $this->serializer->serialize($request, 'json');
+        $body = $this->serializer->serialize($request, 'json');
+        $jsonResponse = $this->client->send(['body' => $body]);
+
+        return $jsonResponse;
     }
 
     /**
      * @param string $jsonResponse
+     * @param string $schema
      *
      * @throws \Exception
      */
-    protected function jsonSchemaCheck(string $jsonResponse): void
+    protected function jsonSchemaCheck(string $jsonResponse, string $schema): void
     {
         $response = json_decode($jsonResponse);
         $this->validator->validate(
             $response,
-            (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/DataResponseSchema.json']
+            (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/'.$schema.'.json']
         );
         if (!$this->validator->isValid()) {
             throw new \Exception(

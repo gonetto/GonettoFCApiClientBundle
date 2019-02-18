@@ -8,6 +8,8 @@ use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
+use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
+use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -55,7 +57,12 @@ class GetAllTest extends KernelTestCase
         $this->apiClient->method('send')->willReturn($json);
 
         // Pass mocked api client to customer client
-        $this->dataClient = new DataClient('', $this->apiClient, new ResponseMapper());
+        $this->dataClient = new DataClient(
+            $this->apiClient,
+            (new DataRequestFactory(''))->createResponse(),
+            (new FileRequestFactory(''))->createResponse(),
+            new ResponseMapper()
+        );
     }
 
     /**

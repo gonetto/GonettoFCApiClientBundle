@@ -5,6 +5,8 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
+use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
+use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -61,8 +63,9 @@ class CreateApiRequestBodyTest extends KernelTestCase
 
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
-            '8029fdd175474c61909ca5f0803965bb464ff546',
             $this->apiClient,
+            (new DataRequestFactory('8029fdd175474c61909ca5f0803965bb464ff546'))->createResponse(),
+            (new FileRequestFactory(''))->createResponse(),
             new ResponseMapper()
         );
     }
