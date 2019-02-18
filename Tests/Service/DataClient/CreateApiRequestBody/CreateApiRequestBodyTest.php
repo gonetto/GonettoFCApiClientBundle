@@ -2,10 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
-use Gonetto\FCApiClientBundle\Model\Contract;
-use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
-use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\ResponseMapper;
