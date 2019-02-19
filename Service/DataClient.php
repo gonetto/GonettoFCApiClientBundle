@@ -6,8 +6,9 @@ use Gonetto\FCApiClientBundle\Model\DataRequest;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Model\FileRequest;
+use Gonetto\FCApiClientBundle\Model\FileResponse;
 use Gonetto\FCApiClientBundle\Model\RequestInterface;
-use JMS\Serializer\SerializerBuilder;
+use JMS\Serializer\Serializer;
 use JsonSchema\Validator;
 
 /**
@@ -29,9 +30,6 @@ class DataClient
     /** @var \Gonetto\FCApiClientBundle\Model\FileRequest */
     protected $fileRequest;
 
-    /** @var \Gonetto\FCApiClientBundle\Service\ResponseMapper */
-    protected $responseMapper;
-
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
 
@@ -44,20 +42,19 @@ class DataClient
      * @param \Gonetto\FCApiClientBundle\Service\ApiClient $client
      * @param \Gonetto\FCApiClientBundle\Model\DataRequest $dataRequest
      * @param \Gonetto\FCApiClientBundle\Model\FileRequest $fileRequest
-     * @param \Gonetto\FCApiClientBundle\Service\ResponseMapper $responseMapper
+     * @param \JMS\Serializer\Serializer $serializer
      */
     public function __construct(
         ApiClient $client,
         DataRequest $dataRequest,
         FileRequest $fileRequest,
-        ResponseMapper $responseMapper
+        Serializer $serializer
     ) {
         $this->client = $client;
         $this->dataRequest = $dataRequest;
         $this->fileRequest = $fileRequest;
-        $this->responseMapper = $responseMapper;
+        $this->serializer = $serializer;
 
-        $this->serializer = (new SerializerBuilder())->build();
         $this->validator = new Validator();
     }
 
@@ -100,7 +97,8 @@ class DataClient
         }
 
         // Map json to object
-        $dataResponse = $this->responseMapper->map($jsonResponse);
+        /** @var DataResponse $dataResponse */
+        $dataResponse = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
 
         // Refactor deprecated response
         $dataResponse = $this->moveDeprecatedNestedContracts($dataResponse);
@@ -134,8 +132,8 @@ class DataClient
         }
 
         // Map json to object
-        $fileResponse = $this->responseMapper->map($jsonResponse);
-        // FIXME:GN:MS: factory service draus machen und richtig files mappen
+        /** @var FileResponse $fileResponse */
+        $fileResponse = $this->serializer->deserialize($jsonResponse, FileResponse::class, 'json');
 
         return $fileResponse;
     }

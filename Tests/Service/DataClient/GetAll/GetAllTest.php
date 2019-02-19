@@ -10,7 +10,7 @@ use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
 use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
-use Gonetto\FCApiClientBundle\Service\ResponseMapper;
+use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -59,9 +59,9 @@ class GetAllTest extends KernelTestCase
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
             $this->apiClient,
-            (new DataRequestFactory(''))->createResponse(),
-            (new FileRequestFactory(''))->createResponse(),
-            new ResponseMapper()
+            (new DataRequestFactory())->createResponse(),
+            (new FileRequestFactory())->createResponse(),
+            (new JmsSerializerFactory())->createSerializer()
         );
     }
 

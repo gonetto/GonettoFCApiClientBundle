@@ -11,28 +11,29 @@ services:
             - '@eight_points_guzzle.client.finance_consult'
         public: true
 
-    Gonetto\FCApiClientBundle\Service\ResponseMapper:
-        class:      Gonetto\FCApiClientBundle\Service\ResponseMapper
-
     Gonetto\FCApiClientBundle\Service\CustomerClient:
         class:      Gonetto\FCApiClientBundle\Service\CustomerClient
         arguments:
             - '%gonetto_fc_api_client.api_access_token%'
             - '@Gonetto\FCApiClientBundle\Service\ApiClient'
-            - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
+            - '@JMS\Serializer\Serializer'
         public: true
 
     Gonetto\FCApiClientBundle\Model\DataRequest:
-        factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createResponse'
         class: Gonetto\FCApiClientBundle\Model\DataRequest
+        factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createResponse'
         shard: false
         arguments: ['%gonetto_fc_api_client.api_access_token%']
 
     Gonetto\FCApiClientBundle\Model\FileRequest:
-        factory: 'Gonetto\FCApiClientBundle\Service\FileRequestFactory:createResponse'
         class: Gonetto\FCApiClientBundle\Model\FileRequest
+        factory: 'Gonetto\FCApiClientBundle\Service\FileRequestFactory:createResponse'
         shard: false
         arguments: ['%gonetto_fc_api_client.api_access_token%']
+
+    JMS\Serializer\Serializer:
+        class: JMS\Serializer\Serializer
+        factory: 'Gonetto\FCApiClientBundle\Service\JmsSerializerFactory:createSerializer'
 
     Gonetto\FCApiClientBundle\Service\DataClient:
         class:      Gonetto\FCApiClientBundle\Service\DataClient
@@ -40,5 +41,5 @@ services:
             - '@Gonetto\FCApiClientBundle\Service\ApiClient'
             - '@Gonetto\FCApiClientBundle\Model\DataRequest'
             - '@Gonetto\FCApiClientBundle\Model\FileRequest'
-            - '@Gonetto\FCApiClientBundle\Service\ResponseMapper'
+            - '@JMS\Serializer\Serializer'
         public: true

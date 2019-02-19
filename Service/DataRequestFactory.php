@@ -12,6 +12,7 @@ use Gonetto\FCApiClientBundle\Model\DataRequest;
 class DataRequestFactory
 {
 
+    /** @var string */
     static $token;
 
     /**
@@ -19,7 +20,7 @@ class DataRequestFactory
      *
      * @param string $token
      */
-    public function __construct(string $token)
+    public function __construct(string $token = '')
     {
         self::$token = $token;
     }

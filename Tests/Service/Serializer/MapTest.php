@@ -1,25 +1,25 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper;
+namespace Gonetto\FCApiClientBundle\Tests\Service\Serializer;
 
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
-use Gonetto\FCApiClientBundle\Service\ResponseMapper;
+use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
  * Class MapTest
  *
- * @package Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper
+ * @package Gonetto\FCApiClientBundle\Tests\Service\Serializer
  */
 class MapTest extends KernelTestCase
 {
 
-    /** @var ResponseMapper */
-    protected $responseMapper;
-
     /** @var \Gonetto\FCApiClientBundle\Model\DataResponse */
     protected $data;
+
+    /** @var \JMS\Serializer\Serializer */
+    protected $serializer;
 
     /**
      * {@inheritDoc}
@@ -28,7 +28,7 @@ class MapTest extends KernelTestCase
      */
     protected function setUp()
     {
-        $this->responseMapper = new ResponseMapper();
+        $this->serializer = (new JmsSerializerFactory())->createSerializer();
 
         $this->loadDataFixtures();
     }
@@ -41,8 +41,8 @@ class MapTest extends KernelTestCase
     public function testMapCustomers()
     {
         // Deserialize JSON with JMS Serializer
-        $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
-        $dataResponse = $this->responseMapper->map($json);
+        $jsonResponse = file_get_contents(__DIR__.'/ApiDataResponse.json');
+        $dataResponse = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
 
         // Compare result
         $this->assertEquals($this->data, $dataResponse);

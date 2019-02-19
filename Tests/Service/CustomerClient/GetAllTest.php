@@ -6,7 +6,7 @@ use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\CustomerClient;
-use Gonetto\FCApiClientBundle\Service\ResponseMapper;
+use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -53,7 +53,8 @@ class GetAllTest extends KernelTestCase
         $this->apiClient->method('send')->willReturn($json);
 
         // Pass mocked api client to customer client
-        $this->customerClient = new CustomerClient('', $this->apiClient, new ResponseMapper());
+        $serializer = (new JmsSerializerFactory())->createSerializer();
+        $this->customerClient = new CustomerClient('', $this->apiClient, $serializer);
     }
 
     /**

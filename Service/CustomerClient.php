@@ -4,6 +4,7 @@ namespace Gonetto\FCApiClientBundle\Service;
 
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
+use JMS\Serializer\Serializer;
 use JsonSchema\Validator;
 
 /**
@@ -26,24 +27,24 @@ class CustomerClient
     /** @var \JsonSchema\Validator */
     protected $validator;
 
-    /** @var ResponseMapper */
-    protected $responseMapper;
+    /** @var \JMS\Serializer\Serializer */
+    protected $serializer;
 
     /**
      * CustomerClient constructor.
      *
      * @param string $token
      * @param ApiClient $client
-     * @param ResponseMapper $responseMapper
+     * @param \JMS\Serializer\Serializer $serializer
      */
     public function __construct(
         string $token,
         ApiClient $client,
-        ResponseMapper $responseMapper
+        Serializer $serializer
     ) {
         $this->financeConsultApiAccessToken = $token;
         $this->client = $client;
-        $this->responseMapper = $responseMapper;
+        $this->serializer = $serializer;
 
         $this->validator = new Validator();
     }
@@ -79,7 +80,7 @@ class CustomerClient
         $this->jsonSchemaCheck($jsonResponse);
 
         // Map json to object
-        $dataResponse = $this->responseMapper->map($jsonResponse);
+        $dataResponse = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
 
         // Refactor new response to deprecated structure
         $dataResponse = $this->moveContractsToDeprecatedNested($dataResponse);

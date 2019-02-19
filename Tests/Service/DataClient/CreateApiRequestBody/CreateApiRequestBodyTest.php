@@ -7,7 +7,7 @@ use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
 use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
-use Gonetto\FCApiClientBundle\Service\ResponseMapper;
+use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -65,8 +65,8 @@ class CreateApiRequestBodyTest extends KernelTestCase
         $this->dataClient = new DataClient(
             $this->apiClient,
             (new DataRequestFactory('8029fdd175474c61909ca5f0803965bb464ff546'))->createResponse(),
-            (new FileRequestFactory(''))->createResponse(),
-            new ResponseMapper()
+            (new FileRequestFactory())->createResponse(),
+            (new JmsSerializerFactory())->createSerializer()
         );
     }
 

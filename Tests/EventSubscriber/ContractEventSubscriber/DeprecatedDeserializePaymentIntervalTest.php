@@ -1,25 +1,26 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\ResponseMapper\Minimum;
+namespace Gonetto\FCApiClientBundle\Tests\Service\Serializer\Minimum;
 
 use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
-use Gonetto\FCApiClientBundle\Service\ResponseMapper;
+use Gonetto\FCApiClientBundle\Model\DataResponse;
+use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * Class ResponseMapperTest
+ * Class DeprecatedDeserializePaymentIntervalTest
  *
- * @package Tests\Gonetto\FCApiClientBundle\Service
+ * @package Gonetto\FCApiClientBundle\Tests\Service\Serializer\Minimum
  */
 class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
 {
 
-    /** @var ResponseMapper */
-    protected $responseMapper;
-
     /** @var array of Customers with Contracts */
     protected $customers;
+
+    /** @var \JMS\Serializer\Serializer */
+    protected $serializer;
 
     /**
      * {@inheritDoc}
@@ -28,7 +29,7 @@ class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
      */
     protected function setUp()
     {
-        $this->responseMapper = new ResponseMapper();
+        $this->serializer = (new JmsSerializerFactory())->createSerializer();
 
         $this->loadDataFixtures();
     }
@@ -41,8 +42,8 @@ class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
     public function testMap()
     {
         // Deserialize JSON with JMS Serializer
-        $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
-        $dataResponse = $this->responseMapper->map($json);
+        $jsonResponse = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
+        $dataResponse = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
         $customers = $dataResponse->getCustomers();
 
         // Compare result

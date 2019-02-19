@@ -3,30 +3,28 @@
 namespace Gonetto\FCApiClientBundle\Service;
 
 use Gonetto\FCApiClientBundle\EventSubscriber\ContractEventSubscriber;
-use Gonetto\FCApiClientBundle\Model\DataResponse;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
+use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 
 /**
- * Class ResponseMapper
+ * Class JmsSerializerFactory
  *
  * @package Gonetto\FCApiClientBundle\Service
  */
-class ResponseMapper
+class JmsSerializerFactory
 {
 
-    // TODO:GN:MS: inn factory umbauen
-
     /** @var \JMS\Serializer\Serializer */
-    protected $serializer;
+    static $serializer;
 
     /**
-     * ResponseMapper constructor.
+     * JmsSerializerFactory constructor.
      */
     public function __construct()
     {
         // Register event subscriber
-        $this->serializer = SerializerBuilder::create()
+        self::$serializer = SerializerBuilder::create()
             ->configureListeners(
                 function (EventDispatcher $dispatcher) {
                     $dispatcher->addSubscriber(new ContractEventSubscriber());
@@ -36,14 +34,10 @@ class ResponseMapper
     }
 
     /**
-     * Deserialize the response
-     *
-     * @param string $jsonResponse
-     *
-     * @return \Gonetto\FCApiClientBundle\Model\DataResponse
+     * @return \JMS\Serializer\Serializer
      */
-    public function map(string $jsonResponse): DataResponse
+    public function createSerializer(): Serializer
     {
-        return $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
+        return self::$serializer;
     }
 }

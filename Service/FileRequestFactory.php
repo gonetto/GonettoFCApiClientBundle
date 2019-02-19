@@ -19,7 +19,7 @@ class FileRequestFactory
      *
      * @param string $token
      */
-    public function __construct(string $token)
+    public function __construct(string $token = '')
     {
         self::$token = $token;
     }
