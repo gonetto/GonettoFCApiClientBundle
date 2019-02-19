@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
+use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -14,22 +15,17 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  *
  * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient
  */
-class CreateApiRequestBodyTest extends KernelTestCase
+class GetFileTest extends KernelTestCase
 {
-
-    // TODO:GN:MS: ändern zu serializer test
 
     /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
     protected $apiClient;
-
-    /** @var \Gonetto\FCApiClientBundle\Model\DataResponse */
-    protected $data;
 
     /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
     protected $dataClient;
 
     /** @var array */
-    protected $dataRequest;
+    protected $dispatchedFileRequest;
 
     /**
      * {@inheritDoc}
@@ -47,17 +43,20 @@ class CreateApiRequestBodyTest extends KernelTestCase
      */
     protected function mockApiClient()
     {
+        // Api response
+        $json = file_get_contents(__DIR__.'/ApiFileResponse.json');
+
         // Mock client
         $this->apiClient = $this->createMock(ApiClient::class);
         $this->apiClient->method('send')
             ->will(
                 $this->returnCallback(
-                    function ($parameter) {
+                    function ($parameter) use ($json) {
                         // Note api request
-                        $this->dataRequest = $parameter;
+                        $this->dispatchedFileRequest = $parameter;
 
                         // Return api response
-                        return '{}';
+                        return $json;
                     }
                 )
             );
@@ -65,7 +64,7 @@ class CreateApiRequestBodyTest extends KernelTestCase
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
             $this->apiClient,
-            (new DataRequestFactory('8029fdd175474c61909ca5f0803965bb464ff546'))->createResponse(),
+            (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
@@ -76,14 +75,17 @@ class CreateApiRequestBodyTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testCreateApiRequestBody_all()
+    public function testRequest()
     {
-        // Make request
-        $this->dataClient->getAll();
+        // Request file
+        $document = (new Document())
+            ->setFianceConsultId('1B5O3V')
+            ->setContractId('19DB5Y');
+        $this->dataClient->getFile($document);
 
-        // Compare request json
-        $this->assertArrayHasKey('body', $this->dataRequest);
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiDataRequest-getAll.json', $this->dataRequest['body']);
+        // Compare request
+        $this->assertArrayHasKey('body', $this->dispatchedFileRequest);
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiFileRequest.json', $this->dispatchedFileRequest['body']);
     }
 
     /**
@@ -91,13 +93,18 @@ class CreateApiRequestBodyTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testCreateApiRequestBody_allSince()
+    public function testResponse()
     {
-        // Make request
-        $this->dataClient->getAllSince(new \DateTime('2019-02-15'));
+        // Request file
+        $document = (new Document())
+            ->setFianceConsultId('1B5O3V')
+            ->setContractId('19DB5Y');
+        $fileResponse = $this->dataClient->getFile($document);
 
-        // Compare request json
-        $this->assertArrayHasKey('body', $this->dataRequest);
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiDataRequest-getAllSince.json', $this->dataRequest['body']);
+        // Compare result
+        $this->assertEquals(2, $fileResponse->getDocumentType());
+        $this->assertEquals('2019-01-14', $fileResponse->getCreated()->format('Y-m-d'));
+        $this->assertEquals(base64_encode(file_get_contents(__DIR__.'/ApiFileResponse.pdf')), $fileResponse->getFile());
+        $this->assertEquals('pdf', $fileResponse->getExtension());
     }
 }

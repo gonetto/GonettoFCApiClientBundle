@@ -23,7 +23,7 @@ class FileResponse
     /**
      * @var \DateTime created at date
      *
-     * @JMS\Type("DateTime<'Y-m-d\TH:i:s', 'Europe/Berlin'>")
+     * @JMS\Type("DateTime<'Y-m-d', 'Europe/Berlin'>")
      * @JMS\SerializedName("erstelltAm")
      */
     protected $created;
@@ -34,7 +34,7 @@ class FileResponse
      * @JMS\Type("string")
      * @JMS\SerializedName("data")
      */
-    protected $fianceConsultId;
+    protected $file;
 
     /**
      * @var string e.g. PDF
@@ -45,19 +45,19 @@ class FileResponse
     protected $extension;
 
     /**
-     * @return string
+     * @return int
      */
-    public function getDocumentType(): string
+    public function getDocumentType(): int
     {
         return $this->documentType;
     }
 
     /**
-     * @param string $documentType
+     * @param int $documentType
      *
      * @return FileResponse
      */
-    public function setDocumentType(string $documentType): FileResponse
+    public function setDocumentType(int $documentType): FileResponse
     {
         $this->documentType = $documentType;
 
@@ -75,7 +75,8 @@ class FileResponse
     /**
      * @param \DateTime $created
      *
-     * @return FileResponse
+     * @return \Gonetto\FCApiClientBundle\Model\FileResponse
+     * @throws \Exception
      */
     public function setCreated(\DateTime $created): FileResponse
     {
@@ -87,19 +88,19 @@ class FileResponse
     /**
      * @return string
      */
-    public function getFianceConsultId(): string
+    public function getFile(): string
     {
-        return $this->fianceConsultId;
+        return $this->file;
     }
 
     /**
-     * @param string $fianceConsultId
+     * @param string $file
      *
      * @return FileResponse
      */
-    public function setFianceConsultId(string $fianceConsultId): FileResponse
+    public function setFile(string $file): FileResponse
     {
-        $this->fianceConsultId = $fianceConsultId;
+        $this->file = $file;
 
         return $this;
     }

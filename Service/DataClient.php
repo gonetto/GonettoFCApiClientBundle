@@ -19,8 +19,6 @@ use JsonSchema\Validator;
 class DataClient
 {
 
-    // TODO:GN:MS: DataClient file abholen schnittstelle
-
     /** @var \Gonetto\FCApiClientBundle\Service\ApiClient */
     protected $client;
 
