@@ -1,6 +1,6 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
+namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile;
 
 use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
@@ -11,9 +11,9 @@ use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * Class GetAllSinceTest
+ * Class GetFileTest
  *
- * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient
+ * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile
  */
 class GetFileTest extends KernelTestCase
 {

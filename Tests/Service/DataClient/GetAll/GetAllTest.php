@@ -1,6 +1,6 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
+namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetAll;
 
 use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
@@ -14,9 +14,9 @@ use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * Class GetAllSinceTest
+ * Class GetAllTest
  *
- * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient
+ * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetAll
  */
 class GetAllTest extends KernelTestCase
 {
@@ -29,6 +29,9 @@ class GetAllTest extends KernelTestCase
 
     /** @var DataClient */
     protected $dataClient;
+
+    /** @var array */
+    protected $dataRequest;
 
     /**
      * {@inheritDoc}
@@ -54,12 +57,23 @@ class GetAllTest extends KernelTestCase
 
         // Mock client
         $this->apiClient = $this->createMock(ApiClient::class);
-        $this->apiClient->method('send')->willReturn($json);
+        $this->apiClient->method('send')
+            ->will(
+                $this->returnCallback(
+                    function ($parameter) use ($json) {
+                        // Note api request
+                        $this->dataRequest = $parameter;
+
+                        // Return api response
+                        return $json;
+                    }
+                )
+            );
 
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
             $this->apiClient,
-            (new DataRequestFactory())->createResponse(),
+            (new DataRequestFactory('8029fdd175474c61909ca5f0803965bb464ff546'))->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
@@ -113,7 +127,22 @@ class GetAllTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testGetAllSince()
+    public function testRequest()
+    {
+        // Make request
+        $this->dataClient->getAll();
+
+        // Compare request json
+        $this->assertArrayHasKey('body', $this->dataRequest);
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiDataRequest.json', $this->dataRequest['body']);
+    }
+
+    /**
+     * Test map() customers with addresses and contacts.
+     *
+     * @throws \Exception
+     */
+    public function testResponse()
     {
         // Deserialize JSON with JMS Serializer
         $dataResponse = $this->dataClient->getAll();

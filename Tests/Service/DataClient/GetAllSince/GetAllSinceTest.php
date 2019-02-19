@@ -1,7 +1,8 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
+namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetAllSince;
 
+use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -12,20 +13,18 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 /**
  * Class GetAllSinceTest
  *
- * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient
+ * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetAllSince
  */
-class CreateApiRequestBodyTest extends KernelTestCase
+class GetAllSinceTest extends KernelTestCase
 {
-
-    // TODO:GN:MS: ändern zu serializer test
 
     /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
     protected $apiClient;
 
-    /** @var \Gonetto\FCApiClientBundle\Model\DataResponse */
+    /** @var DataResponse */
     protected $data;
 
-    /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
+    /** @var DataClient */
     protected $dataClient;
 
     /** @var array */
@@ -76,28 +75,13 @@ class CreateApiRequestBodyTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testCreateApiRequestBody_all()
-    {
-        // Make request
-        $this->dataClient->getAll();
-
-        // Compare request json
-        $this->assertArrayHasKey('body', $this->dataRequest);
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiDataRequest-getAll.json', $this->dataRequest['body']);
-    }
-
-    /**
-     * Test map() customers with addresses and contacts.
-     *
-     * @throws \Exception
-     */
-    public function testCreateApiRequestBody_allSince()
+    public function testRequest()
     {
         // Make request
         $this->dataClient->getAllSince(new \DateTime('2019-02-15'));
 
         // Compare request json
         $this->assertArrayHasKey('body', $this->dataRequest);
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiDataRequest-getAllSince.json', $this->dataRequest['body']);
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiDataRequest.json', $this->dataRequest['body']);
     }
 }
