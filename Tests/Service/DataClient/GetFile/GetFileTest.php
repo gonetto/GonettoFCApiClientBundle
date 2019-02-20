@@ -95,6 +95,8 @@ class GetFileTest extends KernelTestCase
      */
     public function testResponse()
     {
+        // TODO:GN:MS: test aufräumen, serializieren wird schonn in models geprüft
+
         // Request file
         $document = (new Document())
             ->setFianceConsultId('1B5O3V')

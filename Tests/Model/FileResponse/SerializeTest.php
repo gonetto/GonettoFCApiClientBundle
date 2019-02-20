@@ -2,7 +2,6 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Model\FileResponse;
 
-use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Model\FileResponse;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
