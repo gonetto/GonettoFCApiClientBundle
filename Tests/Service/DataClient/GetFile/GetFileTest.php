@@ -3,6 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile;
 
 use Gonetto\FCApiClientBundle\Model\Document;
+use Gonetto\FCApiClientBundle\Model\FileResponse;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -17,9 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 class GetFileTest extends KernelTestCase
 {
-
-    /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
-    protected $apiClient;
 
     /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
     protected $dataClient;
@@ -47,8 +45,8 @@ class GetFileTest extends KernelTestCase
         $json = file_get_contents(__DIR__.'/ApiFileResponse.json');
 
         // Mock client
-        $this->apiClient = $this->createMock(ApiClient::class);
-        $this->apiClient->method('send')
+        $apiClient = $this->createMock(ApiClient::class);
+        $apiClient->method('send')
             ->will(
                 $this->returnCallback(
                     function ($parameter) use ($json) {
@@ -63,7 +61,7 @@ class GetFileTest extends KernelTestCase
 
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
-            $this->apiClient,
+            $apiClient,
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
@@ -83,9 +81,9 @@ class GetFileTest extends KernelTestCase
             ->setContractId('19DB5Y');
         $this->dataClient->getFile($document);
 
-        // Compare request
+        // Check request json
         $this->assertArrayHasKey('body', $this->dispatchedFileRequest);
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/ApiFileRequest.json', $this->dispatchedFileRequest['body']);
+        $this->assertJson($this->dispatchedFileRequest['body']);
     }
 
     /**
@@ -103,10 +101,7 @@ class GetFileTest extends KernelTestCase
             ->setContractId('19DB5Y');
         $fileResponse = $this->dataClient->getFile($document);
 
-        // Compare result
-        $this->assertEquals(2, $fileResponse->getDocumentType());
-        $this->assertEquals('2019-01-14', $fileResponse->getCreated()->format('Y-m-d'));
-        $this->assertEquals(base64_encode(file_get_contents(__DIR__.'/ApiFileResponse.pdf')), $fileResponse->getFile());
-        $this->assertEquals('pdf', $fileResponse->getExtension());
+        // Check response
+        $this->assertInstanceOf(FileResponse::class, $fileResponse);
     }
 }

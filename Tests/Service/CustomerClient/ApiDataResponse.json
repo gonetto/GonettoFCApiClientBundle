@@ -12,9 +12,6 @@
             "iban": "DE02500105170137075030"
         }
     ],
-    "kundenDeleted": [
-        "1B6PS1"
-    ],
     "vertraege": [
         {
             "oid": "SB1CK",
@@ -40,20 +37,5 @@
             "vertragsnummer": "6667030",
             "zahlungsweise": "jahrlich"
         }
-    ],
-    "vertraegeDeleted": [
-        "AB45U"
-    ],
-    "dokumente": [
-        {
-            "oid": "1B5O3V",
-            "vertragID": "19DB5Y",
-            "beschreibung": "Röthel, Thomas",
-            "art": 2,
-            "datum": "2019-02-04T13:26:58"
-        }
-    ],
-    "dokumenteDeleted": [
-        "19CTC5"
     ]
 }

@@ -2,8 +2,6 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
-use Gonetto\FCApiClientBundle\Model\Contract;
-use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
@@ -20,12 +18,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class DeprecatedGetAllTest extends KernelTestCase
 {
 
-    /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
-    protected $apiClient;
-
-    /** @var DataResponse */
-    protected $data;
-
     /** @var DataClient */
     protected $dataClient;
 
@@ -38,9 +30,6 @@ class DeprecatedGetAllTest extends KernelTestCase
     {
         // Mock api client
         $this->mockApiClient();
-
-        // Load result
-        $this->loadDataFixtures();
     }
 
     /**
@@ -52,49 +41,16 @@ class DeprecatedGetAllTest extends KernelTestCase
         $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
 
         // Mock client
-        $this->apiClient = $this->createMock(ApiClient::class);
-        $this->apiClient->method('send')->willReturn($json);
+        $apiClient = $this->createMock(ApiClient::class);
+        $apiClient->method('send')->willReturn($json);
 
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
-            $this->apiClient,
+            $apiClient,
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
-    }
-
-    /**
-     * @throws \Exception
-     */
-    protected function loadDataFixtures()
-    {
-        $this->data = (new DataResponse())
-            ->addCustomer(
-                (new Customer())
-                    ->setFianceConsultId('RD1PP')
-                    ->setEmail('max.mustermann@domain.tld')
-                    ->setFirstName('Max')
-                    ->setLastName('Mustermann')
-                    ->setCompany('Musterfirma')
-                    ->setStreet('Musterstr. 1')
-                    ->setZipCode(12345)
-                    ->setCity('Musterstadt')
-                    ->setIban('DE02120300000000202051')
-            )
-            ->addContract(
-                (new Contract())
-                    ->setFianceConsultId('RD1PN')
-                    ->setCustomerId('RD1PP')
-                    ->setFee(82.23)
-                    ->setInsurer('Allianz Versicherungs-AG')
-                    ->setMainRenewalDate(new \DateTime('2017-08-01'))
-                    ->setInsuranceType('Unfall')
-                    ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
-                    ->setEndOfContract(new \DateTime('2019-08-01'))
-                    ->setPolicyNumber('4864516/213')
-                    ->setPaymentInterval(12)
-            );
     }
 
     /**
@@ -107,7 +63,12 @@ class DeprecatedGetAllTest extends KernelTestCase
         // Deserialize JSON with JMS Serializer
         $dataResponse = $this->dataClient->getAll();
 
-        // Compare result
-        $this->assertEquals($this->data, $dataResponse);
+        // Check customer
+        $this->assertInstanceOf(DataResponse::class, $dataResponse);
+        $this->assertCount(1, $dataResponse->getCustomers());
+
+        // Check contract – test refactored structure
+        $this->assertCount(0, $dataResponse->getCustomers()[0]->getContracts());
+        $this->assertCount(1, $dataResponse->getContracts());
     }
 }

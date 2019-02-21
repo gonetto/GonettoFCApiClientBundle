@@ -2,8 +2,6 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\CustomerClient;
 
-use Gonetto\FCApiClientBundle\Model\Contract;
-use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\CustomerClient;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
@@ -17,12 +15,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class GetAllTest extends KernelTestCase
 {
 
-    /** @var ApiClient|\PHPUnit_Framework_MockObject_MockObject */
-    protected $apiClient;
-
-    /** @var array of Customers with Contracts */
-    protected $customers;
-
     /** @var CustomerClient */
     protected $customerClient;
 
@@ -35,9 +27,6 @@ class GetAllTest extends KernelTestCase
     {
         // Mock api client
         $this->mockApiClient();
-
-        // Load result
-        $this->loadDataFixtures();
     }
 
     /**
@@ -49,63 +38,12 @@ class GetAllTest extends KernelTestCase
         $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
 
         // Mock client
-        $this->apiClient = $this->createMock(ApiClient::class);
-        $this->apiClient->method('send')->willReturn($json);
+        $apiClient = $this->createMock(ApiClient::class);
+        $apiClient->method('send')->willReturn($json);
 
         // Pass mocked api client to customer client
         $serializer = (new JmsSerializerFactory())->createSerializer();
-        $this->customerClient = new CustomerClient('', $this->apiClient, $serializer);
-    }
-
-    /**
-     * @throws \Exception
-     */
-    protected function loadDataFixtures()
-    {
-        $this->customers = [
-            (new Customer())
-                ->setFianceConsultId('19P1CF')
-                ->setEmail('anna.musterfrau@domain.tld')
-                ->setFirstName('Anna')
-                ->setLastName('Musterfrau')
-                ->setCompany('Beispielfirma')
-                ->setStreet('Beispielstr. 2')
-                ->setZipCode(54321)
-                ->setCity('Beispielstadt')
-                ->setIban('DE02500105170137075030')
-                ->setContracts(
-                    [
-                        (new Contract())
-                            ->setFianceConsultId('SB1CK')
-                            ->setCustomerId('19P1CF')
-                            ->setFee(656.9)
-                            ->setInsurer('DEVK Versicherungen')
-                            ->setMainRenewalDate(new \DateTime('2006-04-01'))
-                            ->setInsuranceType('Wohngebäude')
-                            ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
-                            ->setEndOfContract(new \DateTime('2019-04-01'))
-                            ->setPolicyNumber('2397868001')
-                            ->setPaymentInterval(1),
-                    ]
-                ),
-            (new Customer())
-                ->setFianceConsultId('1B37N8')
-                ->setContracts(
-                    [
-                        (new Contract())
-                            ->setFianceConsultId('1B37N6')
-                            ->setCustomerId('1B37N8')
-                            ->setFee(164.51)
-                            ->setInsurer('NV-Versicherungen VVaG')
-                            ->setMainRenewalDate(new \DateTime('2019-01-24'))
-                            ->setInsuranceType('Unfall')
-                            ->setContractDate(new \DateTime('2019-01-24T11:21:37'))
-                            ->setEndOfContract(new \DateTime('2020-01-24'))
-                            ->setPolicyNumber('6667030')
-                            ->setPaymentInterval(1),
-                    ]
-                ),
-        ];
+        $this->customerClient = new CustomerClient('', $apiClient, $serializer);
     }
 
     /**
@@ -118,7 +56,15 @@ class GetAllTest extends KernelTestCase
         // Deserialize JSON with JMS Serializer
         $customers = $this->customerClient->getAll();
 
-        // Compare result
-        $this->assertEquals($this->customers, $customers);
+        // Check customers
+        $this->assertCount(2, $customers);
+
+        // Check contract 1
+        $this->assertObjectHasAttribute('contracts', $customers[0]);
+        $this->assertCount(1, $customers[0]->getContracts());
+
+        // Check contract 2
+        $this->assertObjectHasAttribute('contracts', $customers[1]);
+        $this->assertCount(1, $customers[1]->getContracts());
     }
 }
