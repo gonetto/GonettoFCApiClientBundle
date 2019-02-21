@@ -16,6 +16,9 @@ class ValidateTest extends KernelTestCase
     /** @var \stdClass Schema file reference */
     protected $schemaFile;
 
+    /** @var \stdClass */
+    protected $exampleResponse;
+
     /**
      * {@inheritDoc}
      *
@@ -24,25 +27,20 @@ class ValidateTest extends KernelTestCase
     protected function setUp(): void
     {
         $this->schemaFile = (object)['$ref' => 'file://'.__DIR__.'/../../../JSONSchema/FileResponseSchema.json'];
+        $this->exampleResponse = file_get_contents(__DIR__.'/ApiFileResponse.json');
     }
 
     /**
      * @return \stdClass
      */
-    protected function exampleResponse(): \stdClass
+    protected function getExampleResponse(): \stdClass
     {
-        return (object)[
-            'art' => 2,
-            'erstelltAm' => '2019-01-14',
-            'data' => 'JVBERi0xLjMKMSAwIG9iago8PCAvVHlwZSAvQ2F0YW...',
-            'extension' => 'pdf',
-            'result' => true,
-        ];
+        return json_decode($this->exampleResponse);
     }
 
     public function testValidResponse(): void
     {
-        $exampleResponse = $this->exampleResponse();
+        $exampleResponse = $this->getExampleResponse();
 
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
@@ -81,12 +79,11 @@ class ValidateTest extends KernelTestCase
      */
     protected function missingParameterTest(string $parameter, bool $assert = false): void
     {
-        $exampleResponse = clone $this->exampleResponse();
+        $exampleResponse = clone $this->getExampleResponse();
         unset($exampleResponse->$parameter);
 
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
-
         if ($assert === false) {
             $this->assertFalse($validator->isValid(), "Missing parameter '$parameter' is invalid.");
         } else {

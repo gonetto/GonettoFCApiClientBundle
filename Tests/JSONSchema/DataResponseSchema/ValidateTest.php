@@ -16,6 +16,9 @@ class ValidateTest extends KernelTestCase
     /** @var \stdClass Schema file reference */
     protected $schemaFile;
 
+    /** @var \stdClass */
+    protected $exampleResponse;
+
     /**
      * {@inheritDoc}
      *
@@ -24,64 +27,20 @@ class ValidateTest extends KernelTestCase
     protected function setUp(): void
     {
         $this->schemaFile = (object)['$ref' => 'file://'.__DIR__.'/../../../JSONSchema/DataResponseSchema.json'];
+        $this->exampleResponse = file_get_contents(__DIR__.'/ApiDataResponse.json');
     }
 
     /**
      * @return \stdClass
      */
-    protected function exampleResponse(): \stdClass
+    protected function getExampleResponse(): \stdClass
     {
-        return (object)[
-            'kunden' => [
-                (object)[
-                    'oid' => '19P1CF',
-                    'email' => 'anna.musterfrau@domain.tld',
-                    'vorname' => 'Anna',
-                    'nachname' => 'Musterfrau',
-                    'firma' => 'Beispielfirma',
-                    'strasse' => 'Beispielstr. 2',
-                    'plz' => '54321',
-                    'ort' => 'Beispielstadt',
-                    'iban' => 'DE02500105170137075030',
-                ],
-            ],
-            'kundenDeleted' => [
-                '1B6PS1',
-            ],
-            'vertraege' => [
-                (object)[
-                    'oid' => 'SB1CK',
-                    'kundeID' => '19P1CF',
-                    'beitrag' => 656.9,
-                    'gesellschaft' => 'DEVK Versicherungen',
-                    'hauptfälligkeit' => '2006-04-01T00:00:00',
-                    'produkt' => 'Wohngebäude',
-                    'vermittlungsdatum' => '2018-03-27T11:21:37',
-                    'vertragsende' => '2019-04-01T00:00:00',
-                    'vertragsnummer' => '2397868001',
-                    'zahlungsweise' => 'jahrlich',
-                ],
-            ],
-            'vertraegeDeleted' => [
-                'AB45U',
-            ],
-            'dokumente' => [
-                (object)[
-                    'oid' => '1B5O3V',
-                    'vertragID' => '19DB5Y',
-                    'art' => 2,
-                    'datum' => '2019-02-04T13:26:58',
-                ],
-            ],
-            'dokumenteDeleted' => [
-                '19CTC5',
-            ],
-        ];
+        return json_decode($this->exampleResponse);
     }
 
     public function testValidResponse(): void
     {
-        $exampleResponse = $this->exampleResponse();
+        $exampleResponse = $this->getExampleResponse();
 
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
@@ -121,7 +80,7 @@ class ValidateTest extends KernelTestCase
      */
     protected function emptyCategoryTest($category): void
     {
-        $exampleResponse = clone $this->exampleResponse();
+        $exampleResponse = json_decode($this->exampleResponse);
         $exampleResponse->$category = [];
 
         $validator = new Validator();
@@ -165,12 +124,11 @@ class ValidateTest extends KernelTestCase
      */
     protected function missingParameterTest(string $category, string $parameter, bool $assert = false): void
     {
-        $exampleResponse = clone $this->exampleResponse();
+        $exampleResponse = $this->getExampleResponse();
         unset(($exampleResponse->$category)[0]->$parameter);
 
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
-
         if ($assert === false) {
             $this->assertFalse($validator->isValid(), "Missing parameter '$category/$parameter' is invalid.");
         } else {
