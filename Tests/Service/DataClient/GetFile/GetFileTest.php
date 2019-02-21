@@ -25,9 +25,6 @@ class GetFileTest extends KernelTestCase
     /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
     protected $dataClient;
 
-    /** @var array */
-    protected $dispatchedFileRequest;
-
     /**
      * {@inheritDoc}
      *
@@ -52,7 +49,7 @@ class GetFileTest extends KernelTestCase
         $handler = HandlerStack::create($mock);
         $guzzleClient = new Client(['handler' => $handler]);
 
-        // Pass mocked api client to customer client
+        // Pass mocked api client to data client
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
@@ -69,8 +66,6 @@ class GetFileTest extends KernelTestCase
      */
     public function testResponse()
     {
-        // TODO:GN:MS: test aufräumen, serializieren wird schonn in models geprüft
-
         // Request file
         $document = (new Document())
             ->setFianceConsultId('1B5O3V')

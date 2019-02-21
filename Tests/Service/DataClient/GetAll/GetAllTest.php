@@ -24,9 +24,6 @@ class GetAllTest extends KernelTestCase
     /** @var DataClient */
     protected $dataClient;
 
-    /** @var array */
-    protected $dispatchedFileRequest;
-
     /**
      * {@inheritDoc}
      *
@@ -51,7 +48,7 @@ class GetAllTest extends KernelTestCase
         $handler = HandlerStack::create($mock);
         $guzzleClient = new Client(['handler' => $handler]);
 
-        // Pass mocked api client to customer client
+        // Pass mocked api client to data client
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
