@@ -86,7 +86,7 @@ class DeprecatedGetAllTest extends KernelTestCase
                     ->setInsuranceType('Unfall')
                     ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
                     ->setEndOfContract(new \DateTime('2019-08-01'))
-                    ->setContractNumber('4864516/213')
+                    ->setPolicyNumber('4864516/213')
                     ->setPaymentInterval(12)
             );
     }

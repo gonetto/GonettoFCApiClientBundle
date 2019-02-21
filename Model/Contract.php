@@ -92,7 +92,7 @@ class Contract
      * @JMS\Type("string")
      * @JMS\SerializedName("vertragsnummer")
      */
-    protected $contractNumber;
+    protected $policyNumber;
 
     /**
      * @var int
@@ -290,11 +290,37 @@ class Contract
      * @return string
      *
      * @deprecated
-     * @see Contract::getContractNumber()
+     * @see Contract::getPolicyNumber()
      */
     public function getFinanceConsultContractNumber(): string
     {
-        return $this->getContractNumber();
+        return $this->getPolicyNumber();
+    }
+
+    /**
+     * @param string $financeConsultContractNumber
+     *
+     * @return Contract
+     *
+     * @deprecated
+     * @see Contract::setPolicyNumber()
+     */
+    public function setFinanceConsultContractNumber(string $financeConsultContractNumber): Contract
+    {
+        $this->setPolicyNumber($financeConsultContractNumber);
+
+        return $this;
+    }
+
+    /**
+     * @return string
+     *
+     * @deprecated
+     * @see Contract::getPolicyNumber()
+     */
+    public function getContractNumber(): string
+    {
+        return $this->getPolicyNumber();
     }
 
     /**
@@ -303,11 +329,11 @@ class Contract
      * @return Contract
      *
      * @deprecated
-     * @see Contract::setContractNumber()
+     * @see Contract::setPolicyNumber()
      */
-    public function setFinanceConsultContractNumber(string $contractNumber): Contract
+    public function setContractNumber(string $contractNumber): Contract
     {
-        $this->setContractNumber($contractNumber);
+        $this->setPolicyNumber($contractNumber);
 
         return $this;
     }
@@ -315,19 +341,19 @@ class Contract
     /**
      * @return string
      */
-    public function getContractNumber(): string
+    public function getPolicyNumber(): string
     {
-        return $this->contractNumber;
+        return $this->policyNumber;
     }
 
     /**
-     * @param string $contractNumber
+     * @param string $policyNumber
      *
      * @return Contract
      */
-    public function setContractNumber(string $contractNumber): Contract
+    public function setPolicyNumber(string $policyNumber): Contract
     {
-        $this->contractNumber = $contractNumber;
+        $this->policyNumber = $policyNumber;
 
         return $this;
     }
