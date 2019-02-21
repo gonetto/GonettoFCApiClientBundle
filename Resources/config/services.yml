@@ -11,14 +11,6 @@ services:
             - '@eight_points_guzzle.client.finance_consult'
         public: true
 
-    Gonetto\FCApiClientBundle\Service\CustomerClient:
-        class:      Gonetto\FCApiClientBundle\Service\CustomerClient
-        arguments:
-            - '%gonetto_fc_api_client.api_access_token%'
-            - '@Gonetto\FCApiClientBundle\Service\ApiClient'
-            - '@JMS\Serializer\Serializer'
-        public: true
-
     Gonetto\FCApiClientBundle\Model\DataRequest:
         class: Gonetto\FCApiClientBundle\Model\DataRequest
         factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createResponse'
