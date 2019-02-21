@@ -200,7 +200,7 @@ class DataResponse
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Contract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {
-            if ($contract->getContractNumber() === $currentContract->getContractNumber()) {
+            if ($contract->getPolicyNumber() === $currentContract->getPolicyNumber()) {
                 unset($this->contracts[$key]);
                 break;
             }

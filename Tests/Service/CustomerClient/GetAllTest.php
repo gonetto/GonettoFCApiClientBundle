@@ -84,7 +84,7 @@ class GetAllTest extends KernelTestCase
                             ->setInsuranceType('Wohngebäude')
                             ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
                             ->setEndOfContract(new \DateTime('2019-04-01'))
-                            ->setContractNumber('2397868001')
+                            ->setPolicyNumber('2397868001')
                             ->setPaymentInterval(1),
                     ]
                 ),
@@ -101,7 +101,7 @@ class GetAllTest extends KernelTestCase
                             ->setInsuranceType('Unfall')
                             ->setContractDate(new \DateTime('2019-01-24T11:21:37'))
                             ->setEndOfContract(new \DateTime('2020-01-24'))
-                            ->setContractNumber('6667030')
+                            ->setPolicyNumber('6667030')
                             ->setPaymentInterval(1),
                     ]
                 ),

@@ -45,16 +45,6 @@ class Contract
     protected $insurer;
 
     /**
-     * @var string
-     *
-     * @JMS\Type("string")
-     * @JMS\SerializedName("gonetto-id")
-     *
-     * @deprecated
-     */
-    protected $gonettoContractNumber;
-
-    /**
      * @var \DateTime
      *
      * @JMS\Type("DateTime<'Y-m-d\TH:i:s', 'Europe/Berlin'>")
@@ -92,7 +82,7 @@ class Contract
      * @JMS\Type("string")
      * @JMS\SerializedName("vertragsnummer")
      */
-    protected $contractNumber;
+    protected $policyNumber;
 
     /**
      * @var int
@@ -183,30 +173,6 @@ class Contract
     }
 
     /**
-     * @return null|string
-     *
-     * @deprecated
-     */
-    public function getGonettoContractNumber(): ?string
-    {
-        return $this->gonettoContractNumber;
-    }
-
-    /**
-     * @param string $gonettoContractNumber
-     *
-     * @return Contract
-     *
-     * @deprecated
-     */
-    public function setGonettoContractNumber(string $gonettoContractNumber): Contract
-    {
-        $this->gonettoContractNumber = $gonettoContractNumber;
-
-        return $this;
-    }
-
-    /**
      * @return null|\DateTime
      */
     public function getMainRenewalDate(): ?\DateTime
@@ -288,46 +254,20 @@ class Contract
 
     /**
      * @return string
-     *
-     * @deprecated
-     * @see Contract::getContractNumber()
      */
-    public function getFinanceConsultContractNumber(): string
+    public function getPolicyNumber(): string
     {
-        return $this->getContractNumber();
+        return $this->policyNumber;
     }
 
     /**
-     * @param string $contractNumber
-     *
-     * @return Contract
-     *
-     * @deprecated
-     * @see Contract::setContractNumber()
-     */
-    public function setFinanceConsultContractNumber(string $contractNumber): Contract
-    {
-        $this->setContractNumber($contractNumber);
-
-        return $this;
-    }
-
-    /**
-     * @return string
-     */
-    public function getContractNumber(): string
-    {
-        return $this->contractNumber;
-    }
-
-    /**
-     * @param string $contractNumber
+     * @param string $policyNumber
      *
      * @return Contract
      */
-    public function setContractNumber(string $contractNumber): Contract
+    public function setPolicyNumber(string $policyNumber): Contract
     {
-        $this->contractNumber = $contractNumber;
+        $this->policyNumber = $policyNumber;
 
         return $this;
     }

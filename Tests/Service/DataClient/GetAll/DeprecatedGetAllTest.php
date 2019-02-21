@@ -88,12 +88,11 @@ class DeprecatedGetAllTest extends KernelTestCase
                     ->setCustomerId('RD1PP')
                     ->setFee(82.23)
                     ->setInsurer('Allianz Versicherungs-AG')
-                    ->setGonettoContractNumber(345)
                     ->setMainRenewalDate(new \DateTime('2017-08-01'))
                     ->setInsuranceType('Unfall')
                     ->setContractDate(new \DateTime('2018-06-15T11:47:49'))
                     ->setEndOfContract(new \DateTime('2019-08-01'))
-                    ->setContractNumber('4864516/213')
+                    ->setPolicyNumber('4864516/213')
                     ->setPaymentInterval(12)
             );
     }
