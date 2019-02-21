@@ -32,49 +32,49 @@ class ValidateTest extends KernelTestCase
     protected function exampleResponse(): \stdClass
     {
         return (object)[
-            "kunden" => [
+            'kunden' => [
                 (object)[
-                    "oid" => "19P1CF",
-                    "email" => "anna.musterfrau@domain.tld",
-                    "vorname" => "Anna",
-                    "nachname" => "Musterfrau",
-                    "firma" => "Beispielfirma",
-                    "strasse" => "Beispielstr. 2",
-                    "plz" => "54321",
-                    "ort" => "Beispielstadt",
-                    "iban" => "DE02500105170137075030",
+                    'oid' => '19P1CF',
+                    'email' => 'anna.musterfrau@domain.tld',
+                    'vorname' => 'Anna',
+                    'nachname' => 'Musterfrau',
+                    'firma' => 'Beispielfirma',
+                    'strasse' => 'Beispielstr. 2',
+                    'plz' => '54321',
+                    'ort' => 'Beispielstadt',
+                    'iban' => 'DE02500105170137075030',
                 ],
             ],
-            "kundenDeleted" => [
-                "1B6PS1",
+            'kundenDeleted' => [
+                '1B6PS1',
             ],
-            "vertraege" => [
+            'vertraege' => [
                 (object)[
-                    "oid" => "SB1CK",
-                    "kundeID" => "19P1CF",
-                    "beitrag" => 656.9,
-                    "gesellschaft" => "DEVK Versicherungen",
-                    "hauptfälligkeit" => "2006-04-01T00:00:00",
-                    "produkt" => "Wohngebäude",
-                    "vermittlungsdatum" => "2018-03-27T11:21:37",
-                    "vertragsende" => "2019-04-01T00:00:00",
-                    "vertragsnummer" => "2397868001",
-                    "zahlungsweise" => "jahrlich",
+                    'oid' => 'SB1CK',
+                    'kundeID' => '19P1CF',
+                    'beitrag' => 656.9,
+                    'gesellschaft' => 'DEVK Versicherungen',
+                    'hauptfälligkeit' => '2006-04-01T00:00:00',
+                    'produkt' => 'Wohngebäude',
+                    'vermittlungsdatum' => '2018-03-27T11:21:37',
+                    'vertragsende' => '2019-04-01T00:00:00',
+                    'vertragsnummer' => '2397868001',
+                    'zahlungsweise' => 'jahrlich',
                 ],
             ],
-            "vertraegeDeleted" => [
-                "AB45U",
+            'vertraegeDeleted' => [
+                'AB45U',
             ],
-            "dokumente" => [
+            'dokumente' => [
                 (object)[
-                    "oid" => "1B5O3V",
-                    "vertragID" => "19DB5Y",
-                    "art" => 2,
-                    "datum" => "2019-02-04T13:26:58",
+                    'oid' => '1B5O3V',
+                    'vertragID' => '19DB5Y',
+                    'art' => 2,
+                    'datum' => '2019-02-04T13:26:58',
                 ],
             ],
-            "dokumenteDeleted" => [
-                "19CTC5",
+            'dokumenteDeleted' => [
+                '19CTC5',
             ],
         ];
     }
