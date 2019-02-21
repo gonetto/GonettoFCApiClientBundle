@@ -4,11 +4,14 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile;
 
 use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Model\FileResponse;
-use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
 use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -33,57 +36,30 @@ class GetFileTest extends KernelTestCase
     protected function setUp()
     {
         // Mock api client
-        $this->mockApiClient();
+        $this->mockGuzzleClient();
     }
 
     /**
      * Setup client for mock.
      */
-    protected function mockApiClient()
+    protected function mockGuzzleClient()
     {
         // Api response
         $json = file_get_contents(__DIR__.'/ApiFileResponse.json');
 
         // Mock client
-        $apiClient = $this->createMock(ApiClient::class);
-        $apiClient->method('send')
-            ->will(
-                $this->returnCallback(
-                    function ($parameter) use ($json) {
-                        // Note api request
-                        $this->dispatchedFileRequest = $parameter;
-
-                        // Return api response
-                        return $json;
-                    }
-                )
-            );
+        $mock = new MockHandler([new Response(200, [], $json)]);
+        $handler = HandlerStack::create($mock);
+        $guzzleClient = new Client(['handler' => $handler]);
 
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
-            $apiClient,
+            '',
+            $guzzleClient,
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
-    }
-
-    /**
-     * Test map() customers with addresses and contacts.
-     *
-     * @throws \Exception
-     */
-    public function testRequest()
-    {
-        // Request file
-        $document = (new Document())
-            ->setFianceConsultId('1B5O3V')
-            ->setContractId('19DB5Y');
-        $this->dataClient->getFile($document);
-
-        // Check request json
-        $this->assertArrayHasKey('body', $this->dispatchedFileRequest);
-        $this->assertJson($this->dispatchedFileRequest['body']);
     }
 
     /**

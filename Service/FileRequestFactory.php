@@ -12,6 +12,7 @@ use Gonetto\FCApiClientBundle\Model\FileRequest;
 class FileRequestFactory
 {
 
+    /** @var string */
     static $token;
 
     /**

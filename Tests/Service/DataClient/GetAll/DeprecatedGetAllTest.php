@@ -3,11 +3,14 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
 use Gonetto\FCApiClientBundle\Model\DataResponse;
-use Gonetto\FCApiClientBundle\Service\ApiClient;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
 use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
+use GuzzleHttp\Client;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Psr7\Response;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -29,24 +32,26 @@ class DeprecatedGetAllTest extends KernelTestCase
     protected function setUp()
     {
         // Mock api client
-        $this->mockApiClient();
+        $this->mockGuzzleClient();
     }
 
     /**
      * Setup client for mock.
      */
-    protected function mockApiClient()
+    protected function mockGuzzleClient()
     {
         // Api response
         $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
 
         // Mock client
-        $apiClient = $this->createMock(ApiClient::class);
-        $apiClient->method('send')->willReturn($json);
+        $mock = new MockHandler([new Response(200, [], $json)]);
+        $handler = HandlerStack::create($mock);
+        $guzzleClient = new Client(['handler' => $handler]);
 
         // Pass mocked api client to customer client
         $this->dataClient = new DataClient(
-            $apiClient,
+            '',
+            $guzzleClient,
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()

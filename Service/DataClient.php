@@ -8,6 +8,7 @@ use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Model\FileRequest;
 use Gonetto\FCApiClientBundle\Model\FileResponse;
 use Gonetto\FCApiClientBundle\Model\RequestInterface;
+use GuzzleHttp\Client;
 use JMS\Serializer\Serializer;
 use JsonSchema\Validator;
 
@@ -28,6 +29,9 @@ class DataClient
     /** @var \Gonetto\FCApiClientBundle\Model\FileRequest */
     protected $fileRequest;
 
+    /** @var string */
+    protected $financeConsultApiPath;
+
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
 
@@ -37,17 +41,20 @@ class DataClient
     /**
      * DataClient constructor.
      *
-     * @param \Gonetto\FCApiClientBundle\Service\ApiClient $client
+     * @param string $financeConsultApiPath
+     * @param \GuzzleHttp\Client $client
      * @param \Gonetto\FCApiClientBundle\Model\DataRequest $dataRequest
      * @param \Gonetto\FCApiClientBundle\Model\FileRequest $fileRequest
      * @param \JMS\Serializer\Serializer $serializer
      */
     public function __construct(
-        ApiClient $client,
+        string $financeConsultApiPath,
+        Client $client,
         DataRequest $dataRequest,
         FileRequest $fileRequest,
         Serializer $serializer
     ) {
+        $this->financeConsultApiPath = $financeConsultApiPath;
         $this->client = $client;
         $this->dataRequest = $dataRequest;
         $this->fileRequest = $fileRequest;
@@ -144,8 +151,20 @@ class DataClient
      */
     protected function sendRequest(RequestInterface $request)
     {
+        // Prepare request
         $body = $this->serializer->serialize($request, 'json');
-        $jsonResponse = $this->client->send(['body' => $body]);
+
+        // Send request
+        $stream = $this->client->get($this->financeConsultApiPath, ['body' => $body]);
+        $jsonResponse = (string)$stream->getBody();
+
+        // Check if not valid JSON response
+        if (json_decode($jsonResponse) === null) {
+            throw new \Exception(
+                'Finance Consult API dosen\'t sent valid JSON. Check the response.'
+                .' (Response: "'.$jsonResponse.'")'
+            );
+        }
 
         return $jsonResponse;
     }

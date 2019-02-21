@@ -4,13 +4,6 @@ services:
         autoconfigure: true
         public: false
 
-    Gonetto\FCApiClientBundle\Service\ApiClient:
-        class:      Gonetto\FCApiClientBundle\Service\ApiClient
-        arguments:
-            - '%gonetto_fc_api_client.api_path%'
-            - '@eight_points_guzzle.client.finance_consult'
-        public: true
-
     Gonetto\FCApiClientBundle\Model\DataRequest:
         class: Gonetto\FCApiClientBundle\Model\DataRequest
         factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createResponse'
@@ -30,7 +23,8 @@ services:
     Gonetto\FCApiClientBundle\Service\DataClient:
         class:      Gonetto\FCApiClientBundle\Service\DataClient
         arguments:
-            - '@Gonetto\FCApiClientBundle\Service\ApiClient'
+            - '%gonetto_fc_api_client.api_path%'
+            - '@eight_points_guzzle.client.finance_consult'
             - '@Gonetto\FCApiClientBundle\Model\DataRequest'
             - '@Gonetto\FCApiClientBundle\Model\FileRequest'
             - '@JMS\Serializer\Serializer'
