@@ -5,6 +5,7 @@ namespace Gonetto\FCApiClientBundle\EventSubscriber;
 use Gonetto\FCApiClientBundle\Model\Contract;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
+use Symfony\Component\Yaml\Yaml;
 
 /**
  * Class EventSubscriber
@@ -28,8 +29,6 @@ class ContractEventSubscriber implements EventSubscriberInterface
         ];
     }
 
-    // TODO:GN:MS: wie bei zahlweise mapper auch art mapper bauen, aber clsse mit values? und generiert aus csv/yml?!
-
     /**
      * @param \JMS\Serializer\EventDispatcher\ObjectEvent $event
      */
@@ -39,28 +38,12 @@ class ContractEventSubscriber implements EventSubscriberInterface
         /** @var Contract $contract */
         $contract = $event->getObject();
 
+        $paymentIntervals = Yaml::parseFile('EventSubscriber/payment_intervals.yml');
+
         // Replace text
-        switch ($contract->getPaymentInterval()) {
-            case 'monatlich':
-                $contract->setPaymentInterval(12);
-                break;
-            case 'vierteljahrlich':
-            case 'vierteljährlich':
-            case 'vierteljaehrlich':
-                $contract->setPaymentInterval(4);
-                break;
-            case 'halbjahrlich':
-            case 'halbjährlich':
-            case 'halbjaehrlich':
-                $contract->setPaymentInterval(2);
-                break;
-            case 'jahrlich':
-            case 'jährlich':
-            case 'jaehrlich':
-                $contract->setPaymentInterval(1);
-                break;
-            default:
-                $contract->setPaymentInterval(0);
+        $key = $contract->getPaymentInterval();
+        if (array_key_exists($key, $paymentIntervals)) {
+            $contract->setPaymentInterval($paymentIntervals[$key]);
         }
     }
 }

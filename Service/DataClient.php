@@ -20,7 +20,7 @@ use JsonSchema\Validator;
 class DataClient
 {
 
-    /** @var \Gonetto\FCApiClientBundle\Service\ApiClient */
+    /** @var \GuzzleHttp\Client */
     protected $client;
 
     /** @var \Gonetto\FCApiClientBundle\Service\DataRequestFactory */
