@@ -85,19 +85,19 @@ class Document
     }
 
     /**
-     * @return string
+     * @return null|int|string
      */
-    public function getType(): string
+    public function getType()
     {
         return $this->type;
     }
 
     /**
-     * @param string $type
+     * @param int|string $type
      *
      * @return Document
      */
-    public function setType(string $type): Document
+    public function setType($type): Document
     {
         $this->type = $type;
 

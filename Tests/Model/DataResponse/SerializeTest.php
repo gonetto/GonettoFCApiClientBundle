@@ -72,7 +72,7 @@ class SerializeTest extends KernelTestCase
                 (new Document())
                     ->setFianceConsultId('1B5O3V')
                     ->setContractId('19DB5Y')
-                    ->setType(2)
+                    ->setType('Antrag')
                     ->setDate(new \DateTime('2019-02-04T13:26:58'))
             )
             ->addDocumentDeleted('19CTC5');

@@ -44,6 +44,8 @@ class ContractEventSubscriber implements EventSubscriberInterface
         $key = $contract->getPaymentInterval();
         if (array_key_exists($key, $paymentIntervals)) {
             $contract->setPaymentInterval($paymentIntervals[$key]);
+        } else {
+            $contract->setPaymentInterval(0);
         }
     }
 }

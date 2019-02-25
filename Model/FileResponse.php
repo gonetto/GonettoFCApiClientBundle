@@ -13,14 +13,6 @@ class FileResponse
 {
 
     /**
-     * @var string
-     *
-     * @JMS\Type("integer")
-     * @JMS\SerializedName("art")
-     */
-    protected $documentType;
-
-    /**
      * @var \DateTime created at date
      *
      * @JMS\Type("DateTime<'Y-m-d', 'Europe/Berlin'>")
@@ -43,26 +35,6 @@ class FileResponse
      * @JMS\SerializedName("extension")
      */
     protected $extension;
-
-    /**
-     * @return string
-     */
-    public function getDocumentType(): string
-    {
-        return $this->documentType;
-    }
-
-    /**
-     * @param string $documentType
-     *
-     * @return FileResponse
-     */
-    public function setDocumentType(string $documentType): FileResponse
-    {
-        $this->documentType = $documentType;
-
-        return $this;
-    }
 
     /**
      * @return \DateTime

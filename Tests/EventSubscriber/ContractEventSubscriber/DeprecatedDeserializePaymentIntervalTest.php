@@ -2,8 +2,6 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\Serializer\Minimum;
 
-use Gonetto\FCApiClientBundle\Model\Contract;
-use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -16,9 +14,6 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
 {
 
-    /** @var array of Customers with Contracts */
-    protected $customers;
-
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
 
@@ -30,8 +25,6 @@ class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
     protected function setUp()
     {
         $this->serializer = (new JmsSerializerFactory())->createSerializer();
-
-        $this->loadDataFixtures();
     }
 
     /**
@@ -39,32 +32,37 @@ class DeprecatedDeserializePaymentIntervalTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testMap()
+    public function testDeserialize()
     {
-        // Deserialize JSON with JMS Serializer
-        $jsonResponse = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
-        $dataResponse = $this->serializer->deserialize($jsonResponse, DataResponse::class, 'json');
-        $customers = $dataResponse->getCustomers();
+        $this->assertEquals(12, $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"monatlich"}]}]}'));
+        $this->assertEquals(4, $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"vierteljahrlich"}]}]}'));
+        $this->assertEquals(2, $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"halbjährlich"}]}]}'));
+        $this->assertEquals(1, $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"jahrlich"}]}]}'));
+        $this->assertEquals(0, $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"einmalig"}]}]}'));
+    }
 
-        // Compare result
-        $this->assertEquals($this->customers, $customers);
+    public function testDeserializeUnknownInterval()
+    {
+        $this->assertEquals(0, $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"unbekannt"}]}]}'));
     }
 
     /**
-     * @throws \Exception
+     * @param string $json
+     *
+     * @return mixed
      */
-    protected function loadDataFixtures()
+    protected function deserialize(string $json)
     {
-        $this->customers = [
-          (new Customer())->setContracts(
-            [
-              (new Contract())->setPaymentInterval(12),
-              (new Contract())->setPaymentInterval(4),
-              (new Contract())->setPaymentInterval(2),
-              (new Contract())->setPaymentInterval(1),
-              (new Contract())->setPaymentInterval(0),
-            ]
-          ),
-        ];
+        // Deserialize JSON
+        /** @var DataResponse $dataResponse */
+        $dataResponse = $this->serializer->deserialize($json, DataResponse::class, 'json');
+
+        // Get contract
+        /** @var \Gonetto\FCApiClientBundle\Model\Customer $customer */
+        $customer = $dataResponse->getCustomers()[0];
+        /** @var \Gonetto\FCApiClientBundle\Model\Contract $contract */
+        $contract = $customer->getContracts()[0];
+
+        return $contract->getPaymentInterval();
     }
 }

@@ -3,7 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Service;
 
 use Gonetto\FCApiClientBundle\EventSubscriber\ContractEventSubscriber;
-use Gonetto\FCApiClientBundle\EventSubscriber\FileResponseEventSubscriber;
+use Gonetto\FCApiClientBundle\EventSubscriber\DocumentEventSubscriber;
 use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
@@ -29,7 +29,7 @@ class JmsSerializerFactory
             ->configureListeners(
                 function (EventDispatcher $dispatcher) {
                     $dispatcher->addSubscriber(new ContractEventSubscriber());
-                    $dispatcher->addSubscriber(new FileResponseEventSubscriber());
+                    $dispatcher->addSubscriber(new DocumentEventSubscriber());
                 }
             )
             ->build();

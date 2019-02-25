@@ -67,7 +67,6 @@ class ValidateTest extends KernelTestCase
 
     public function testMissingParameters(): void
     {
-        $this->missingParameterTest('art');
         $this->missingParameterTest('erstelltAm');
         $this->missingParameterTest('data');
         $this->missingParameterTest('extension');
