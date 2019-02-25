@@ -45,19 +45,19 @@ class FileResponse
     protected $extension;
 
     /**
-     * @return int
+     * @return string
      */
-    public function getDocumentType(): int
+    public function getDocumentType(): string
     {
         return $this->documentType;
     }
 
     /**
-     * @param int $documentType
+     * @param string $documentType
      *
      * @return FileResponse
      */
-    public function setDocumentType(int $documentType): FileResponse
+    public function setDocumentType(string $documentType): FileResponse
     {
         $this->documentType = $documentType;
 

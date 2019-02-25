@@ -2,17 +2,17 @@
 
 namespace Gonetto\FCApiClientBundle\EventSubscriber;
 
-use Gonetto\FCApiClientBundle\Model\Contract;
+use Gonetto\FCApiClientBundle\Model\FileResponse;
 use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Symfony\Component\Yaml\Yaml;
 
 /**
- * Class ContractEventSubscriber
+ * Class FileResponseEventSubscriber
  *
  * @package Gonetto\FCApiClientBundle\EventSubscriber
  */
-class ContractEventSubscriber implements EventSubscriberInterface
+class FileResponseEventSubscriber implements EventSubscriberInterface
 {
 
     /**
@@ -24,7 +24,7 @@ class ContractEventSubscriber implements EventSubscriberInterface
           [
             'event' => 'serializer.post_deserialize',
             'method' => 'onPostDeserialize',
-            'class' => Contract::class,
+            'class' => FileResponse::class,
           ],
         ];
     }
@@ -35,15 +35,15 @@ class ContractEventSubscriber implements EventSubscriberInterface
     public function onPostDeserialize(ObjectEvent $event)
     {
         // Current contract
-        /** @var Contract $contract */
-        $contract = $event->getObject();
+        /** @var FileResponse $fileResponse */
+        $fileResponse = $event->getObject();
 
-        $paymentIntervals = Yaml::parseFile(__DIR__.'/payment_intervals.yml');
+        $paymentIntervals = Yaml::parseFile(__DIR__.'/document_type.yml');
 
         // Replace text
-        $key = $contract->getPaymentInterval();
+        $key = $fileResponse->getDocumentType();
         if (array_key_exists($key, $paymentIntervals)) {
-            $contract->setPaymentInterval($paymentIntervals[$key]);
+            $fileResponse->setDocumentType($paymentIntervals[$key]);
         }
     }
 }
