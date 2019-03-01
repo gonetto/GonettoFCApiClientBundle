@@ -25,31 +25,36 @@ class DeserializeDocumentTypeTest extends KernelTestCase
         $this->serializer = (new JmsSerializerFactory())->createSerializer();
     }
 
-    public function testDeserialize()
-    {
-        $this->assertEquals('Antrag', $this->deserialize('{"dokumente":[{"art":2}]}'));
-    }
-
-    public function testDeserializeUnknownType()
-    {
-        $this->assertEquals(46, $this->deserialize('{"dokumente":[{"art":46}]}'));
-    }
-
     /**
-     * @param string $json
+     * @test
+     * @dataProvider documentTypesProvider
      *
-     * @return mixed
+     * @param string|int $string
+     * @param int $numeric
      */
-    protected function deserialize(string $json)
+    public function testDeserialize($string, int $numeric): void
     {
         // Deserialize JSON
-        /** @var DataResponse $dataResponse */
+        $json = '{"dokumente":[{"art":'.$numeric.'}]}';
         $dataResponse = $this->serializer->deserialize($json, DataResponse::class, 'json');
 
         // Get document
         /** @var \Gonetto\FCApiClientBundle\Model\Document $document */
         $document = $dataResponse->getDocuments()[0];
 
-        return $document->getType();
+        $this->assertSame($string, $document->getType());
+    }
+
+    /**
+     * @return array
+     */
+    public function documentTypesProvider(): array
+    {
+        return [
+            'known type' => ['Antrag', 2],
+            'unknown type between' => [46, 46],
+            'last known type' => ['Vertragsrücktritt', 51],
+            'unknown type' => [52, 52],
+        ];
     }
 }

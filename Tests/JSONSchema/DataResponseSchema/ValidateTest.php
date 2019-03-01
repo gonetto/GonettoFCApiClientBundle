@@ -31,102 +31,97 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @return \stdClass
+     * @test
      */
-    protected function getExampleResponse(): \stdClass
-    {
-        return json_decode($this->exampleResponse);
-    }
-
     public function testValidResponse(): void
     {
-        $exampleResponse = $this->getExampleResponse();
+        // Create new instance for test
+        $exampleResponse = json_decode($this->exampleResponse);
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertTrue($validator->isValid(), print_r($validator->getErrors(), true));
     }
 
+    /**
+     * @test
+     */
     public function testNoResponse(): void
     {
         $exampleResponse = null;
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertFalse($validator->isValid(), 'null is not valid.');
     }
 
+    /**
+     * @test
+     */
     public function testEmptyResponse(): void
     {
         $exampleResponse = (object)[];
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertTrue($validator->isValid(), 'Empty array [] is valid.');
     }
 
-    public function testEmptyCategories(): void
-    {
-        $this->emptyCategoryTest('kunden');
-        $this->emptyCategoryTest('kundenDeleted');
-        $this->emptyCategoryTest('vertraege');
-        $this->emptyCategoryTest('vertraegeDeleted');
-        $this->emptyCategoryTest('dokumente');
-        $this->emptyCategoryTest('dokumenteDeleted');
-    }
-
     /**
+     * @test
+     * @dataProvider categoriesProvider
+     *
      * @param $category
      */
-    protected function emptyCategoryTest($category): void
+    public function testEmptyCategory($category): void
     {
+        // Create new instance for test
         $exampleResponse = json_decode($this->exampleResponse);
+
+        // Unset category
         $exampleResponse->$category = [];
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertTrue($validator->isValid(), "Empty category '$category' is valid.");
     }
 
-    public function testMissingParameters(): void
+    /**
+     * @return array
+     */
+    public function categoriesProvider(): array
     {
-        $this->missingParameterTest('kunden', 'oid');
-        $this->missingParameterTest('kunden', 'email');
-        $this->missingParameterTest('kunden', 'vorname');
-        $this->missingParameterTest('kunden', 'nachname');
-        $this->missingParameterTest('kunden', 'firma');
-        $this->missingParameterTest('kunden', 'strasse');
-        $this->missingParameterTest('kunden', 'plz');
-        $this->missingParameterTest('kunden', 'ort');
-        $this->missingParameterTest('kunden', 'iban');
-
-        $this->missingParameterTest('vertraege', 'oid');
-        $this->missingParameterTest('vertraege', 'kundeID', true);
-        $this->missingParameterTest('vertraege', 'beitrag');
-        $this->missingParameterTest('vertraege', 'gesellschaft');
-        $this->missingParameterTest('vertraege', 'hauptfälligkeit');
-        $this->missingParameterTest('vertraege', 'produkt');
-        $this->missingParameterTest('vertraege', 'vermittlungsdatum');
-        $this->missingParameterTest('vertraege', 'vertragsende');
-        $this->missingParameterTest('vertraege', 'vertragsnummer');
-        $this->missingParameterTest('vertraege', 'zahlungsweise');
-
-        $this->missingParameterTest('dokumente', 'oid');
-        $this->missingParameterTest('dokumente', 'vertragID');
-        $this->missingParameterTest('dokumente', 'art');
-        $this->missingParameterTest('dokumente', 'datum');
+        return [
+            'kunden' => ['kunden'],
+            'kundenDeleted' => ['kundenDeleted'],
+            'vertraege' => ['vertraege'],
+            'vertraegeDeleted' => ['vertraegeDeleted'],
+            'dokumente' => ['dokumente'],
+            'dokumenteDeleted' => ['dokumenteDeleted'],
+        ];
     }
 
     /**
+     * @test
+     * @dataProvider parametersProvider
+     *
      * @param string $category
      * @param string $parameter
      * @param bool $assert
      */
-    protected function missingParameterTest(string $category, string $parameter, bool $assert = false): void
+    public function testMissingParameter(string $category, string $parameter, bool $assert = false): void
     {
-        $exampleResponse = $this->getExampleResponse();
+        // Create new instance for test
+        $exampleResponse = json_decode($this->exampleResponse);
+
+        // Unset parameter
         unset(($exampleResponse->$category)[0]->$parameter);
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         if ($assert === false) {
@@ -134,5 +129,37 @@ class ValidateTest extends KernelTestCase
         } else {
             $this->assertTrue($validator->isValid(), "Missing parameter '$category/$parameter' is valid.");
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function parametersProvider(): array
+    {
+        return [
+            'customer / oid' => ['kunden', 'oid'],
+            'customer / email' => ['kunden', 'email'],
+            'customer / vorname' => ['kunden', 'vorname'],
+            'customer / nachname' => ['kunden', 'nachname'],
+            'customer / firma' => ['kunden', 'firma'],
+            'customer / strasse' => ['kunden', 'strasse'],
+            'customer / plz' => ['kunden', 'plz'],
+            'customer / ort' => ['kunden', 'ort'],
+            'customer / iban' => ['kunden', 'iban'],
+            'contract / oid' => ['vertraege', 'oid'],
+            'contract / kundeID' => ['vertraege', 'kundeID', true],
+            'contract / beitrag' => ['vertraege', 'beitrag'],
+            'contract / gesellschaft' => ['vertraege', 'gesellschaft'],
+            'contract / hauptfälligkeit' => ['vertraege', 'hauptfälligkeit'],
+            'contract / produkt' => ['vertraege', 'produkt'],
+            'contract / vermittlungsdatum' => ['vertraege', 'vermittlungsdatum'],
+            'contract / vertragsende' => ['vertraege', 'vertragsende'],
+            'contract / vertragsnummer' => ['vertraege', 'vertragsnummer'],
+            'contract / zahlungsweise' => ['vertraege', 'zahlungsweise'],
+            'document / oid' => ['dokumente', 'oid'],
+            'document / vertragID' => ['dokumente', 'vertragID'],
+            'document / art' => ['dokumente', 'art'],
+            'document / datum' => ['dokumente', 'datum'],
+        ];
     }
 }

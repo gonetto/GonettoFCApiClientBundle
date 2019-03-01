@@ -30,6 +30,8 @@ class SerializeTest extends KernelTestCase
     /**
      * Test map() customers with addresses and contacts.
      *
+     * @test
+     *
      * @throws \Exception
      */
     public function testRequestAll()

@@ -60,7 +60,7 @@ class GetFileTest extends KernelTestCase
     }
 
     /**
-     * Test map() customers with addresses and contacts.
+     * @test
      *
      * @throws \Exception
      */

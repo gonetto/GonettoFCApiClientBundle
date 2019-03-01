@@ -31,56 +31,61 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @return \stdClass
+     * @test
      */
-    protected function getExampleResponse(): \stdClass
-    {
-        return json_decode($this->exampleResponse);
-    }
-
     public function testValidResponse(): void
     {
-        $exampleResponse = $this->getExampleResponse();
+        // Create new instance for test
+        $exampleResponse = json_decode($this->exampleResponse);
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertTrue($validator->isValid(), print_r($validator->getErrors(), true));
     }
 
+    /**
+     * @test
+     */
     public function testNoResponse(): void
     {
         $exampleResponse = null;
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertFalse($validator->isValid(), 'null is invalid.');
     }
 
+    /**
+     * @test
+     */
     public function testEmptyResponse(): void
     {
         $exampleResponse = new \stdClass;
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         $this->assertFalse($validator->isValid(), 'Empty object is invalid.');
     }
 
-    public function testMissingParameters(): void
-    {
-        $this->missingParameterTest('erstelltAm');
-        $this->missingParameterTest('data');
-        $this->missingParameterTest('extension');
-    }
-
     /**
+     * @test
+     * @dataProvider parametersProvider
+     *
      * @param string $parameter
      * @param bool $assert
      */
-    protected function missingParameterTest(string $parameter, bool $assert = false): void
+    public function testMissingParameter(string $parameter, bool $assert = false): void
     {
-        $exampleResponse = clone $this->getExampleResponse();
+        // Create new instance for test
+        $exampleResponse = json_decode($this->exampleResponse);
+
+        // Unset parameter
         unset($exampleResponse->$parameter);
 
+        // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
         if ($assert === false) {
@@ -88,5 +93,17 @@ class ValidateTest extends KernelTestCase
         } else {
             $this->assertTrue($validator->isValid(), "Missing parameter '$parameter' is valid.");
         }
+    }
+
+    /**
+     * @return array
+     */
+    public function parametersProvider(): array
+    {
+        return [
+            'erstelltAm' => ['erstelltAm'],
+            'data' => ['data'],
+            'extension' => ['extension'],
+        ];
     }
 }

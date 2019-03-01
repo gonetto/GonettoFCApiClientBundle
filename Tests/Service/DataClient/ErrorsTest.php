@@ -47,6 +47,8 @@ class ErrorsTest extends KernelTestCase
     }
 
     /**
+     * @test
+     *
      * @throws \Exception
      */
     public function testForbidden()
@@ -59,6 +61,8 @@ class ErrorsTest extends KernelTestCase
     }
 
     /**
+     * @test
+     *
      * @throws \Exception
      */
     public function testNotFound()
@@ -71,6 +75,8 @@ class ErrorsTest extends KernelTestCase
     }
 
     /**
+     * @test
+     *
      * @throws \Exception
      */
     public function testInvalidToken()
