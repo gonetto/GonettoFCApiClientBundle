@@ -20,6 +20,20 @@ class ValidateTest extends KernelTestCase
     protected $exampleResponse;
 
     /**
+     * ValidateTest constructor.
+     *
+     * @param string|null $name
+     * @param array $data
+     * @param string $dataName
+     */
+    public function __construct(?string $name = null, array $data = [], string $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->exampleResponse = file_get_contents(__DIR__.'/ApiFileResponse.json');
+    }
+
+    /**
      * {@inheritDoc}
      *
      * @throws \Exception
@@ -27,47 +41,38 @@ class ValidateTest extends KernelTestCase
     protected function setUp(): void
     {
         $this->schemaFile = (object)['$ref' => 'file://'.__DIR__.'/../../../JSONSchema/FileResponseSchema.json'];
-        $this->exampleResponse = file_get_contents(__DIR__.'/ApiFileResponse.json');
     }
 
     /**
      * @test
+     * @dataProvider jsonsProvider
+     *
+     * @param string $json
+     * @param string|null $message
+     * @param bool $assert
      */
-    public function testValidResponse(): void
+    public function testValidResponse(string $json, string $message = null, bool $assert = true): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($json);
 
         // Check validator result
         $validator = new Validator();
         $validator->validate($exampleResponse, $this->schemaFile);
-        $this->assertTrue($validator->isValid(), print_r($validator->getErrors(), true));
+        $message .= $assert === true ? ' '.print_r($validator->getErrors(), true) : '';
+        $this->assertSame($assert, $validator->isValid(), $message);
     }
 
     /**
-     * @test
+     * @return array
      */
-    public function testNoResponse(): void
+    public function jsonsProvider(): array
     {
-        $exampleResponse = null;
-
-        // Check validator result
-        $validator = new Validator();
-        $validator->validate($exampleResponse, $this->schemaFile);
-        $this->assertFalse($validator->isValid(), 'null is invalid.');
-    }
-
-    /**
-     * @test
-     */
-    public function testEmptyResponse(): void
-    {
-        $exampleResponse = new \stdClass;
-
-        // Check validator result
-        $validator = new Validator();
-        $validator->validate($exampleResponse, $this->schemaFile);
-        $this->assertFalse($validator->isValid(), 'Empty object is invalid.');
+        return [
+            'valid json response' => [$this->exampleResponse, 'example response is valid'],
+            'invalid json' => ['', 'null is invalid.', false],
+            'empty object' => ['{}', 'empty object {} is invalid.', false],
+        ];
     }
 
     /**
