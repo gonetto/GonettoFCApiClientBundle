@@ -4,6 +4,7 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile;
 
 use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Model\FileResponse;
+use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
 use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
@@ -53,6 +54,7 @@ class GetFileTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
+            (new CustomerUpdateRequestFactory())->createResponse(),
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()

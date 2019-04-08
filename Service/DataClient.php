@@ -2,6 +2,8 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Gonetto\FCApiClientBundle\Model\Customer;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Gonetto\FCApiClientBundle\Model\DataRequest;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Model\Document;
@@ -23,6 +25,9 @@ class DataClient
     /** @var \GuzzleHttp\Client */
     protected $client;
 
+    /** @var \Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest */
+    protected $customerUpdateRequest;
+
     /** @var \Gonetto\FCApiClientBundle\Service\DataRequestFactory */
     protected $dataRequest;
 
@@ -43,6 +48,7 @@ class DataClient
      *
      * @param string $financeConsultApiPath
      * @param \GuzzleHttp\Client $client
+     * @param \Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest $customerUpdateRequest
      * @param \Gonetto\FCApiClientBundle\Model\DataRequest $dataRequest
      * @param \Gonetto\FCApiClientBundle\Model\FileRequest $fileRequest
      * @param \JMS\Serializer\Serializer $serializer
@@ -50,12 +56,14 @@ class DataClient
     public function __construct(
         string $financeConsultApiPath,
         Client $client,
+        CustomerUpdateRequest $customerUpdateRequest,
         DataRequest $dataRequest,
         FileRequest $fileRequest,
         Serializer $serializer
     ) {
         $this->financeConsultApiPath = $financeConsultApiPath;
         $this->client = $client;
+        $this->customerUpdateRequest = $customerUpdateRequest;
         $this->dataRequest = $dataRequest;
         $this->fileRequest = $fileRequest;
         $this->serializer = $serializer;
@@ -141,6 +149,38 @@ class DataClient
         $fileResponse = $this->serializer->deserialize($jsonResponse, FileResponse::class, 'json');
 
         return $fileResponse;
+    }
+
+    /**
+     * @param \Gonetto\FCApiClientBundle\Model\Customer $customer
+     *
+     * @return string
+     */
+    public function updateCustomer(Customer $customer)
+    {
+        // Create request object
+        $this->loadFromParentObj($customer);
+
+        var_dump($this->customerUpdateRequest);
+
+        // TODO:GN:MS: funktion inn arbeit
+
+        return '{}';
+    }
+
+    /**
+     * Copy all data from Customer class to CustomerUpdateRequest class
+     *
+     * @param \Gonetto\FCApiClientBundle\Model\Customer $parentObj
+     */
+    protected function loadFromParentObj(Customer $parentObj): void
+    {
+        $objValues = get_object_vars($parentObj);
+        foreach($objValues AS $key=>$value)
+        {
+            $setter = 'set'.ucfirst($key);
+            $this->customerUpdateRequest->$setter($value);
+        }
     }
 
     /**

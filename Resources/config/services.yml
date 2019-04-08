@@ -16,6 +16,12 @@ services:
         shard: false
         arguments: ['%gonetto_fc_api_client.api_access_token%']
 
+    Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest:
+        class: Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
+        factory: 'Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory:createResponse'
+        shard: false
+        arguments: ['%gonetto_fc_api_client.api_access_token%']
+
     JMS\Serializer\Serializer:
         class: JMS\Serializer\Serializer
         factory: 'Gonetto\FCApiClientBundle\Service\JmsSerializerFactory:createSerializer'
@@ -25,7 +31,9 @@ services:
         arguments:
             - '%gonetto_fc_api_client.api_path%'
             - '@eight_points_guzzle.client.finance_consult'
+            - '@Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest'
             - '@Gonetto\FCApiClientBundle\Model\DataRequest'
             - '@Gonetto\FCApiClientBundle\Model\FileRequest'
             - '@JMS\Serializer\Serializer'
         public: true
+v

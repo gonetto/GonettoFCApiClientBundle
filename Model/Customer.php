@@ -28,6 +28,17 @@ class Customer
     protected $email;
 
     /**
+     * var string
+     *
+     * JMS\Type("string")
+     * JMS\SerializedName("anrede")
+     *
+     * @ignore
+     * @todo implements sync from FC to gonetto. Current only update at FC defined.
+     */
+    protected $gender;
+
+    /**
      * @var string
      *
      * @JMS\Type("string")
@@ -42,6 +53,17 @@ class Customer
      * @JMS\SerializedName("nachname")
      */
     protected $lastName;
+
+    /**
+     * var string
+     *
+     * JMS\Type("string")
+     * JMS\SerializedName("geburtsdatum")
+     *
+     * @ignore
+     * @todo implements sync from FC to gonetto. Current only update at FC defined.
+     */
+    protected $birthday;
 
     /**
      * @var string
@@ -81,6 +103,39 @@ class Customer
     protected $city;
 
     /**
+     * var string
+     *
+     * JMS\Type("string")
+     * JMS\SerializedName("fax")
+     *
+     * @ignore
+     * @todo implements sync from FC to gonetto. Current only update at FC defined.
+     */
+    protected $fax;
+
+    /**
+     * var string
+     *
+     * JMS\Type("string")
+     * JMS\SerializedName("telefon")
+     *
+     * @ignore
+     * @todo implements sync from FC to gonetto. Current only update at FC defined.
+     */
+    protected $phone;
+
+    /**
+     * var string
+     *
+     * JMS\Type("string")
+     * JMS\SerializedName("kontoinhaber")
+     *
+     * @ignore
+     * @todo implements sync from FC to gonetto. Current only update at FC defined.
+     */
+    protected $depositor;
+
+    /**
      * @var string
      *
      * @JMS\Type("string")
@@ -92,6 +147,7 @@ class Customer
      *
      * @JMS\Type("array<Gonetto\FCApiClientBundle\Model\Contract>")
      * @JMS\SerializedName("verträge")
+     * @JMS\SkipWhenEmpty
      */
     protected $contracts = [];
 
@@ -217,6 +273,8 @@ class Customer
 
     /**
      * @return null|string
+     *
+     * @deprecated
      */
     public function getHouseNumber(): ?string
     {
@@ -227,6 +285,8 @@ class Customer
      * @param string $houseNumber
      *
      * @return Customer
+     *
+     * @deprecated
      */
     public function setHouseNumber(string $houseNumber): Customer
     {
@@ -297,6 +357,8 @@ class Customer
 
     /**
      * @return array
+     *
+     * @deprecated
      */
     public function getContracts(): array
     {
@@ -307,6 +369,8 @@ class Customer
      * @param array $contracts
      *
      * @return Customer
+     *
+     * @deprecated
      */
     public function setContracts(array $contracts): Customer
     {
@@ -319,6 +383,8 @@ class Customer
      * @param Contract $contract
      *
      * @return Customer
+     *
+     * @deprecated
      */
     public function addContract(Contract $contract): Customer
     {
@@ -331,6 +397,8 @@ class Customer
      * @param Contract $contract
      *
      * @return Customer
+     *
+     * @deprecated
      */
     public function removeContract(Contract $contract): Customer
     {

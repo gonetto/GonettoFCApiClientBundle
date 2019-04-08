@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
+use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
 use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
@@ -40,6 +41,7 @@ class ErrorsTest extends KernelTestCase
         return new DataClient(
             '',
             $guzzleClient,
+            (new CustomerUpdateRequestFactory())->createResponse(),
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()

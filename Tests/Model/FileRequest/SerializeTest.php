@@ -37,13 +37,13 @@ class SerializeTest extends KernelTestCase
     public function testRequestAll()
     {
         // Serialize object
-        $dataRequest = (new FileRequest())
+        $request = (new FileRequest())
             ->setToken('8029fdd175474c61909ca5f0803965bb464ff546')
             ->setDocumentId('1B5O3V')
             ->setContractId('19DB5Y');
-        $jsonRequest = $this->serializer->serialize($dataRequest, 'json');
+        $jsonRequest = $this->serializer->serialize($request, 'json');
 
         // Check result
-        $this->assertJsonStringEqualsJsonFile(__DIR__.'/DataRequest.json', $jsonRequest);
+        $this->assertJsonStringEqualsJsonFile(__DIR__.'/FileRequest.json', $jsonRequest);
     }
 }

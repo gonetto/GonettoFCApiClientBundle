@@ -1,8 +1,11 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetAll;
+namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer;
 
-use Gonetto\FCApiClientBundle\Model\DataResponse;
+use Gonetto\FCApiClientBundle\Model\Customer;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
+use Gonetto\FCApiClientBundle\Model\Document;
+use Gonetto\FCApiClientBundle\Model\FileResponse;
 use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -15,14 +18,13 @@ use GuzzleHttp\Psr7\Response;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
- * Class GetAllTest
+ * Class UpdateCustomerTest
  *
- * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetAll
+ * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer
  */
-class GetAllTest extends KernelTestCase
+class UpdateCustomerTest extends KernelTestCase
 {
-
-    /** @var DataClient */
+    /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
     protected $dataClient;
 
     /**
@@ -32,6 +34,8 @@ class GetAllTest extends KernelTestCase
      */
     protected function setUp()
     {
+        parent::setUp();
+
         // Mock api client
         $this->mockGuzzleClient();
     }
@@ -42,7 +46,7 @@ class GetAllTest extends KernelTestCase
     protected function mockGuzzleClient()
     {
         // Api response
-        $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
+        $json = file_get_contents(__DIR__.'/ApiUpdateResponse.json');
 
         // Mock client
         $mock = new MockHandler([new Response(200, [], $json)]);
@@ -53,7 +57,7 @@ class GetAllTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory())->createResponse(),
+            (new CustomerUpdateRequestFactory('803...'))->createResponse(),
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
@@ -67,11 +71,15 @@ class GetAllTest extends KernelTestCase
      */
     public function testResponse()
     {
-        // Deserialize JSON with JMS Serializer
-        $dataResponse = $this->dataClient->getAll();
+        // Request file
+        $customer = (new Customer())
+            ->setFianceConsultId('DE02500105170137075030')
+            ->setIban('19DB5Y');
+        $updateResponse = $this->dataClient->updateCustomer($customer);
 
-        // Check customer
-        $this->assertInstanceOf(DataResponse::class, $dataResponse);
-        $this->assertCount(1, $dataResponse->getCustomers());
+        // TODO:GN:MS: FC ID ist erzwungen! testen
+
+        // Check response
+        $this->assertInstanceOf(CustomerUpdateRequest::class, $updateResponse);
     }
 }
