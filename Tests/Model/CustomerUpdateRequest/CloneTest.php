@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Modal\CustomerUpdateRequest;
 
+use Faker\Factory;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -13,6 +14,17 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 class CloneTest extends KernelTestCase
 {
+
+    /** @var \Faker\Generator */
+    protected $faker;
+
+    /** {@inheritDoc} */
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->faker = Factory::create('de_DE');
+    }
 
     /**
      * @test
@@ -44,20 +56,20 @@ class CloneTest extends KernelTestCase
     public function parametersProvider(): array
     {
         return [
-            'fiance consult id' => ['FianceConsultId', '19P1CF'],
-            'email' => ['Email', 'anna@domain.tld'],
+            'finance consult id' => ['FianceConsultId', strtoupper($this->faker->bothify('******'))],
+            'email' => ['Email', $this->faker->email],
             //'gender' => ['Gender', 'female'],
-            'first name' => ['FirstName', 'Anna'],
-            'last name' => ['LastName', 'Musterfrau'],
-            //'birthday' => ['Birthday', '1998-01-01'],
-            'company' => ['Company', 'Beispielfirma'],
-            'street' => ['Street', 'Beispielstr. 2'],
-            'zip code' => ['ZipCode', 54321],
-            'city' => ['City', 'Beispielstadt'],
-            //'fax' => ['Fax', ''],
-            //'phone' => ['Phone', ''],
-            //'depositor' => ['Depositor', ''],
-            'iban' => ['Iban', 'DE02500105170137075030'],
+            'first name ' => ['FirstName', $this->faker->firstName('female')],
+            'last name' => ['LastName', $this->faker->lastName],
+            //'birthday' => ['Birthday', $this->faker->dateTimeBetween($startDate = '-60 years', $endDate = '-18 years')->format('Y-m-d')],
+            'company' => ['Company', $this->faker->company],
+            'street' => ['Street', $this->faker->streetAddress],
+            'zip code' => ['ZipCode', $this->faker->postcode],
+            'city' => ['City', $this->faker->city],
+            //'fax' => ['Fax', $this->faker->phoneNumber],
+            //'phone' => ['Phone', $this->faker->phoneNumber],
+            //'depositor' => ['Depositor', $this->faker->name],
+            'iban' => ['Iban', $this->faker->iban('de')],
             //'contracts' => ['Contracts', []], // deprecated
         ];
     }
