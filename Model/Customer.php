@@ -60,6 +60,8 @@ class Customer
      * JMS\Type("string")
      * JMS\SerializedName("geburtsdatum")
      *
+     * //yyyy-MM-dd
+     *
      * @ignore
      * @todo implements sync from FC to gonetto. Current only update at FC defined.
      */
@@ -80,11 +82,6 @@ class Customer
      * @JMS\SerializedName("strasse")
      */
     protected $street;
-
-    /**
-     * @var string
-     */
-    protected $houseNumber;
 
     /**
      * @var string
@@ -152,9 +149,23 @@ class Customer
     protected $contracts = [];
 
     /**
+     * @param \Gonetto\FCApiClientBundle\Model\Customer $customer
+     *
+     * @return $this
+     */
+    public function clone(Customer $customer)
+    {
+        foreach (get_object_vars($customer) as $key => $value) {
+            $this->$key = $value;
+        }
+
+        return $this;
+    }
+
+    /**
      * @return string
      */
-    public function getFianceConsultId(): string
+    public function getFianceConsultId(): ?string
     {
         return $this->fianceConsultId;
     }
@@ -174,7 +185,7 @@ class Customer
     /**
      * @return string
      */
-    public function getEmail(): string
+    public function getEmail(): ?string
     {
         return $this->email;
     }
@@ -278,7 +289,7 @@ class Customer
      */
     public function getHouseNumber(): ?string
     {
-        return $this->houseNumber;
+        return '';
     }
 
     /**
@@ -290,7 +301,7 @@ class Customer
      */
     public function setHouseNumber(string $houseNumber): Customer
     {
-        $this->houseNumber = $houseNumber;
+        $this->street .= $houseNumber;
 
         return $this;
     }
