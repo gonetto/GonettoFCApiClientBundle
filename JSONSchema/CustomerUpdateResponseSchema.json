@@ -1,0 +1,17 @@
+{
+    "$schema": "http://json-schema.org/schema#",
+    "title": "Match documents",
+    "description": "This is a schema that matches documents.",
+    "type": "object",
+    "properties": {
+        "result": {
+            "type": "boolean"
+        },
+        "error": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "result"
+    ]
+}

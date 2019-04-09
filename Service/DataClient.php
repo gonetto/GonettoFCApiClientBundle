@@ -160,13 +160,14 @@ class DataClient
      */
     public function updateCustomer(Customer $customer)
     {
-        // Create request object
+        // Prepare request object
         $this->customerUpdateRequest->clone($customer);
 
         // Send request
         $jsonResponse = $this->sendRequest($this->customerUpdateRequest);
 
-        // TODO:GN:MS: funktion inn arbeit
+        // Check response
+        $this->jsonSchemaCheck($jsonResponse, 'FileResponseSchema');
 
         // Map json to object
         /** @var FileResponse $fileResponse */
