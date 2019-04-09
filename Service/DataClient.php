@@ -167,7 +167,7 @@ class DataClient
         $jsonResponse = $this->sendRequest($this->customerUpdateRequest);
 
         // Check response
-        $this->jsonSchemaCheck($jsonResponse, 'FileResponseSchema');
+        $this->jsonSchemaCheck($jsonResponse, 'CustomerUpdateResponseSchema');
 
         // Map json to object
         /** @var FileResponse $fileResponse */
