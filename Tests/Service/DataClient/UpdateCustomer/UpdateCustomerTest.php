@@ -4,8 +4,7 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer;
 
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
-use Gonetto\FCApiClientBundle\Model\Document;
-use Gonetto\FCApiClientBundle\Model\FileResponse;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
 use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -45,11 +44,8 @@ class UpdateCustomerTest extends KernelTestCase
      */
     protected function mockGuzzleClient()
     {
-        // Api response
-        $json = file_get_contents(__DIR__.'/ApiUpdateResponse.json');
-
         // Mock client
-        $mock = new MockHandler([new Response(200, [], $json)]);
+        $mock = new MockHandler([new Response(200, [], '{"result": true}')]);
         $handler = HandlerStack::create($mock);
         $guzzleClient = new Client(['handler' => $handler]);
 
@@ -80,6 +76,8 @@ class UpdateCustomerTest extends KernelTestCase
         // TODO:GN:MS: FC ID ist erzwungen! testen
 
         // Check response
-        $this->assertInstanceOf(CustomerUpdateRequest::class, $updateResponse);
+        $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);
+        $this->assertTrue($updateResponse->isSuccess());
+        $this->assertNull($updateResponse->getErrorMessage());
     }
 }

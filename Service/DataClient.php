@@ -4,6 +4,7 @@ namespace Gonetto\FCApiClientBundle\Service;
 
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
 use Gonetto\FCApiClientBundle\Model\DataRequest;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Model\Document;
@@ -155,32 +156,23 @@ class DataClient
      * @param \Gonetto\FCApiClientBundle\Model\Customer $customer
      *
      * @return string
+     * @throws \Exception
      */
     public function updateCustomer(Customer $customer)
     {
         // Create request object
-        $this->loadFromParentObj($customer);
+        $this->customerUpdateRequest->clone($customer);
 
-        var_dump($this->customerUpdateRequest);
+        // Send request
+        $jsonResponse = $this->sendRequest($this->customerUpdateRequest);
 
         // TODO:GN:MS: funktion inn arbeit
 
-        return '{}';
-    }
+        // Map json to object
+        /** @var FileResponse $fileResponse */
+        $customerUpdateResponse = $this->serializer->deserialize($jsonResponse, CustomerUpdateResponse::class, 'json');
 
-    /**
-     * Copy all data from Customer class to CustomerUpdateRequest class
-     *
-     * @param \Gonetto\FCApiClientBundle\Model\Customer $parentObj
-     */
-    protected function loadFromParentObj(Customer $parentObj): void
-    {
-        $objValues = get_object_vars($parentObj);
-        foreach($objValues AS $key=>$value)
-        {
-            $setter = 'set'.ucfirst($key);
-            $this->customerUpdateRequest->$setter($value);
-        }
+        return $customerUpdateResponse;
     }
 
     /**
