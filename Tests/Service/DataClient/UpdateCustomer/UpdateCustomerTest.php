@@ -2,8 +2,9 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer;
 
+use Faker\Factory;
+use Faker\Generator;
 use Gonetto\FCApiClientBundle\Model\Customer;
-use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
 use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
@@ -23,19 +24,20 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  */
 class UpdateCustomerTest extends KernelTestCase
 {
+
     /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
     protected $dataClient;
 
-    /**
-     * {@inheritDoc}
-     *
-     * @throws \Exception
-     */
-    protected function setUp()
-    {
-        parent::setUp();
+    /** @var \Faker\Generator */
+    protected $faker;
 
-        // Mock api client
+    /** {@inheritDoc} */
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->faker = Factory::create('de_DE');
+
         $this->mockGuzzleClient();
     }
 
@@ -53,7 +55,7 @@ class UpdateCustomerTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory('803...'))->createResponse(),
+            (new CustomerUpdateRequestFactory())->createResponse(),
             (new DataRequestFactory())->createResponse(),
             (new FileRequestFactory())->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
@@ -70,14 +72,38 @@ class UpdateCustomerTest extends KernelTestCase
         // Request file
         $customer = (new Customer())
             ->setFianceConsultId('DE02500105170137075030')
-            ->setIban('19DB5Y');
+            ->setIban($this->faker->iban());
         $updateResponse = $this->dataClient->updateCustomer($customer);
 
         // TODO:GN:MS: FC ID ist erzwungen! testen
+
+        // TODO:GN:MS: token ist erzwungen! testen?
 
         // Check response
         $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);
         $this->assertTrue($updateResponse->isSuccess());
         $this->assertNull($updateResponse->getErrorMessage());
+    }
+
+    /**
+     * @test
+     *
+     * @throws \Exception
+     */
+    public function testMissingFinanceConsultId()
+    {
+        // Request file
+        $customer = (new Customer())
+            ->setStreet($this->faker->streetAddress)
+            ->setCity($this->faker->city)
+            ->setZipCode($this->faker->postcode);
+        $updateResponse = $this->dataClient->updateCustomer($customer);
+
+        // TODO:GN:MS: token ist erzwungen! testen?
+
+        // Check response
+        $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);
+        $this->assertFalse($updateResponse->isSuccess());
+        $this->assertSame('The finance consult id is needed.', $updateResponse->getErrorMessage());
     }
 }

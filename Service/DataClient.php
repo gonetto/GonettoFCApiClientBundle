@@ -157,9 +157,19 @@ class DataClient
      *
      * @return string
      * @throws \Exception
+     *
+     * @example error: {"result":false, "error":"Objekt konnte nicht gesperrt werden."} // Try later again
+     * @example error: {"result":false, "error":"OID ungültig oder keine Berechtigung."} // Check FC customer ID
      */
     public function updateCustomer(Customer $customer)
     {
+        // Check id
+        if (empty($customer->getFianceConsultId())) {
+            return (new CustomerUpdateResponse())
+                ->setSuccess(false)
+                ->setErrorMessage('The finance consult id is needed.');
+        }
+
         // Prepare request object
         $this->customerUpdateRequest->clone($customer);
 

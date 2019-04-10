@@ -35,6 +35,9 @@ class Customer
      *
      * @ignore
      * @todo implements sync from FC to gonetto. Current only update at FC defined.
+     *
+     * @example planned: male,female,company,person // convert with EventSubscriber to number
+     * @example values: 1=Herr,2=Frau,3=Firma,4=Person
      */
     protected $gender;
 
