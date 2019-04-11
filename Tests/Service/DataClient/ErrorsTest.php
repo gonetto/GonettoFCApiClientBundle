@@ -29,6 +29,7 @@ class ErrorsTest extends KernelTestCase
      * @param string $body
      *
      * @return \Gonetto\FCApiClientBundle\Service\DataClient
+     * @throws \Exception
      */
     protected function mockGuzzleClient($statusCode, $body = ''): DataClient
     {
@@ -41,9 +42,9 @@ class ErrorsTest extends KernelTestCase
         return new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory())->createResponse(),
-            (new DataRequestFactory())->createResponse(),
-            (new FileRequestFactory())->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
+            (new DataRequestFactory('dummy'))->createResponse(),
+            (new FileRequestFactory('dummy'))->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }

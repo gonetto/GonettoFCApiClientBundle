@@ -37,6 +37,14 @@ class DataRequest implements RequestInterface
     protected $sinceDate;
 
     /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
      * @param string $token
      *
      * @return DataRequest

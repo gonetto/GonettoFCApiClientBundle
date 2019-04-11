@@ -27,9 +27,14 @@ class CustomerUpdateRequestFactory
 
     /**
      * @return \Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
+     * @throws \Exception
      */
     public function createResponse(): CustomerUpdateRequest
     {
+        if (empty(self::$token)) {
+            throw new \Exception('API token can not not be empty');
+        }
+
         return (new CustomerUpdateRequest())->setToken(self::$token);
     }
 }

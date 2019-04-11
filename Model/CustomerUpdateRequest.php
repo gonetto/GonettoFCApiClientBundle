@@ -29,6 +29,14 @@ class CustomerUpdateRequest extends Customer implements RequestInterface
     protected $action = 'setKunde';
 
     /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
      * @param string $token
      *
      * @return CustomerUpdateRequest

@@ -45,6 +45,14 @@ class FileRequest implements RequestInterface
     protected $contractId;
 
     /**
+     * @return string
+     */
+    public function getToken(): string
+    {
+        return $this->token;
+    }
+
+    /**
      * @param string $token
      *
      * @return FileRequest

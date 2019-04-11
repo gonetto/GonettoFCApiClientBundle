@@ -27,9 +27,14 @@ class DataRequestFactory
 
     /**
      * @return \Gonetto\FCApiClientBundle\Model\DataRequest
+     * @throws \Exception
      */
     public function createResponse(): DataRequest
     {
+        if (empty(self::$token)) {
+            throw new \Exception('API token can not not be empty');
+        }
+
         return (new DataRequest())->setToken(self::$token);
     }
 }

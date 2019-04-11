@@ -27,9 +27,14 @@ class FileRequestFactory
 
     /**
      * @return \Gonetto\FCApiClientBundle\Model\FileRequest
+     * @throws \Exception
      */
     public function createResponse(): FileRequest
     {
+        if (empty(self::$token)) {
+            throw new \Exception('API token can not not be empty');
+        }
+
         return (new FileRequest())->setToken(self::$token);
     }
 }

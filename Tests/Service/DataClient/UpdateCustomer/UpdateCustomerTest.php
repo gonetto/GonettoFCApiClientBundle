@@ -3,7 +3,6 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer;
 
 use Faker\Factory;
-use Faker\Generator;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
 use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
@@ -55,9 +54,9 @@ class UpdateCustomerTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory())->createResponse(),
-            (new DataRequestFactory())->createResponse(),
-            (new FileRequestFactory())->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
+            (new DataRequestFactory('dummy'))->createResponse(),
+            (new FileRequestFactory('dummy'))->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }
@@ -74,10 +73,6 @@ class UpdateCustomerTest extends KernelTestCase
             ->setFianceConsultId('DE02500105170137075030')
             ->setIban($this->faker->iban());
         $updateResponse = $this->dataClient->updateCustomer($customer);
-
-        // TODO:GN:MS: FC ID ist erzwungen! testen
-
-        // TODO:GN:MS: token ist erzwungen! testen?
 
         // Check response
         $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);
@@ -98,8 +93,6 @@ class UpdateCustomerTest extends KernelTestCase
             ->setCity($this->faker->city)
             ->setZipCode($this->faker->postcode);
         $updateResponse = $this->dataClient->updateCustomer($customer);
-
-        // TODO:GN:MS: token ist erzwungen! testen?
 
         // Check response
         $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);

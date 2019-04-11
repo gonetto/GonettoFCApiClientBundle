@@ -53,9 +53,9 @@ class DeprecatedGetAllTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory())->createResponse(),
-            (new DataRequestFactory())->createResponse(),
-            (new FileRequestFactory())->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
+            (new DataRequestFactory('dummy'))->createResponse(),
+            (new FileRequestFactory('dummy'))->createResponse(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }
