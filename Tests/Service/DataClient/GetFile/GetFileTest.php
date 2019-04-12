@@ -31,14 +31,18 @@ class GetFileTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    protected function setUp()
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
+        parent::__construct($name, $data, $dataName);
+
         // Mock api client
         $this->mockGuzzleClient();
     }
 
     /**
      * Setup client for mock.
+     *
+     * @throws \Exception
      */
     protected function mockGuzzleClient()
     {
@@ -66,7 +70,7 @@ class GetFileTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testResponse()
+    public function testGetFile()
     {
         // Request file
         $document = (new Document())
@@ -76,5 +80,38 @@ class GetFileTest extends KernelTestCase
 
         // Check response
         $this->assertInstanceOf(FileResponse::class, $fileResponse);
+    }
+
+    /**
+     * @test
+     * @dataProvider parametersProvider
+     *
+     * @param \Gonetto\FCApiClientBundle\Model\Document $document
+     *
+     * @throws \Exception
+     */
+    public function testMissingParameters(Document $document)
+    {
+        $this->expectException(\Exception::class);
+        $this->dataClient->getFile($document);
+    }
+
+    /**
+     * @return array
+     */
+    public function parametersProvider(): array
+    {
+        return [
+            'FinanceConsultId missing' => [
+                (new Document())
+                    ->setFianceConsultId('')
+                    ->setContractId('19DB5Y'),
+            ],
+            'ContractId missing' => [
+                (new Document())
+                    ->setFianceConsultId('1B5O3V')
+                    ->setContractId(''),
+            ],
+        ];
     }
 }

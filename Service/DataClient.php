@@ -129,6 +129,14 @@ class DataClient
      */
     public function getFile(Document $document, $get_src_json = false)
     {
+        // Check parameters
+        if (empty($document->getFianceConsultId())) {
+            throw new \Exception('FianceConsultId can not not be empty');
+        }
+        if (empty($document->getContractId())) {
+            throw new \Exception('ContractId can not not be empty');
+        }
+
         // Prepare request
         $this->fileRequest
             ->setDocumentId($document->getFianceConsultId())
