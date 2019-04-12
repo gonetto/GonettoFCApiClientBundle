@@ -13,14 +13,6 @@ class FileResponse
 {
 
     /**
-     * @var \DateTime created at date
-     *
-     * @JMS\Type("DateTime<'Y-m-d', 'Europe/Berlin'>")
-     * @JMS\SerializedName("erstelltAm")
-     */
-    protected $created;
-
-    /**
      * @var string Base64 encoded document
      *
      * @JMS\Type("string")
@@ -35,27 +27,6 @@ class FileResponse
      * @JMS\SerializedName("extension")
      */
     protected $extension;
-
-    /**
-     * @return \DateTime
-     */
-    public function getCreated(): \DateTime
-    {
-        return $this->created;
-    }
-
-    /**
-     * @param \DateTime $created
-     *
-     * @return \Gonetto\FCApiClientBundle\Model\FileResponse
-     * @throws \Exception
-     */
-    public function setCreated(\DateTime $created): FileResponse
-    {
-        $this->created = $created;
-
-        return $this;
-    }
 
     /**
      * @return string

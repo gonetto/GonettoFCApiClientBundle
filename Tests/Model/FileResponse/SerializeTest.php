@@ -45,7 +45,6 @@ class SerializeTest extends KernelTestCase
         $fileResponse = $this->serializer->deserialize($jsonResponse, FileResponse::class, 'json');
 
         // Compare result
-        $this->assertEquals('2019-01-14', $fileResponse->getCreated()->format('Y-m-d'));
         $this->assertEquals(base64_encode(file_get_contents(__DIR__.'/FileResponse.pdf')), $fileResponse->getFile());
         $this->assertEquals('pdf', $fileResponse->getExtension());
     }
