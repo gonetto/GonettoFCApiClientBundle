@@ -19,7 +19,7 @@ class GonettoFCApiClientExtension extends Extension implements PrependExtensionI
     /**
      * @param \Symfony\Component\DependencyInjection\ContainerBuilder $container
      */
-    public function prepend(ContainerBuilder $container)
+    public function prepend(ContainerBuilder $container): void
     {
         // Get all bundles
         $bundles = $container->getParameter('kernel.bundles');
@@ -53,7 +53,7 @@ class GonettoFCApiClientExtension extends Extension implements PrependExtensionI
      *
      * @throws \Exception
      */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         // Load bundle configs
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));

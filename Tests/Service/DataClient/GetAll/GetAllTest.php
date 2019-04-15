@@ -41,7 +41,7 @@ class GetAllTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    protected function mockGuzzleClient()
+    protected function mockGuzzleClient(): void
     {
         // Api response
         $json = file_get_contents(__DIR__.'/ApiDataResponse.json');
@@ -63,11 +63,9 @@ class GetAllTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testResponse()
+    public function testResponse(): void
     {
         // Deserialize JSON with JMS Serializer
         $dataResponse = $this->dataClient->getAll();

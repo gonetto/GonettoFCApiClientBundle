@@ -106,7 +106,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setFianceConsultId(string $fianceConsultId): Contract
+    public function setFianceConsultId(string $fianceConsultId): self
     {
         $this->fianceConsultId = $fianceConsultId;
 
@@ -126,7 +126,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setCustomerId(string $customerId): Contract
+    public function setCustomerId(string $customerId): self
     {
         $this->customerId = $customerId;
 
@@ -146,7 +146,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setFee(float $fee): Contract
+    public function setFee(float $fee): self
     {
         $this->fee = $fee;
 
@@ -166,7 +166,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setInsurer(string $insurer): Contract
+    public function setInsurer(string $insurer): self
     {
         $this->insurer = $insurer;
 
@@ -186,7 +186,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setMainRenewalDate(DateTime $mainRenewalDate): Contract
+    public function setMainRenewalDate(DateTime $mainRenewalDate): self
     {
         $this->mainRenewalDate = $mainRenewalDate;
 
@@ -206,7 +206,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setInsuranceType(string $insuranceType): Contract
+    public function setInsuranceType(string $insuranceType): self
     {
         $this->insuranceType = $insuranceType;
 
@@ -226,7 +226,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setContractDate(DateTime $contractDate): Contract
+    public function setContractDate(DateTime $contractDate): self
     {
         $this->contractDate = $contractDate;
 
@@ -246,7 +246,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setEndOfContract(DateTime $endOfContract): Contract
+    public function setEndOfContract(DateTime $endOfContract): self
     {
         $this->endOfContract = $endOfContract;
 
@@ -266,7 +266,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setPolicyNumber(string $policyNumber): Contract
+    public function setPolicyNumber(string $policyNumber): self
     {
         $this->policyNumber = $policyNumber;
 
@@ -286,7 +286,7 @@ class Contract
      *
      * @return \Gonetto\FCApiClientBundle\Model\Contract
      */
-    public function setPaymentInterval($paymentInterval): Contract
+    public function setPaymentInterval($paymentInterval): self
     {
         $this->paymentInterval = $paymentInterval;
 

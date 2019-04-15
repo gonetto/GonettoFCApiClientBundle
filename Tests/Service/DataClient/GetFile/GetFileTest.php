@@ -57,11 +57,9 @@ class GetFileTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testGetFile()
+    public function testGetFile(): void
     {
         // Request file
         $document = (new Document())
@@ -74,14 +72,13 @@ class GetFileTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider parametersProvider
      *
      * @param \Gonetto\FCApiClientBundle\Model\Document $document
      *
      * @throws \Exception
      */
-    public function testMissingParameters(Document $document)
+    public function testMissingParameters(Document $document): void
     {
         $this->expectException(Exception::class);
         $this->mockGuzzleClient()->getFile($document);
@@ -111,7 +108,7 @@ class GetFileTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testInvalidId()
+    public function testInvalidId(): void
     {
 
         $this->expectException(Exception::class);

@@ -41,7 +41,7 @@ class FileResponse
      *
      * @return FileResponse
      */
-    public function setFile(string $file): FileResponse
+    public function setFile(string $file): self
     {
         $this->file = $file;
 
@@ -61,7 +61,7 @@ class FileResponse
      *
      * @return FileResponse
      */
-    public function setExtension(string $extension): FileResponse
+    public function setExtension(string $extension): self
     {
         $this->extension = $extension;
 

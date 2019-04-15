@@ -50,7 +50,7 @@ class DataRequest implements RequestInterface
      *
      * @return DataRequest
      */
-    public function setToken(string $token): DataRequest
+    public function setToken(string $token): self
     {
         $this->token = $token;
 
@@ -78,7 +78,7 @@ class DataRequest implements RequestInterface
      *
      * @return DataRequest
      */
-    public function setSinceDate(?DateTime $sinceDate): DataRequest
+    public function setSinceDate(?DateTime $sinceDate): self
     {
         $this->sinceDate = $sinceDate;
 

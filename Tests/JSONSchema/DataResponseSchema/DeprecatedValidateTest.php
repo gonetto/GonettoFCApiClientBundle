@@ -30,13 +30,10 @@ class DeprecatedValidateTest extends KernelTestCase
         $this->exampleResponse = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
     }
 
-    /**
-     * @test
-     */
     public function testValidResponse(): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($this->exampleResponse, false);
 
         // Check validator result
         $validator = new Validator();
@@ -45,7 +42,6 @@ class DeprecatedValidateTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider parametersProvider
      *
      * @param string $category
@@ -55,7 +51,7 @@ class DeprecatedValidateTest extends KernelTestCase
     public function testMissingParameter(string $category, string $parameter, bool $allowed = false): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($this->exampleResponse, false);
 
         // Unset parameter
         unset(($exampleResponse->$category)[0]->$parameter);

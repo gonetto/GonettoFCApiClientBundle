@@ -30,13 +30,10 @@ class ValidateTest extends KernelTestCase
         $this->exampleResponse = file_get_contents(__DIR__.'/ApiDataResponse.json');
     }
 
-    /**
-     * @test
-     */
     public function testValidResponse(): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($this->exampleResponse, false);
 
         // Check validator result
         $validator = new Validator();
@@ -44,9 +41,6 @@ class ValidateTest extends KernelTestCase
         $this->assertTrue($validator->isValid(), print_r($validator->getErrors(), true));
     }
 
-    /**
-     * @test
-     */
     public function testNoResponse(): void
     {
         $exampleResponse = null;
@@ -57,9 +51,6 @@ class ValidateTest extends KernelTestCase
         $this->assertFalse($validator->isValid(), 'null is not valid.');
     }
 
-    /**
-     * @test
-     */
     public function testEmptyResponse(): void
     {
         $exampleResponse = (object)[];
@@ -71,7 +62,6 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider categoriesProvider
      *
      * @param $category
@@ -79,7 +69,7 @@ class ValidateTest extends KernelTestCase
     public function testEmptyCategory($category): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($this->exampleResponse, false);
 
         // Unset category
         $exampleResponse->$category = [];
@@ -106,7 +96,6 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider parametersProvider
      *
      * @param string $category
@@ -116,7 +105,7 @@ class ValidateTest extends KernelTestCase
     public function testMissingParameter(string $category, string $parameter, bool $assert = false): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($this->exampleResponse, false);
 
         // Unset parameter
         unset(($exampleResponse->$category)[0]->$parameter);

@@ -202,7 +202,7 @@ class DataClient
      * @return string
      * @throws \Exception
      */
-    protected function sendRequest(RequestInterface $request)
+    protected function sendRequest(RequestInterface $request): string
     {
         // Prepare request
         $body = $this->serializer->serialize($request, 'json');
@@ -212,7 +212,7 @@ class DataClient
         $jsonResponse = (string)$stream->getBody();
 
         // Check if not valid JSON response
-        if (json_decode($jsonResponse) === null) {
+        if (json_decode($jsonResponse, false) === null) {
             throw new Exception(
                 'Finance Consult API dosen\'t sent valid JSON. Check the response.'
                 .' (Response: "'.$jsonResponse.'")'
@@ -230,7 +230,7 @@ class DataClient
      */
     protected function jsonSchemaCheck(string $jsonResponse, string $schema): void
     {
-        $response = json_decode($jsonResponse);
+        $response = json_decode($jsonResponse, false);
         $this->validator->validate($response, (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/'.$schema.'.json']);
         if (!$this->validator->isValid()) {
             // If error
@@ -249,9 +249,9 @@ class DataClient
      *
      * @throws \Exception
      */
-    protected function errorJsonSchemaCheck($jsonResponse)
+    protected function errorJsonSchemaCheck($jsonResponse): void
     {
-        $response = json_decode($jsonResponse);
+        $response = json_decode($jsonResponse, false);
         $validator = new Validator();
         $validator->validate($response, (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/ErrorSchema.json']);
         if ($validator->isValid()) {

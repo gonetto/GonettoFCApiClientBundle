@@ -26,7 +26,6 @@ class DeserializeDocumentTypeTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider documentTypesProvider
      *
      * @param string|int $string

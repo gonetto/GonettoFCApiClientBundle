@@ -39,7 +39,7 @@ class SerializeTest extends KernelTestCase
     /**
      * @throws \Exception
      */
-    protected function loadDataFixtures()
+    protected function loadDataFixtures(): void
     {
         $this->data = (new DataResponse())
             ->addCustomer(
@@ -82,11 +82,9 @@ class SerializeTest extends KernelTestCase
     /**
      * Test map() customers with addresses and contacts.
      *
-     * @test
-     *
      * @throws \Exception
      */
-    public function testResponse()
+    public function testResponse(): void
     {
         // Deserialize JSON
         $jsonResponse = file_get_contents(__DIR__.'/DataResponse.json');

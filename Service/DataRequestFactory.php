@@ -14,7 +14,7 @@ class DataRequestFactory implements RequestFactoryInterface
 {
 
     /** @var string */
-    static $token;
+    public static $token;
 
     /**
      * DataRequestFactory constructor.

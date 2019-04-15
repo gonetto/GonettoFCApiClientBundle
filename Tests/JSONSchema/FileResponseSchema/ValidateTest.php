@@ -44,7 +44,6 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider jsonsProvider
      *
      * @param string $json
@@ -54,7 +53,7 @@ class ValidateTest extends KernelTestCase
     public function testValidResponse(string $json, string $message = null, bool $assert = true): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($json);
+        $exampleResponse = json_decode($json, false);
 
         // Check validator result
         $validator = new Validator();
@@ -76,7 +75,6 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider parametersProvider
      *
      * @param string $parameter
@@ -85,7 +83,7 @@ class ValidateTest extends KernelTestCase
     public function testMissingParameter(string $parameter, bool $assert = false): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($this->exampleResponse);
+        $exampleResponse = json_decode($this->exampleResponse, false);
 
         // Unset parameter
         unset($exampleResponse->$parameter);

@@ -41,7 +41,7 @@ class CustomerUpdateRequest extends Customer implements RequestInterface
      *
      * @return CustomerUpdateRequest
      */
-    public function setToken(string $token): CustomerUpdateRequest
+    public function setToken(string $token): self
     {
         $this->token = $token;
 

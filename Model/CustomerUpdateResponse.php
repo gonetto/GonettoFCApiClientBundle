@@ -41,7 +41,7 @@ class CustomerUpdateResponse
      *
      * @return CustomerUpdateResponse
      */
-    public function setSuccess(bool $success): CustomerUpdateResponse
+    public function setSuccess(bool $success): self
     {
         $this->success = $success;
 
@@ -61,7 +61,7 @@ class CustomerUpdateResponse
      *
      * @return CustomerUpdateResponse
      */
-    public function setErrorMessage(string $errorMessage): CustomerUpdateResponse
+    public function setErrorMessage(string $errorMessage): self
     {
         $this->errorMessage = $errorMessage;
 

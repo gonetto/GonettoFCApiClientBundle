@@ -17,7 +17,7 @@ class JmsSerializerFactory
 {
 
     /** @var \JMS\Serializer\Serializer */
-    static $serializer;
+    public static $serializer;
 
     /**
      * JmsSerializerFactory constructor.
@@ -27,7 +27,7 @@ class JmsSerializerFactory
         // Register event subscriber
         self::$serializer = SerializerBuilder::create()
             ->configureListeners(
-                function (EventDispatcher $dispatcher) {
+                static function (EventDispatcher $dispatcher) {
                     $dispatcher->addSubscriber(new ContractEventSubscriber());
                     $dispatcher->addSubscriber(new DocumentEventSubscriber());
                 }

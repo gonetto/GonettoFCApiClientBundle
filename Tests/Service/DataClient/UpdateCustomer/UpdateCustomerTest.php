@@ -4,7 +4,6 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer;
 
 use Faker\Factory;
 use Gonetto\FCApiClientBundle\Model\Customer;
-use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
 use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -49,7 +48,7 @@ class UpdateCustomerTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    protected function mockGuzzleClient()
+    protected function mockGuzzleClient(): void
     {
         // Mock client
         $mock = new MockHandler([new Response(200, [], '{"result": true}')]);
@@ -68,11 +67,9 @@ class UpdateCustomerTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testResponse()
+    public function testResponse(): void
     {
         // Request file
         $customer = (new Customer())
@@ -81,17 +78,14 @@ class UpdateCustomerTest extends KernelTestCase
         $updateResponse = $this->dataClient->updateCustomer($customer);
 
         // Check response
-        $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);
         $this->assertTrue($updateResponse->isSuccess());
         $this->assertNull($updateResponse->getErrorMessage());
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testMissingFinanceConsultId()
+    public function testMissingFinanceConsultId(): void
     {
         // Request file
         $customer = (new Customer())
@@ -101,7 +95,6 @@ class UpdateCustomerTest extends KernelTestCase
         $updateResponse = $this->dataClient->updateCustomer($customer);
 
         // Check response
-        $this->assertInstanceOf(CustomerUpdateResponse::class, $updateResponse);
         $this->assertFalse($updateResponse->isSuccess());
         $this->assertSame('The finance consult id is needed.', $updateResponse->getErrorMessage());
     }

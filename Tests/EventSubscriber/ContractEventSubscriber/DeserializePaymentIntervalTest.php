@@ -31,7 +31,7 @@ class DeserializePaymentIntervalTest extends KernelTestCase
      * @param int $numeric
      * @param string $string
      */
-    public function testDeprecatedDeserialize(int $numeric, string $string)
+    public function testDeprecatedDeserialize(int $numeric, string $string): void
     {
         // Deserialize JSON
         $dataResponse = $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"'.$string.'"}]}]}');
@@ -52,7 +52,7 @@ class DeserializePaymentIntervalTest extends KernelTestCase
      * @param int $numeric
      * @param string $string
      */
-    public function testDeserialize(int $numeric, string $string)
+    public function testDeserialize(int $numeric, string $string): void
     {
         // Deserialize JSON
         $dataResponse = $this->deserialize('{"vertraege":[{"zahlungsweise":"'.$string.'"}]}');
@@ -68,7 +68,7 @@ class DeserializePaymentIntervalTest extends KernelTestCase
     /**
      * @return array
      */
-    public function paymentIntervalsProvider()
+    public function paymentIntervalsProvider(): array
     {
         return [
             'monatlich' => [12, 'monatlich'],

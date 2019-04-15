@@ -18,7 +18,7 @@ class DocumentEventSubscriber implements EventSubscriberInterface
     /**
      * @return array
      */
-    public static function getSubscribedEvents()
+    public static function getSubscribedEvents(): array
     {
         return [
           [
@@ -32,7 +32,7 @@ class DocumentEventSubscriber implements EventSubscriberInterface
     /**
      * @param \JMS\Serializer\EventDispatcher\ObjectEvent $event
      */
-    public function onPostDeserialize(ObjectEvent $event)
+    public function onPostDeserialize(ObjectEvent $event): void
     {
         // Current contract
         /** @var Document $document */

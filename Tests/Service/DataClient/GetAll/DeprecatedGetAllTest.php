@@ -41,7 +41,7 @@ class DeprecatedGetAllTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    protected function mockGuzzleClient()
+    protected function mockGuzzleClient(): void
     {
         // Api response
         $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
@@ -63,11 +63,9 @@ class DeprecatedGetAllTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testGetAllSince()
+    public function testGetAllSince(): void
     {
         // Deserialize JSON with JMS Serializer
         $dataResponse = $this->dataClient->getAll();

@@ -38,7 +38,7 @@ class DeprecatedSerializeTest extends KernelTestCase
     /**
      * @throws \Exception
      */
-    protected function loadDataFixtures()
+    protected function loadDataFixtures(): void
     {
         $this->data = (new DataResponse())
             ->addCustomer(
@@ -72,7 +72,7 @@ class DeprecatedSerializeTest extends KernelTestCase
      *
      * @throws \Exception
      */
-    public function testResponse()
+    public function testResponse(): void
     {
         // Deserialize JSON
         $jsonResponse = file_get_contents(__DIR__.'/DeprecatedDataResponse.json');

@@ -57,7 +57,7 @@ class FileRequest implements RequestInterface
      *
      * @return FileRequest
      */
-    public function setToken(string $token): FileRequest
+    public function setToken(string $token): self
     {
         $this->token = $token;
 
@@ -85,7 +85,7 @@ class FileRequest implements RequestInterface
      *
      * @return FileRequest
      */
-    public function setDocumentId(string $documentId): FileRequest
+    public function setDocumentId(string $documentId): self
     {
         $this->documentId = $documentId;
 
@@ -105,7 +105,7 @@ class FileRequest implements RequestInterface
      *
      * @return FileRequest
      */
-    public function setContractId(string $contractId): FileRequest
+    public function setContractId(string $contractId): self
     {
         $this->contractId = $contractId;
 

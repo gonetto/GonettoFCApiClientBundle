@@ -33,11 +33,9 @@ class SerializeTest extends KernelTestCase
     /**
      * Test map() customers with addresses and contacts.
      *
-     * @test
-     *
      * @throws \Exception
      */
-    public function testResponse()
+    public function testResponse(): void
     {
         // Deserialize JSON
         $jsonResponse = file_get_contents(__DIR__.'/FileResponse.json');

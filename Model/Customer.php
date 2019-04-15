@@ -156,7 +156,7 @@ class Customer
      *
      * @return $this
      */
-    public function clone(Customer $customer)
+    public function clone(Customer $customer): self
     {
         foreach (get_object_vars($customer) as $key => $value) {
             $this->$key = $value;
@@ -178,7 +178,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setFianceConsultId(string $fianceConsultId): Customer
+    public function setFianceConsultId(string $fianceConsultId): self
     {
         $this->fianceConsultId = $fianceConsultId;
 
@@ -198,7 +198,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setEmail(string $email): Customer
+    public function setEmail(string $email): self
     {
         $this->email = $email;
 
@@ -218,7 +218,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setFirstName(string $firstName): Customer
+    public function setFirstName(string $firstName): self
     {
         $this->firstName = $firstName;
 
@@ -238,7 +238,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setLastName(string $lastName): Customer
+    public function setLastName(string $lastName): self
     {
         $this->lastName = $lastName;
 
@@ -258,7 +258,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setCompany(string $company): Customer
+    public function setCompany(string $company): self
     {
         $this->company = $company;
 
@@ -278,7 +278,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setStreet(string $street): Customer
+    public function setStreet(string $street): self
     {
         $this->street = $street;
 
@@ -302,7 +302,7 @@ class Customer
      *
      * @deprecated
      */
-    public function setHouseNumber(string $houseNumber): Customer
+    public function setHouseNumber(string $houseNumber): self
     {
         $this->street .= $houseNumber;
 
@@ -322,7 +322,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setZipCode(string $zipCode): Customer
+    public function setZipCode(string $zipCode): self
     {
         $this->zipCode = $zipCode;
 
@@ -342,7 +342,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setCity(string $city): Customer
+    public function setCity(string $city): self
     {
         $this->city = $city;
 
@@ -362,7 +362,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setIban(string $iban): Customer
+    public function setIban(string $iban): self
     {
         $this->iban = $iban;
 
@@ -386,7 +386,7 @@ class Customer
      *
      * @deprecated
      */
-    public function setContracts(array $contracts): Customer
+    public function setContracts(array $contracts): self
     {
         $this->contracts = $contracts;
 
@@ -400,7 +400,7 @@ class Customer
      *
      * @deprecated
      */
-    public function addContract(Contract $contract): Customer
+    public function addContract(Contract $contract): self
     {
         $this->contracts[] = $contract;
 
@@ -414,7 +414,7 @@ class Customer
      *
      * @deprecated
      */
-    public function removeContract(Contract $contract): Customer
+    public function removeContract(Contract $contract): self
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Contract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {

@@ -25,7 +25,6 @@ class ValidateTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider jsonsProvider
      *
      * @param string $json
@@ -35,7 +34,7 @@ class ValidateTest extends KernelTestCase
     public function testValidation(string $json, string $message = null, bool $assert = true): void
     {
         // Create new instance for test
-        $exampleResponse = json_decode($json);
+        $exampleResponse = json_decode($json, false);
 
         // Check validator result
         $validator = new Validator();

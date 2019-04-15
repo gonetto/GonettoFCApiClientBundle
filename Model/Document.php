@@ -58,7 +58,7 @@ class Document
      *
      * @return Document
      */
-    public function setFianceConsultId(string $fianceConsultId): Document
+    public function setFianceConsultId(string $fianceConsultId): self
     {
         $this->fianceConsultId = $fianceConsultId;
 
@@ -78,7 +78,7 @@ class Document
      *
      * @return Document
      */
-    public function setContractId(string $contractId): Document
+    public function setContractId(string $contractId): self
     {
         $this->contractId = $contractId;
 
@@ -98,7 +98,7 @@ class Document
      *
      * @return Document
      */
-    public function setType($type): Document
+    public function setType($type): self
     {
         $this->type = $type;
 
@@ -118,7 +118,7 @@ class Document
      *
      * @return Document
      */
-    public function setDate(DateTime $date): Document
+    public function setDate(DateTime $date): self
     {
         $this->date = $date;
 

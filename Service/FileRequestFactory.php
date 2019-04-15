@@ -14,7 +14,7 @@ class FileRequestFactory implements RequestFactoryInterface
 {
 
     /** @var string */
-    static $token;
+    public static $token;
 
     /**
      * FileRequestFactory constructor.

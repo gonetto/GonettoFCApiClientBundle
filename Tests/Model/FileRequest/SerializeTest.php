@@ -30,11 +30,9 @@ class SerializeTest extends KernelTestCase
     /**
      * Test map() customers with addresses and contacts.
      *
-     * @test
-     *
      * @throws \Exception
      */
-    public function testRequestAll()
+    public function testRequestAll(): void
     {
         // Serialize object
         $request = (new FileRequest())

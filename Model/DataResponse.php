@@ -73,7 +73,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function setCustomers(array $customers): DataResponse
+    public function setCustomers(array $customers): self
     {
         $this->customers = $customers;
 
@@ -85,7 +85,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function addCustomer(Customer $customer): DataResponse
+    public function addCustomer(Customer $customer): self
     {
         $this->customers[] = $customer;
 
@@ -97,7 +97,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function removeCustomer(Customer $customer): DataResponse
+    public function removeCustomer(Customer $customer): self
     {
         /**  @var \Gonetto\FCApiClientBundle\Model\Customer $currentCustomer */
         foreach ($this->customers as $key => $currentCustomer) {
@@ -123,7 +123,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function setCustomersDeleted(array $customersDeleted): DataResponse
+    public function setCustomersDeleted(array $customersDeleted): self
     {
         $this->customersDeleted = $customersDeleted;
 
@@ -135,7 +135,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function addCustomerDeleted(string $customer_id): DataResponse
+    public function addCustomerDeleted(string $customer_id): self
     {
         $this->customersDeleted[] = $customer_id;
 
@@ -147,7 +147,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function removeCustomerDeleted(string $customer_id): DataResponse
+    public function removeCustomerDeleted(string $customer_id): self
     {
         foreach ($this->customersDeleted as $key => $current_customer_id) {
             if ($customer_id === $current_customer_id) {
@@ -172,7 +172,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function setContracts(array $contracts): DataResponse
+    public function setContracts(array $contracts): self
     {
         $this->contracts = $contracts;
 
@@ -184,7 +184,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function addContract(Contract $contract): DataResponse
+    public function addContract(Contract $contract): self
     {
         $this->contracts[] = $contract;
 
@@ -196,7 +196,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function removeContract(Contract $contract): DataResponse
+    public function removeContract(Contract $contract): self
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Contract $currentContract */
         foreach ($this->contracts as $key => $currentContract) {
@@ -222,7 +222,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function setContractsDeleted(array $contractsDeleted): DataResponse
+    public function setContractsDeleted(array $contractsDeleted): self
     {
         $this->contractsDeleted = $contractsDeleted;
 
@@ -234,7 +234,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function addContractDeleted(string $contract_id): DataResponse
+    public function addContractDeleted(string $contract_id): self
     {
         $this->contractsDeleted[] = $contract_id;
 
@@ -246,7 +246,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function removeContractDeleted(string $contract_id): DataResponse
+    public function removeContractDeleted(string $contract_id): self
     {
         foreach ($this->contractsDeleted as $key => $current_contract_id) {
             if ($contract_id === $current_contract_id) {
@@ -271,7 +271,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function setDocuments(array $documents): DataResponse
+    public function setDocuments(array $documents): self
     {
         $this->documents = $documents;
 
@@ -283,7 +283,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function addDocument(Document $contract): DataResponse
+    public function addDocument(Document $contract): self
     {
         $this->documents[] = $contract;
 
@@ -295,7 +295,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function removeDocument(Document $contract): DataResponse
+    public function removeDocument(Document $contract): self
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Document $currentDocument */
         foreach ($this->documents as $key => $currentDocument) {
@@ -321,7 +321,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function setDocumentsDeleted(array $documentsDeleted): DataResponse
+    public function setDocumentsDeleted(array $documentsDeleted): self
     {
         $this->documentsDeleted = $documentsDeleted;
 
@@ -333,7 +333,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function addDocumentDeleted(string $document_id): DataResponse
+    public function addDocumentDeleted(string $document_id): self
     {
         $this->documentsDeleted[] = $document_id;
 
@@ -345,7 +345,7 @@ class DataResponse
      *
      * @return DataResponse
      */
-    public function removeDocumentDeleted(string $document_id): DataResponse
+    public function removeDocumentDeleted(string $document_id): self
     {
         foreach ($this->documentsDeleted as $key => $current_document_id) {
             if ($document_id === $current_document_id) {

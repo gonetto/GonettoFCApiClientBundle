@@ -51,11 +51,9 @@ class ErrorsTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testForbidden()
+    public function testForbidden(): void
     {
         $this->expectException(ClientException::class);
         $this->expectExceptionCode(403);
@@ -65,11 +63,9 @@ class ErrorsTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testNotFound()
+    public function testNotFound(): void
     {
         $this->expectException(ClientException::class);
         $this->expectExceptionCode(404);
@@ -79,11 +75,9 @@ class ErrorsTest extends KernelTestCase
     }
 
     /**
-     * @test
-     *
      * @throws \Exception
      */
-    public function testInvalidToken()
+    public function testInvalidToken(): void
     {
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('Finance Consult API dosen\'t sent valid JSON. Check the response');

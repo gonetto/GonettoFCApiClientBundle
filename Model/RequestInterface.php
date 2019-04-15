@@ -13,12 +13,10 @@ interface RequestInterface
     /**
      * @return string
      */
-    public function getToken();
+    public function getToken(): string;
 
     /**
      * @param string $token
-     *
-     * @return \Gonetto\FCApiClientBundle\Model\RequestInterface
      */
     public function setToken(string $token);
 

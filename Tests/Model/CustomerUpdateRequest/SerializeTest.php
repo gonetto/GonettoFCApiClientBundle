@@ -23,10 +23,7 @@ class SerializeTest extends KernelTestCase
         $this->serializer = (new JmsSerializerFactory())->createSerializer();
     }
 
-    /**
-     * @test
-     */
-    public function testUpdateAll()
+    public function testUpdateAll(): void
     {
         // Serialize object
         $request = (new CustomerUpdateRequest())
@@ -48,7 +45,6 @@ class SerializeTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider parametersProvider
      *
      * @param string $setter

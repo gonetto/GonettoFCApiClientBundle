@@ -27,7 +27,6 @@ class CloneTest extends KernelTestCase
     }
 
     /**
-     * @test
      * @dataProvider parametersProvider
      *
      * @param string $parameter

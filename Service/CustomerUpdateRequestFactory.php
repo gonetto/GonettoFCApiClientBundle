@@ -14,7 +14,7 @@ class CustomerUpdateRequestFactory implements RequestFactoryInterface
 {
 
     /** @var string */
-    static $token;
+    public static $token;
 
     /**
      * DataRequestFactory constructor.
