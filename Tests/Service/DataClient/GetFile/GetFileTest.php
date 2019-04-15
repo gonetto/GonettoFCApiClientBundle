@@ -49,9 +49,9 @@ class GetFileTest extends KernelTestCase
         return new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
-            (new DataRequestFactory('dummy'))->createResponse(),
-            (new FileRequestFactory('dummy'))->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
+            (new DataRequestFactory('dummy'))->createRequest(),
+            (new FileRequestFactory('dummy'))->createRequest(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }
@@ -115,7 +115,7 @@ class GetFileTest extends KernelTestCase
     {
 
         $this->expectException(Exception::class);
-        $this->expectExceptionMessage('check the submitted Fiance Consult IDs');
+        $this->expectExceptionMessage('check the submitted Fiance Consult ID');
 
         $dataClient = $this->mockGuzzleClient(200, '{"result":false}');
         $dataClient->getFile(

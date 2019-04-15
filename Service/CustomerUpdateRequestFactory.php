@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Exception;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 
 /**
@@ -9,7 +10,7 @@ use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
  *
  * @package AppBundle\Service
  */
-class CustomerUpdateRequestFactory
+class CustomerUpdateRequestFactory implements RequestFactoryInterface
 {
 
     /** @var string */
@@ -29,10 +30,10 @@ class CustomerUpdateRequestFactory
      * @return \Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
      * @throws \Exception
      */
-    public function createResponse(): CustomerUpdateRequest
+    public function createRequest(): CustomerUpdateRequest
     {
         if (empty(self::$token)) {
-            throw new \Exception('API token can not not be empty');
+            throw new Exception('API token can not not be empty');
         }
 
         return (new CustomerUpdateRequest())->setToken(self::$token);

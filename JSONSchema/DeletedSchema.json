@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "Match customers",
-    "description": "This is a schema that matches customers.",
+    "title": "Match deleted objects",
+    "description": "This is a schema that matches deleted objects.",
     "type": "array",
     "items": {
         "type": "string"

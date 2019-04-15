@@ -30,7 +30,11 @@ class UpdateCustomerTest extends KernelTestCase
     /** @var \Faker\Generator */
     protected $faker;
 
-    /** {@inheritDoc} */
+    /**
+     * {@inheritDoc}
+     *
+     * @throws \Exception
+     */
     public function __construct($name = null, array $data = [], $dataName = '')
     {
         parent::__construct($name, $data, $dataName);
@@ -42,6 +46,8 @@ class UpdateCustomerTest extends KernelTestCase
 
     /**
      * Setup client for mock.
+     *
+     * @throws \Exception
      */
     protected function mockGuzzleClient()
     {
@@ -54,9 +60,9 @@ class UpdateCustomerTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
-            (new DataRequestFactory('dummy'))->createResponse(),
-            (new FileRequestFactory('dummy'))->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
+            (new DataRequestFactory('dummy'))->createRequest(),
+            (new FileRequestFactory('dummy'))->createRequest(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }

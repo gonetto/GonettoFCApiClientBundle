@@ -38,6 +38,8 @@ class DeprecatedGetAllTest extends KernelTestCase
 
     /**
      * Setup client for mock.
+     *
+     * @throws \Exception
      */
     protected function mockGuzzleClient()
     {
@@ -53,9 +55,9 @@ class DeprecatedGetAllTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
-            (new DataRequestFactory('dummy'))->createResponse(),
-            (new FileRequestFactory('dummy'))->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
+            (new DataRequestFactory('dummy'))->createRequest(),
+            (new FileRequestFactory('dummy'))->createRequest(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }
@@ -75,7 +77,9 @@ class DeprecatedGetAllTest extends KernelTestCase
         $this->assertCount(1, $dataResponse->getCustomers());
 
         // Check contract – test refactored structure
-        $this->assertCount(0, $dataResponse->getCustomers()[0]->getContracts());
+        /** @var \Gonetto\FCApiClientBundle\Model\Customer $customer */
+        $customer = $dataResponse->getCustomers()[0];
+        $this->assertCount(0, $customer->getContracts());
         $this->assertCount(1, $dataResponse->getContracts());
     }
 }

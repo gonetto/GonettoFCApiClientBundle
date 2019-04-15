@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -107,7 +108,7 @@ class Document
     /**
      * @return \DateTime
      */
-    public function getDate(): \DateTime
+    public function getDate(): DateTime
     {
         return $this->date;
     }
@@ -117,7 +118,7 @@ class Document
      *
      * @return Document
      */
-    public function setDate(\DateTime $date): Document
+    public function setDate(DateTime $date): Document
     {
         $this->date = $date;
 

@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Model\DataResponse;
 
+use DateTime;
 use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
@@ -60,10 +61,10 @@ class SerializeTest extends KernelTestCase
                     ->setCustomerId('19P1CF')
                     ->setFee(656.9)
                     ->setInsurer('DEVK Versicherungen')
-                    ->setMainRenewalDate(new \DateTime('2006-04-01'))
+                    ->setMainRenewalDate(new DateTime('2006-04-01'))
                     ->setInsuranceType('Wohngebäude')
-                    ->setContractDate(new \DateTime('2018-03-27T11:21:37'))
-                    ->setEndOfContract(new \DateTime('2019-04-01'))
+                    ->setContractDate(new DateTime('2018-03-27T11:21:37'))
+                    ->setEndOfContract(new DateTime('2019-04-01'))
                     ->setPolicyNumber('2397868001')
                     ->setPaymentInterval(1)
             )
@@ -73,7 +74,7 @@ class SerializeTest extends KernelTestCase
                     ->setFianceConsultId('1B5O3V')
                     ->setContractId('19DB5Y')
                     ->setType('Antrag')
-                    ->setDate(new \DateTime('2019-02-04T13:26:58'))
+                    ->setDate(new DateTime('2019-02-04T13:26:58'))
             )
             ->addDocumentDeleted('19CTC5');
     }

@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Exception;
 use Gonetto\FCApiClientBundle\Model\DataRequest;
 
 /**
@@ -9,7 +10,7 @@ use Gonetto\FCApiClientBundle\Model\DataRequest;
  *
  * @package AppBundle\Service
  */
-class DataRequestFactory
+class DataRequestFactory implements RequestFactoryInterface
 {
 
     /** @var string */
@@ -29,10 +30,10 @@ class DataRequestFactory
      * @return \Gonetto\FCApiClientBundle\Model\DataRequest
      * @throws \Exception
      */
-    public function createResponse(): DataRequest
+    public function createRequest(): DataRequest
     {
         if (empty(self::$token)) {
-            throw new \Exception('API token can not not be empty');
+            throw new Exception('API token can not not be empty');
         }
 
         return (new DataRequest())->setToken(self::$token);

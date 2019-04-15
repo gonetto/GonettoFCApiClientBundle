@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -67,7 +68,7 @@ class DataRequest implements RequestInterface
     /**
      * @return \DateTime|null
      */
-    public function getSinceDate(): ?\DateTime
+    public function getSinceDate(): ?DateTime
     {
         return $this->sinceDate;
     }
@@ -77,7 +78,7 @@ class DataRequest implements RequestInterface
      *
      * @return DataRequest
      */
-    public function setSinceDate(?\DateTime $sinceDate): DataRequest
+    public function setSinceDate(?DateTime $sinceDate): DataRequest
     {
         $this->sinceDate = $sinceDate;
 

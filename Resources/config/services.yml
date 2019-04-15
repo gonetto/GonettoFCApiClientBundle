@@ -6,19 +6,19 @@ services:
 
     Gonetto\FCApiClientBundle\Model\DataRequest:
         class: Gonetto\FCApiClientBundle\Model\DataRequest
-        factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createResponse'
+        factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createRequest'
         shard: false
         arguments: ['%gonetto_fc_api_client.api_access_token%']
 
     Gonetto\FCApiClientBundle\Model\FileRequest:
         class: Gonetto\FCApiClientBundle\Model\FileRequest
-        factory: 'Gonetto\FCApiClientBundle\Service\FileRequestFactory:createResponse'
+        factory: 'Gonetto\FCApiClientBundle\Service\FileRequestFactory:createRequest'
         shard: false
         arguments: ['%gonetto_fc_api_client.api_access_token%']
 
     Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest:
         class: Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
-        factory: 'Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory:createResponse'
+        factory: 'Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory:createRequest'
         shard: false
         arguments: ['%gonetto_fc_api_client.api_access_token%']
 

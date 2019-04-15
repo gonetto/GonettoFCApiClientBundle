@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Model\DataRequest;
 
+use DateTime;
 use Gonetto\FCApiClientBundle\Model\DataRequest;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -57,7 +58,7 @@ class SerializeTest extends KernelTestCase
         // Serialize object
         $dataRequest = (new DataRequest())
             ->setToken('8029fdd175474c61909ca5f0803965bb464ff546')
-            ->setSinceDate(new \DateTime('2019-02-15'));
+            ->setSinceDate(new DateTime('2019-02-15'));
         $jsonRequest = $this->serializer->serialize($dataRequest, 'json');
 
         // Check result

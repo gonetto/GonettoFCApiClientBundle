@@ -38,6 +38,8 @@ class GetAllTest extends KernelTestCase
 
     /**
      * Setup client for mock.
+     *
+     * @throws \Exception
      */
     protected function mockGuzzleClient()
     {
@@ -53,9 +55,9 @@ class GetAllTest extends KernelTestCase
         $this->dataClient = new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
-            (new DataRequestFactory('dummy'))->createResponse(),
-            (new FileRequestFactory('dummy'))->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
+            (new DataRequestFactory('dummy'))->createRequest(),
+            (new FileRequestFactory('dummy'))->createRequest(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }

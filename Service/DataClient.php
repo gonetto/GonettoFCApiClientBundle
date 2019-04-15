@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use DateTime;
 use Exception;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
@@ -95,7 +96,7 @@ class DataClient
      * @return \Gonetto\FCApiClientBundle\Model\DataResponse|string
      * @throws \Exception
      */
-    public function getAllSince(\DateTime $since = null, $get_src_json = false)
+    public function getAllSince(DateTime $since = null, $get_src_json = false)
     {
         // Prepare request
         $this->dataRequest->setSinceDate($since);
@@ -164,13 +165,13 @@ class DataClient
     /**
      * @param \Gonetto\FCApiClientBundle\Model\Customer $customer
      *
-     * @return string
+     * @return CustomerUpdateResponse
      * @throws \Exception
      *
      * @example error: {"result":false, "error":"Objekt konnte nicht gesperrt werden."} // Try later again
      * @example error: {"result":false, "error":"OID ungültig oder keine Berechtigung."} // Check FC customer ID
      */
-    public function updateCustomer(Customer $customer)
+    public function updateCustomer(Customer $customer): CustomerUpdateResponse
     {
         // Check id
         if (empty($customer->getFianceConsultId())) {

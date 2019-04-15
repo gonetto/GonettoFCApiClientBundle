@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
+use Exception;
 use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
 use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
@@ -42,9 +43,9 @@ class ErrorsTest extends KernelTestCase
         return new DataClient(
             '',
             $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createResponse(),
-            (new DataRequestFactory('dummy'))->createResponse(),
-            (new FileRequestFactory('dummy'))->createResponse(),
+            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
+            (new DataRequestFactory('dummy'))->createRequest(),
+            (new FileRequestFactory('dummy'))->createRequest(),
             (new JmsSerializerFactory())->createSerializer()
         );
     }
@@ -84,7 +85,7 @@ class ErrorsTest extends KernelTestCase
      */
     public function testInvalidToken()
     {
-        $this->expectException(\Exception::class);
+        $this->expectException(Exception::class);
         $this->expectExceptionMessage('Finance Consult API dosen\'t sent valid JSON. Check the response');
 
         $dataClient = $this->mockGuzzleClient(200, 'Ungültiges Token (php)');

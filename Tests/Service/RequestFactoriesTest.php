@@ -24,8 +24,9 @@ class RequestFactoriesTest extends KernelTestCase
      */
     public function testInterface(string $factory)
     {
+        /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
         $requestFactory = new $factory('dummy');
-        $request = $requestFactory->createResponse();
+        $request = $requestFactory->createRequest();
         $this->assertInstanceOf(RequestInterface::class, $request);
     }
 
@@ -38,7 +39,8 @@ class RequestFactoriesTest extends KernelTestCase
     public function testSetToken(string $factory)
     {
         $requestFactory = new $factory('dummy');
-        $request = $requestFactory->createResponse();
+        /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
+        $request = $requestFactory->createRequest();
         $this->assertSame('dummy', $request->getToken());
     }
 
@@ -52,7 +54,8 @@ class RequestFactoriesTest extends KernelTestCase
     {
         $this->expectExceptionMessage('API token can not not be empty');
         $requestFactory = new $factory();
-        $requestFactory->createResponse();
+        /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
+        $requestFactory->createRequest();
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Exception;
 use Gonetto\FCApiClientBundle\Model\FileRequest;
 
 /**
@@ -9,7 +10,7 @@ use Gonetto\FCApiClientBundle\Model\FileRequest;
  *
  * @package AppBundle\Service
  */
-class FileRequestFactory
+class FileRequestFactory implements RequestFactoryInterface
 {
 
     /** @var string */
@@ -29,10 +30,10 @@ class FileRequestFactory
      * @return \Gonetto\FCApiClientBundle\Model\FileRequest
      * @throws \Exception
      */
-    public function createResponse(): FileRequest
+    public function createRequest(): FileRequest
     {
         if (empty(self::$token)) {
-            throw new \Exception('API token can not not be empty');
+            throw new Exception('API token can not not be empty');
         }
 
         return (new FileRequest())->setToken(self::$token);

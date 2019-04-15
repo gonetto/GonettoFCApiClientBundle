@@ -1,7 +1,7 @@
 {
     "$schema": "http://json-schema.org/schema#",
-    "title": "Match customers",
-    "description": "This is a schema that matches customers.",
+    "title": "Match data response",
+    "description": "This is a schema that matches data response from finance consult.",
     "type": "object",
     "properties": {
         "kunden": {

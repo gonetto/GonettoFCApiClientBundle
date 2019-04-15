@@ -37,7 +37,10 @@ class DeserializePaymentIntervalTest extends KernelTestCase
         $dataResponse = $this->deserialize('{"kunden":[{"verträge":[{"zahlungsweise":"'.$string.'"}]}]}');
 
         // Get contract
-        $contract = $dataResponse->getCustomers()[0]->getContracts()[0];
+        /** @var \Gonetto\FCApiClientBundle\Model\Customer $customer */
+        $customer = $dataResponse->getCustomers()[0];
+        /** @var \Gonetto\FCApiClientBundle\Model\Contract $contract */
+        $contract = $customer->getContracts()[0];
 
         // Check payment interval
         $this->assertEquals($numeric, $contract->getPaymentInterval());
@@ -55,6 +58,7 @@ class DeserializePaymentIntervalTest extends KernelTestCase
         $dataResponse = $this->deserialize('{"vertraege":[{"zahlungsweise":"'.$string.'"}]}');
 
         // Get contract
+        /** @var \Gonetto\FCApiClientBundle\Model\Contract $contract */
         $contract = $dataResponse->getContracts()[0];
 
         // Check payment interval

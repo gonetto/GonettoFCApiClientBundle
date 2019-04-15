@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Model;
 
+use DateTime;
 use JMS\Serializer\Annotation as JMS;
 
 /**
@@ -175,7 +176,7 @@ class Contract
     /**
      * @return null|\DateTime
      */
-    public function getMainRenewalDate(): ?\DateTime
+    public function getMainRenewalDate(): ?DateTime
     {
         return $this->mainRenewalDate;
     }
@@ -185,7 +186,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setMainRenewalDate(\DateTime $mainRenewalDate): Contract
+    public function setMainRenewalDate(DateTime $mainRenewalDate): Contract
     {
         $this->mainRenewalDate = $mainRenewalDate;
 
@@ -215,7 +216,7 @@ class Contract
     /**
      * @return null|\DateTime
      */
-    public function getContractDate(): ?\DateTime
+    public function getContractDate(): ?DateTime
     {
         return $this->contractDate;
     }
@@ -225,7 +226,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setContractDate(\DateTime $contractDate): Contract
+    public function setContractDate(DateTime $contractDate): Contract
     {
         $this->contractDate = $contractDate;
 
@@ -235,7 +236,7 @@ class Contract
     /**
      * @return null|\DateTime
      */
-    public function getEndOfContract(): ?\DateTime
+    public function getEndOfContract(): ?DateTime
     {
         return $this->endOfContract;
     }
@@ -245,7 +246,7 @@ class Contract
      *
      * @return Contract
      */
-    public function setEndOfContract(\DateTime $endOfContract): Contract
+    public function setEndOfContract(DateTime $endOfContract): Contract
     {
         $this->endOfContract = $endOfContract;
 
