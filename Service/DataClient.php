@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Service;
 
+use Exception;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
@@ -131,10 +132,10 @@ class DataClient
     {
         // Check parameters
         if (empty($document->getFianceConsultId())) {
-            throw new \Exception('FianceConsultId can not not be empty');
+            throw new Exception('FianceConsultId can not not be empty');
         }
         if (empty($document->getContractId())) {
-            throw new \Exception('ContractId can not not be empty');
+            throw new Exception('ContractId can not not be empty');
         }
 
         // Prepare request
@@ -211,7 +212,7 @@ class DataClient
 
         // Check if not valid JSON response
         if (json_decode($jsonResponse) === null) {
-            throw new \Exception(
+            throw new Exception(
                 'Finance Consult API dosen\'t sent valid JSON. Check the response.'
                 .' (Response: "'.$jsonResponse.'")'
             );
@@ -229,14 +230,34 @@ class DataClient
     protected function jsonSchemaCheck(string $jsonResponse, string $schema): void
     {
         $response = json_decode($jsonResponse);
-        $this->validator->validate(
-            $response,
-            (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/'.$schema.'.json']
-        );
+        $this->validator->validate($response, (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/'.$schema.'.json']);
         if (!$this->validator->isValid()) {
-            throw new \Exception(
+            // If error
+            $this->errorJsonSchemaCheck($jsonResponse);
+
+            // If really unknown json format
+            throw new Exception(
                 'Finance Consult API dosen\'t sent valid JSON schema. Contact fc support or update the schema.'.PHP_EOL
                 .print_r($this->validator->getErrors(), true)
+            );
+        }
+    }
+
+    /**
+     * @param string $jsonResponse
+     *
+     * @throws \Exception
+     */
+    protected function errorJsonSchemaCheck($jsonResponse)
+    {
+        $response = json_decode($jsonResponse);
+        $validator = new Validator();
+        $validator->validate($response, (object)['$ref' => 'file://'.__DIR__.'/../JSONSchema/ErrorSchema.json']);
+        if ($validator->isValid()) {
+            throw new Exception(
+                'Finance Consult API sent unexpected answer: '.PHP_EOL
+                .print_r($response, true).PHP_EOL
+                .'Maybe check the submitted Fiance Consult ID\'s.'
             );
         }
     }

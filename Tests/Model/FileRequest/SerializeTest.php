@@ -46,7 +46,4 @@ class SerializeTest extends KernelTestCase
         // Check result
         $this->assertJsonStringEqualsJsonFile(__DIR__.'/FileRequest.json', $jsonRequest);
     }
-
-    // TODO:GN:MS: test falsche dokument id
-    // TODO:GN:MS: test falsche contract id
 }
