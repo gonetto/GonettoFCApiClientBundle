@@ -19,7 +19,7 @@ class Contract
      * @JMS\Type("string")
      * @JMS\SerializedName("oid")
      */
-    protected $fianceConsultId;
+    protected $financeConsultId;
 
     /**
      * @var string
@@ -95,20 +95,46 @@ class Contract
 
     /**
      * @return string
+     *
+     * @deprecated
+     * @see Contract::getFinanceConsultId()
      */
     public function getFianceConsultId(): string
     {
-        return $this->fianceConsultId;
+        return $this->financeConsultId;
     }
 
     /**
-     * @param string $fianceConsultId
+     * @return string
+     */
+    public function getFinanceConsultId(): string
+    {
+        return $this->financeConsultId;
+    }
+
+    /**
+     * @param string $financeConsultId
+     *
+     * @return Contract
+     *
+     * @deprecated
+     * @see Contract::setFinanceConsultId()
+     */
+    public function setFianceConsultId(string $financeConsultId): self
+    {
+        $this->financeConsultId = $financeConsultId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $financeConsultId
      *
      * @return Contract
      */
-    public function setFianceConsultId(string $fianceConsultId): self
+    public function setFinanceConsultId(string $financeConsultId): self
     {
-        $this->fianceConsultId = $fianceConsultId;
+        $this->financeConsultId = $financeConsultId;
 
         return $this;
     }

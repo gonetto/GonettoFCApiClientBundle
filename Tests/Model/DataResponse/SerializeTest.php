@@ -44,7 +44,7 @@ class SerializeTest extends KernelTestCase
         $this->data = (new DataResponse())
             ->addCustomer(
                 (new Customer())
-                    ->setFianceConsultId('19P1CF')
+                    ->setFinanceConsultId('19P1CF')
                     ->setEmail('anna.musterfrau@domain.tld')
                     ->setFirstName('Anna')
                     ->setLastName('Musterfrau')
@@ -57,7 +57,7 @@ class SerializeTest extends KernelTestCase
             ->addCustomerDeleted('1B6PS1')
             ->addContract(
                 (new Contract())
-                    ->setFianceConsultId('SB1CK')
+                    ->setFinanceConsultId('SB1CK')
                     ->setCustomerId('19P1CF')
                     ->setFee(656.9)
                     ->setInsurer('DEVK Versicherungen')
@@ -71,7 +71,7 @@ class SerializeTest extends KernelTestCase
             ->addContractDeleted('AB45U')
             ->addDocument(
                 (new Document())
-                    ->setFianceConsultId('1B5O3V')
+                    ->setFinanceConsultId('1B5O3V')
                     ->setContractId('19DB5Y')
                     ->setType('Antrag')
                     ->setDate(new DateTime('2019-02-04T13:26:58'))

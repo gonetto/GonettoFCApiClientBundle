@@ -50,7 +50,7 @@ class RequestFactoriesTest extends KernelTestCase
      */
     public function testMissingToken(string $factory): void
     {
-        $this->expectExceptionMessage('API token can not not be empty');
+        $this->expectExceptionMessage('API token can not be empty');
         $requestFactory = new $factory();
         /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
         $requestFactory->createRequest();

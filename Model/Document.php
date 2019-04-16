@@ -19,7 +19,7 @@ class Document
      * @JMS\Type("string")
      * @JMS\SerializedName("oid")
      */
-    protected $fianceConsultId;
+    protected $financeConsultId;
 
     /**
      * @var string
@@ -47,20 +47,46 @@ class Document
 
     /**
      * @return string
+     *
+     * @deprecated
+     * @see Document::getFinanceConsultId()
      */
     public function getFianceConsultId(): string
     {
-        return $this->fianceConsultId;
+        return $this->financeConsultId;
     }
 
     /**
-     * @param string $fianceConsultId
+     * @return string
+     */
+    public function getFinanceConsultId(): string
+    {
+        return $this->financeConsultId;
+    }
+
+    /**
+     * @param string $financeConsultId
+     *
+     * @return Document
+     *
+     * @deprecated
+     * @see Document::setFinanceConsultId()
+     */
+    public function setFianceConsultId(string $financeConsultId): self
+    {
+        $this->financeConsultId = $financeConsultId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $financeConsultId
      *
      * @return Document
      */
-    public function setFianceConsultId(string $fianceConsultId): self
+    public function setFinanceConsultId(string $financeConsultId): self
     {
-        $this->fianceConsultId = $fianceConsultId;
+        $this->financeConsultId = $financeConsultId;
 
         return $this;
     }

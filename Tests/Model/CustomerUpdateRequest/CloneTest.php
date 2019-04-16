@@ -55,7 +55,7 @@ class CloneTest extends KernelTestCase
     public function parametersProvider(): array
     {
         return [
-            'finance consult id' => ['FianceConsultId', strtoupper($this->faker->bothify('******'))],
+            'finance consult id' => ['FinanceConsultId', strtoupper($this->faker->bothify('******'))],
             'email' => ['Email', $this->faker->email],
             //'gender' => ['Gender', 'female'],
             'first name ' => ['FirstName', $this->faker->firstName('female')],

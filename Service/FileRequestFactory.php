@@ -33,7 +33,7 @@ class FileRequestFactory implements RequestFactoryInterface
     public function createRequest(): FileRequest
     {
         if (empty(self::$token)) {
-            throw new Exception('API token can not not be empty');
+            throw new Exception('API token can not be empty');
         }
 
         return (new FileRequest())->setToken(self::$token);

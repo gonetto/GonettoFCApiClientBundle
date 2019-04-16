@@ -63,7 +63,7 @@ class GetFileTest extends KernelTestCase
     {
         // Request file
         $document = (new Document())
-            ->setFianceConsultId('1B5O3V')
+            ->setFinanceConsultId('1B5O3V')
             ->setContractId('19DB5Y');
         $fileResponse = $this->mockGuzzleClient()->getFile($document);
 
@@ -92,12 +92,12 @@ class GetFileTest extends KernelTestCase
         return [
             'FinanceConsultId missing' => [
                 (new Document())
-                    ->setFianceConsultId('')
+                    ->setFinanceConsultId('')
                     ->setContractId('19DB5Y'),
             ],
             'ContractId missing' => [
                 (new Document())
-                    ->setFianceConsultId('1B5O3V')
+                    ->setFinanceConsultId('1B5O3V')
                     ->setContractId(''),
             ],
         ];
@@ -117,7 +117,7 @@ class GetFileTest extends KernelTestCase
         $dataClient = $this->mockGuzzleClient(200, '{"result":false}');
         $dataClient->getFile(
             (new Document())
-                ->setFianceConsultId('wrongId')
+                ->setFinanceConsultId('wrongId')
                 ->setContractId('wrongId')
         );
     }

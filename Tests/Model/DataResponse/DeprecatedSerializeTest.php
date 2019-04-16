@@ -43,7 +43,7 @@ class DeprecatedSerializeTest extends KernelTestCase
         $this->data = (new DataResponse())
             ->addCustomer(
                 (new Customer())
-                    ->setFianceConsultId('RD1PP')
+                    ->setFinanceConsultId('RD1PP')
                     ->setEmail('max.mustermann@domain.tld')
                     ->setFirstName('Max')
                     ->setLastName('Mustermann')
@@ -54,7 +54,7 @@ class DeprecatedSerializeTest extends KernelTestCase
                     ->setIban('DE02120300000000202051')
                     ->addContract(
                         (new Contract())
-                            ->setFianceConsultId('RD1PN')
+                            ->setFinanceConsultId('RD1PN')
                             ->setFee(82.23)
                             ->setInsurer('Allianz Versicherungs-AG')
                             ->setMainRenewalDate(new DateTime('2017-08-01'))

@@ -299,7 +299,7 @@ class DataResponse
     {
         /** @var \Gonetto\FCApiClientBundle\Model\Document $currentDocument */
         foreach ($this->documents as $key => $currentDocument) {
-            if ($contract->getFianceConsultId() === $currentDocument->getFianceConsultId()) {
+            if ($contract->getFinanceConsultId() === $currentDocument->getFinanceConsultId()) {
                 unset($this->documents[$key]);
                 break;
             }

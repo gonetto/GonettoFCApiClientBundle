@@ -18,7 +18,7 @@ class Customer
      * @JMS\Type("string")
      * @JMS\SerializedName("oid")
      */
-    protected $fianceConsultId;
+    protected $financeConsultId;
 
     /**
      * @var string
@@ -167,20 +167,46 @@ class Customer
 
     /**
      * @return string
+     *
+     * @deprecated
+     * @see Customer::getFinanceConsultId()
      */
     public function getFianceConsultId(): ?string
     {
-        return $this->fianceConsultId;
+        return $this->financeConsultId;
     }
 
     /**
-     * @param string $fianceConsultId
+     * @return string
+     */
+    public function getFinanceConsultId(): ?string
+    {
+        return $this->financeConsultId;
+    }
+
+    /**
+     * @param string $financeConsultId
+     *
+     * @return Customer
+     *
+     * @deprecated
+     * @see Customer::setFinanceConsultId()
+     */
+    public function setFianceConsultId(string $financeConsultId): self
+    {
+        $this->financeConsultId = $financeConsultId;
+
+        return $this;
+    }
+
+    /**
+     * @param string $financeConsultId
      *
      * @return Customer
      */
-    public function setFianceConsultId(string $fianceConsultId): self
+    public function setFinanceConsultId(string $financeConsultId): self
     {
-        $this->fianceConsultId = $fianceConsultId;
+        $this->financeConsultId = $financeConsultId;
 
         return $this;
     }

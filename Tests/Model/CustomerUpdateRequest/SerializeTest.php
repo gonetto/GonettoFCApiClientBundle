@@ -29,7 +29,7 @@ class SerializeTest extends KernelTestCase
         $request = (new CustomerUpdateRequest())
             // TODO:GN:MS: Test without token to checkup if FC check this value!
             ->setToken('8029fdd175474c61909ca5f0803965bb464ff546')
-            ->setFianceConsultId('19P1CF')
+            ->setFinanceConsultId('19P1CF')
             ->setEmail('anna.musterfrau@domain.tld')
             ->setFirstName('Anna')
             ->setLastName('Musterfrau')
@@ -55,7 +55,7 @@ class SerializeTest extends KernelTestCase
     {
         $request = (new CustomerUpdateRequest())
             ->setToken('802...')
-            ->setFianceConsultId('19P1CF')// TODO:GN:MS: set required and test FC if/which error will show if empty
+            ->setFinanceConsultId('19P1CF')// TODO:GN:MS: set required and test FC if/which error will show if empty
             ->$setter(
                 $value
             );

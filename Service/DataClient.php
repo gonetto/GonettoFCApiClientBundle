@@ -132,16 +132,16 @@ class DataClient
     public function getFile(Document $document, $get_src_json = false)
     {
         // Check parameters
-        if (empty($document->getFianceConsultId())) {
-            throw new Exception('FianceConsultId can not not be empty');
+        if (empty($document->getFinanceConsultId())) {
+            throw new Exception('FinanceConsultId can not be empty');
         }
         if (empty($document->getContractId())) {
-            throw new Exception('ContractId can not not be empty');
+            throw new Exception('ContractId can not be empty');
         }
 
         // Prepare request
         $this->fileRequest
-            ->setDocumentId($document->getFianceConsultId())
+            ->setDocumentId($document->getFinanceConsultId())
             ->setContractId($document->getContractId());
 
         // Send request
@@ -174,7 +174,7 @@ class DataClient
     public function updateCustomer(Customer $customer): CustomerUpdateResponse
     {
         // Check id
-        if (empty($customer->getFianceConsultId())) {
+        if (empty($customer->getFinanceConsultId())) {
             return (new CustomerUpdateResponse())
                 ->setSuccess(false)
                 ->setErrorMessage('The finance consult id is needed.');
@@ -277,7 +277,7 @@ class DataClient
             foreach ($customer->getContracts() as $contract) {
 
                 // Set customer id to contract
-                $contract->setCustomerId($customer->getFianceConsultId());
+                $contract->setCustomerId($customer->getFinanceConsultId());
 
                 // Safe contract to root list
                 $dataResponse->addContract($contract);

@@ -73,7 +73,7 @@ class UpdateCustomerTest extends KernelTestCase
     {
         // Request file
         $customer = (new Customer())
-            ->setFianceConsultId('DE02500105170137075030')
+            ->setFinanceConsultId('DE02500105170137075030')
             ->setIban($this->faker->iban());
         $updateResponse = $this->dataClient->updateCustomer($customer);
 
