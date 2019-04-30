@@ -330,7 +330,7 @@ class Customer
      */
     public function setHouseNumber(string $houseNumber): self
     {
-        $this->street .= $houseNumber;
+        $this->street .= ' '.$houseNumber;
 
         return $this;
     }
