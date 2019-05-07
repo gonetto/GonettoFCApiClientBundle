@@ -1,0 +1,25 @@
+language: php
+dist: trusty
+sudo: false
+
+php:
+  - 7.1
+  - 7.2
+
+before_install:
+  - phpenv config-rm xdebug.ini
+  - composer --verbose self-update
+  - composer --version
+
+install:
+  - composer --verbose validate
+  - composer --verbose install
+
+script:
+  - ./vendor/bin/phpunit --configuration ./phpunit.xml.dist
+
+notifications:
+  email: false
+  slack:
+    rooms:
+      - gonetto:5eLxNDfnUV2sr9qCBCTdacu6#ci_tests
