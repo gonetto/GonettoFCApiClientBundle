@@ -39,19 +39,19 @@ class UpdateCustomerTest extends KernelTestCase
         parent::__construct($name, $data, $dataName);
 
         $this->faker = Factory::create('de_DE');
-
-        $this->mockGuzzleClient();
     }
 
     /**
      * Setup client for mock.
      *
+     * @param string $result
+     *
      * @throws \Exception
      */
-    protected function mockGuzzleClient(): void
+    protected function mockGuzzleClient(string $result): void
     {
         // Mock client
-        $mock = new MockHandler([new Response(200, [], '{"result": true}')]);
+        $mock = new MockHandler([new Response(200, [], $result)]);
         $handler = HandlerStack::create($mock);
         $guzzleClient = new Client(['handler' => $handler]);
 
@@ -71,9 +71,12 @@ class UpdateCustomerTest extends KernelTestCase
      */
     public function testResponse(): void
     {
+        // Mock result
+        $this->mockGuzzleClient('{"result": true}');
+
         // Request file
         $customer = (new Customer())
-            ->setFinanceConsultId('DE02500105170137075030')
+            ->setFinanceConsultId('RD1PN')
             ->setIban($this->faker->iban());
         $updateResponse = $this->dataClient->updateCustomer($customer);
 
@@ -87,6 +90,9 @@ class UpdateCustomerTest extends KernelTestCase
      */
     public function testMissingFinanceConsultId(): void
     {
+        // Mock result
+        $this->mockGuzzleClient('{"result": true}');
+
         // Request file
         $customer = (new Customer())
             ->setStreet($this->faker->streetAddress)
@@ -97,5 +103,24 @@ class UpdateCustomerTest extends KernelTestCase
         // Check response
         $this->assertFalse($updateResponse->isSuccess());
         $this->assertSame('The finance consult id is needed.', $updateResponse->getErrorMessage());
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function testWrongFinanceConsultId(): void
+    {
+        // Mock result
+        $this->mockGuzzleClient('{"error":"OID ungültig oder keine Berechtigung","result":false}');
+
+        // Request file
+        $customer = (new Customer())
+            ->setFinanceConsultId('RD1PN')
+            ->setIban($this->faker->iban());
+        $updateResponse = $this->dataClient->updateCustomer($customer);
+
+        // Check response
+        $this->assertFalse($updateResponse->isSuccess());
+        $this->assertSame('OID ungültig oder keine Berechtigung', $updateResponse->getErrorMessage());
     }
 }
