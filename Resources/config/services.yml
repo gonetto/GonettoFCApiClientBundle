@@ -1,38 +1,46 @@
 services:
-    _defaults:
-        autowire: true
-        autoconfigure: true
-        public: false
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+    bind:
+      $token: '%gonetto_fc_api_client.api_access_token%'
+      $financeConsultApiPath: '%gonetto_fc_api_client.api_path%'
 
-    Gonetto\FCApiClientBundle\Model\DataRequest:
-        class: Gonetto\FCApiClientBundle\Model\DataRequest
-        factory: 'Gonetto\FCApiClientBundle\Service\DataRequestFactory:createRequest'
-        shard: false
-        arguments: ['%gonetto_fc_api_client.api_access_token%']
+  # Using alias to enable autowiring
+  gonetto.fc_api_client.customer_update_request_factory:
+    class: Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory
 
-    Gonetto\FCApiClientBundle\Model\FileRequest:
-        class: Gonetto\FCApiClientBundle\Model\FileRequest
-        factory: 'Gonetto\FCApiClientBundle\Service\FileRequestFactory:createRequest'
-        shard: false
-        arguments: ['%gonetto_fc_api_client.api_access_token%']
+  Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest:
+    factory: ['@gonetto.fc_api_client.customer_update_request_factory', 'createRequest']
+    class: Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
+    shard: false
 
-    Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest:
-        class: Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
-        factory: 'Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory:createRequest'
-        shard: false
-        arguments: ['%gonetto_fc_api_client.api_access_token%']
+  # Using alias to enable autowiring
+  gonetto.fc_api_client.data_request_factory:
+    class: Gonetto\FCApiClientBundle\Service\DataRequestFactory
 
-    JMS\Serializer\Serializer:
-        class: JMS\Serializer\Serializer
-        factory: 'Gonetto\FCApiClientBundle\Service\JmsSerializerFactory:createSerializer'
+  Gonetto\FCApiClientBundle\Model\DataRequest:
+    factory: ['@gonetto.fc_api_client.data_request_factory', 'createRequest']
+    class: Gonetto\FCApiClientBundle\Model\DataRequest
+    shard: false
 
-    Gonetto\FCApiClientBundle\Service\DataClient:
-        class:      Gonetto\FCApiClientBundle\Service\DataClient
-        arguments:
-            - '%gonetto_fc_api_client.api_path%'
-            - '@eight_points_guzzle.client.finance_consult'
-            - '@Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest'
-            - '@Gonetto\FCApiClientBundle\Model\DataRequest'
-            - '@Gonetto\FCApiClientBundle\Model\FileRequest'
-            - '@JMS\Serializer\Serializer'
-        public: true
+  # Using alias to enable autowiring
+  gonetto.fc_api_client.file_request_factory:
+    class: Gonetto\FCApiClientBundle\Service\FileRequestFactory
+
+  Gonetto\FCApiClientBundle\Model\FileRequest:
+    factory: ['@gonetto.fc_api_client.file_request_factory', 'createRequest']
+    class: Gonetto\FCApiClientBundle\Model\FileRequest
+    shard: false
+
+  Gonetto\FCApiClientBundle\Service\JmsSerializerFactory: ~
+
+  JMS\Serializer\Serializer:
+    factory: 'Gonetto\FCApiClientBundle\Service\JmsSerializerFactory:createSerializer'
+    class: JMS\Serializer\Serializer
+
+  GuzzleHttp\Client: '@eight_points_guzzle.client.finance_consult'
+
+  Gonetto\FCApiClientBundle\Service\DataClient:
+    public: true
