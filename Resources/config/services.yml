@@ -36,4 +36,3 @@ services:
             - '@Gonetto\FCApiClientBundle\Model\FileRequest'
             - '@JMS\Serializer\Serializer'
         public: true
-v
