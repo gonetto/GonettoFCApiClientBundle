@@ -73,5 +73,6 @@ class GetAllTest extends KernelTestCase
         // Check customer
         $this->assertInstanceOf(DataResponse::class, $dataResponse);
         $this->assertCount(1, $dataResponse->getCustomers());
+        $this->assertCount(1, $dataResponse->getContracts());
     }
 }
