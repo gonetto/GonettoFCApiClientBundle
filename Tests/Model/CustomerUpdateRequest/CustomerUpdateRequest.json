@@ -9,5 +9,7 @@
     "ort": "Beispielstadt",
     "iban": "DE02500105170137075030",
     "token": "8029fdd175474c61909ca5f0803965bb464ff546",
-    "action": "setKunde"
+    "action": "setKunde",
+    "gesellschaftInformierenAdresse": true,
+    "gesellschaftInformierenBank": true
 }

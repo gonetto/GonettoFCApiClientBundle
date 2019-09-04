@@ -4,12 +4,7 @@ namespace Gonetto\FCApiClientBundle\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class Customer
- *
- * @package Gonetto\FCApiClientBundle\Model
- */
-class Customer
+class Customer implements EntityInterface
 {
 
     /**
@@ -26,6 +21,15 @@ class Customer
      * @JMS\Type("string")
      */
     protected $email;
+
+    /**
+     * Unused parameter from Finance Consult.
+     *
+     * var string
+     *
+     * JMS\SerializedName("email2")
+     */
+    //protected $email2;
 
     /**
      * var string
@@ -125,6 +129,15 @@ class Customer
     protected $phone;
 
     /**
+     * Unused parameter from Finance Consult.
+     *
+     * var string
+     *
+     * JMS\SerializedName("telefon2")
+     */
+    //protected $phone2;
+
+    /**
      * var string
      *
      * JMS\Type("string")
@@ -171,7 +184,7 @@ class Customer
      * @deprecated
      * @see Customer::getFinanceConsultId()
      */
-    public function getFianceConsultId(): ?string
+    public function getFianceConsultId(): string
     {
         return $this->financeConsultId;
     }
@@ -179,7 +192,7 @@ class Customer
     /**
      * @return string
      */
-    public function getFinanceConsultId(): ?string
+    public function getFinanceConsultId(): string
     {
         return $this->financeConsultId;
     }
@@ -368,7 +381,7 @@ class Customer
      *
      * @return Customer
      */
-    public function setCity(string $city): self
+    public function setCity($city): self
     {
         $this->city = $city;
 

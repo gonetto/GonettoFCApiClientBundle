@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  *
  * @package Gonetto\FCApiClientBundle\Tests\Modal\CustomerUpdateRequest
  */
-class CloneTest extends KernelTestCase
+class CloneCustomerTest extends KernelTestCase
 {
 
     /** @var \Faker\Generator */

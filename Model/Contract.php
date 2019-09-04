@@ -10,7 +10,7 @@ use JMS\Serializer\Annotation as JMS;
  *
  * @package Gonetto\FCApiClientBundle\Model
  */
-class Contract
+class Contract implements EntityInterface
 {
 
     /**

@@ -2,6 +2,7 @@
 
 namespace Gonetto\FCApiClientBundle\Tests\Modal\CustomerUpdateRequest;
 
+use Faker\Factory;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
@@ -14,8 +15,18 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 class SerializeTest extends KernelTestCase
 {
 
+    /** @var \Faker\Generator */
+    protected $faker;
+
     /** @var \JMS\Serializer\Serializer */
     protected $serializer;
+
+    public function __construct($name = null, array $data = [], $dataName = '')
+    {
+        parent::__construct($name, $data, $dataName);
+
+        $this->faker = Factory::create('de_DE');
+    }
 
     /** {@inheritDoc} */
     protected function setUp()
@@ -28,6 +39,8 @@ class SerializeTest extends KernelTestCase
         // Serialize object
         $request = (new CustomerUpdateRequest())
             // TODO:GN:MS: Test without token to checkup if FC check this value!
+            ->setInformCompanyAboutAddress(true)
+            ->setInformCompanyAboutBank(true)
             ->setToken('8029fdd175474c61909ca5f0803965bb464ff546')
             ->setFinanceConsultId('19P1CF')
             ->setEmail('anna.musterfrau@domain.tld')
@@ -53,19 +66,37 @@ class SerializeTest extends KernelTestCase
      */
     public function testUpdatePartial(string $setter, string $serializedName, string $value): void
     {
+        // Example object
         $request = (new CustomerUpdateRequest())
             ->setToken('802...')
-            ->setFinanceConsultId('19P1CF')// TODO:GN:MS: set required and test FC if/which error will show if empty
+            ->setFinanceConsultId('19P1CF')
             ->$setter(
                 $value
             );
         $jsonRequest = $this->serializer->serialize($request, 'json');
 
-        // Check result
-        $this->assertJsonStringEqualsJsonString(
-            '{"oid": "19P1CF","'.$serializedName.'": "'.$value.'","token": "802...","action": "setKunde"}',
-            $jsonRequest
-        );
+        // Expected JSON result
+        $expectedArray = [
+            'oid' => '19P1CF',
+            $serializedName => $value,
+            'token' => '802...',
+            'action' => 'setKunde',
+            'gesellschaftInformierenAdresse' => false,
+            'gesellschaftInformierenBank' => false,
+        ];
+        // Reorder expected array
+        if ($serializedName === 'gesellschaftInformierenAdresse') {
+            unset($expectedArray['gesellschaftInformierenAdresse'], $expectedArray['gesellschaftInformierenBank']);
+            $expectedArray['gesellschaftInformierenAdresse'] = (bool)$value;
+            $expectedArray['gesellschaftInformierenBank'] = false;
+        }
+        if ($serializedName === 'gesellschaftInformierenBank') {
+            unset($expectedArray['gesellschaftInformierenBank'], $expectedArray['gesellschaftInformierenBank']);
+            $expectedArray['gesellschaftInformierenBank'] = (bool)$value;
+        }
+
+        // Check JSON result
+        $this->assertJsonStringEqualsJsonString(json_encode($expectedArray), $jsonRequest);
     }
 
     /**
@@ -82,6 +113,8 @@ class SerializeTest extends KernelTestCase
             'zip code' => ['setZipCode', 'plz', 54321],
             'city' => ['setCity', 'ort', 'Beispielstadt'],
             'iban' => ['setIban', 'iban', 'DE02500105170137075030'],
+            'ges. informieren adresse' => ['setInformCompanyAboutAddress', 'gesellschaftInformierenAdresse', true],
+            'ges. informieren bank' => ['setInformCompanyAboutBank', 'gesellschaftInformierenBank', true],
         ];
     }
 }
