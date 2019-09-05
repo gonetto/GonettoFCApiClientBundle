@@ -16,6 +16,7 @@ use Gonetto\FCApiClientBundle\Model\RequestInterface;
 use GuzzleHttp\Client;
 use JMS\Serializer\Serializer;
 use JsonSchema\Validator;
+use TypeError;
 
 /**
  * Class DataClient
@@ -174,7 +175,9 @@ class DataClient
     public function updateCustomer(Customer $customer): CustomerUpdateResponse
     {
         // Check id
-        if (empty($customer->getFinanceConsultId())) {
+        try {
+            $customer->getFinanceConsultId();
+        } catch (TypeError $e) {
             return (new CustomerUpdateResponse())
                 ->setSuccess(false)
                 ->setErrorMessage('The finance consult id is needed.');
