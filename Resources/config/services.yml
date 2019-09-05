@@ -14,7 +14,7 @@ services:
   Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest:
     factory: ['@gonetto.fc_api_client.customer_update_request_factory', 'createRequest']
     class: Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest
-    shard: false
+    shared: false
 
   # Using alias to enable autowiring
   gonetto.fc_api_client.data_request_factory:
@@ -23,7 +23,7 @@ services:
   Gonetto\FCApiClientBundle\Model\DataRequest:
     factory: ['@gonetto.fc_api_client.data_request_factory', 'createRequest']
     class: Gonetto\FCApiClientBundle\Model\DataRequest
-    shard: false
+    shared: false
 
   # Using alias to enable autowiring
   gonetto.fc_api_client.file_request_factory:
@@ -32,7 +32,7 @@ services:
   Gonetto\FCApiClientBundle\Model\FileRequest:
     factory: ['@gonetto.fc_api_client.file_request_factory', 'createRequest']
     class: Gonetto\FCApiClientBundle\Model\FileRequest
-    shard: false
+    shared: false
 
   Gonetto\FCApiClientBundle\Service\JmsSerializerFactory: ~
 
