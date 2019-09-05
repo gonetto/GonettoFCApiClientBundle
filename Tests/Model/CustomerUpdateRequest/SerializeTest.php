@@ -38,7 +38,6 @@ class SerializeTest extends KernelTestCase
     {
         // Serialize object
         $request = (new CustomerUpdateRequest())
-            // TODO:GN:MS: Test without token to checkup if FC check this value!
             ->setInformCompanyAboutAddress(true)
             ->setInformCompanyAboutBank(true)
             ->setToken('8029fdd175474c61909ca5f0803965bb464ff546')
