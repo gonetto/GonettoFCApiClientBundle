@@ -3,63 +3,30 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
 use Gonetto\FCApiClientBundle\Model\DataResponse;
-use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
-use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
-use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Gonetto\FCApiClientBundle\Tests\ClientTestCase;
 
-/**
- * Class GetAllSinceTest
- *
- * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient
- */
-class DeprecatedGetAllTest extends KernelTestCase
+class DeprecatedGetAllTest extends ClientTestCase
 {
 
     /** @var DataClient */
     protected $dataClient;
 
     /**
-     * {@inheritDoc}
+     * GetFileTest constructor.
+     *
+     * @param null $name
+     * @param array $data
+     * @param string $dataName
      *
      * @throws \Exception
      */
-    protected function setUp()
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
-        // Mock api client
-        $this->mockGuzzleClient();
-    }
+        parent::__construct($name, $data, $dataName);
 
-    /**
-     * Setup client for mock.
-     *
-     * @throws \Exception
-     */
-    protected function mockGuzzleClient(): void
-    {
-        // Api response
         $json = file_get_contents(__DIR__.'/DeprecatedApiDataResponse.json');
-
-        // Mock client
-        $mock = new MockHandler([new Response(200, [], $json)]);
-        $handler = HandlerStack::create($mock);
-        $guzzleClient = new Client(['handler' => $handler]);
-
-        // Pass mocked api client to customer client
-        $this->dataClient = new DataClient(
-            '',
-            $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
-            (new DataRequestFactory('dummy'))->createRequest(),
-            (new FileRequestFactory('dummy'))->createRequest(),
-            (new JmsSerializerFactory())->createSerializer()
-        );
+        $this->dataClient = $this->mockGuzzleClientInDataClient($json);
     }
 
     /**

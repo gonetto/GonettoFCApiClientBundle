@@ -18,11 +18,6 @@ use JMS\Serializer\Serializer;
 use JsonSchema\Validator;
 use TypeError;
 
-/**
- * Class DataClient
- *
- * @package Gonetto\FCApiClientBundle\Service
- */
 class DataClient
 {
 
@@ -47,16 +42,6 @@ class DataClient
     /** @var \JsonSchema\Validator */
     protected $validator;
 
-    /**
-     * DataClient constructor.
-     *
-     * @param string $financeConsultApiPath
-     * @param \GuzzleHttp\Client $client
-     * @param \Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest $customerUpdateRequest
-     * @param \Gonetto\FCApiClientBundle\Model\DataRequest $dataRequest
-     * @param \Gonetto\FCApiClientBundle\Model\FileRequest $fileRequest
-     * @param \JMS\Serializer\Serializer $serializer
-     */
     public function __construct(
         string $financeConsultApiPath,
         Client $client,

@@ -5,55 +5,29 @@ namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile;
 Use Exception;
 use Gonetto\FCApiClientBundle\Model\Document;
 use Gonetto\FCApiClientBundle\Model\FileResponse;
-use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
-use Gonetto\FCApiClientBundle\Service\DataClient;
-use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
-use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
-use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
+use Gonetto\FCApiClientBundle\Tests\ClientTestCase;
 
-/**
- * Class GetFileTest
- *
- * @package Gonetto\FCApiClientBundle\Tests\Service\DataClient\GetFile
- */
-class GetFileTest extends KernelTestCase
+class GetFileTest extends ClientTestCase
 {
 
+    /** @var \Gonetto\FCApiClientBundle\Service\DataClient */
+    protected $dataClient;
+
     /**
-     * Guzzle for mock.
+     * GetFileTest constructor.
      *
-     * @param $statusCode
-     * @param string $body
+     * @param null $name
+     * @param array $data
+     * @param string $dataName
      *
-     * @return \Gonetto\FCApiClientBundle\Service\DataClient
      * @throws \Exception
      */
-    protected function mockGuzzleClient($statusCode = 200, $body = ''): DataClient
+    public function __construct($name = null, array $data = [], $dataName = '')
     {
-        // Set default api response
-        if (empty($body)) {
-            $body = file_get_contents(__DIR__.'/ApiFileResponse.json');
-        }
+        parent::__construct($name, $data, $dataName);
 
-        // Mock client
-        $mock = new MockHandler([new Response($statusCode, [], $body)]);
-        $handler = HandlerStack::create($mock);
-        $guzzleClient = new Client(['handler' => $handler]);
-
-        // Pass mocked api client to data client
-        return new DataClient(
-            '',
-            $guzzleClient,
-            (new CustomerUpdateRequestFactory('dummy'))->createRequest(),
-            (new DataRequestFactory('dummy'))->createRequest(),
-            (new FileRequestFactory('dummy'))->createRequest(),
-            (new JmsSerializerFactory())->createSerializer()
-        );
+        $json = file_get_contents(__DIR__.'/ApiFileResponse.json');
+        $this->dataClient = $this->mockGuzzleClientInDataClient($json);
     }
 
     /**
@@ -65,7 +39,7 @@ class GetFileTest extends KernelTestCase
         $document = (new Document())
             ->setFinanceConsultId('1B5O3V')
             ->setContractId('19DB5Y');
-        $fileResponse = $this->mockGuzzleClient()->getFile($document);
+        $fileResponse = $this->dataClient->getFile($document);
 
         // Check response
         $this->assertInstanceOf(FileResponse::class, $fileResponse);
@@ -81,7 +55,7 @@ class GetFileTest extends KernelTestCase
     public function testMissingParameters(Document $document): void
     {
         $this->expectException(Exception::class);
-        $this->mockGuzzleClient()->getFile($document);
+        $this->dataClient->getFile($document);
     }
 
     /**
@@ -110,12 +84,11 @@ class GetFileTest extends KernelTestCase
      */
     public function testInvalidId(): void
     {
-
         $this->expectException(Exception::class);
         $this->expectExceptionMessage('check the submitted Fiance Consult ID');
 
-        $dataClient = $this->mockGuzzleClient(200, '{"result":false}');
-        $dataClient->getFile(
+        $client = $this->mockGuzzleClientInDataClient('{"result":false}');
+        $client->getFile(
             (new Document())
                 ->setFinanceConsultId('wrongId')
                 ->setContractId('wrongId')
