@@ -3,7 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Tests\Modal\CustomerUpdateRequest;
 
 use Faker\Factory;
-use Gonetto\FCApiClientBundle\Model\Customer;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdate;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
@@ -12,7 +12,7 @@ use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
  *
  * @package Gonetto\FCApiClientBundle\Tests\Modal\CustomerUpdateRequest
  */
-class CloneCustomerTest extends KernelTestCase
+class CloneCustomerUpdateTest extends KernelTestCase
 {
 
     /** @var \Faker\Generator */
@@ -36,17 +36,21 @@ class CloneCustomerTest extends KernelTestCase
     {
         // Source
         $setter = 'set'.$parameter;
-        $customer = (new Customer())->$setter($value);
+        $customerUpdate = (new CustomerUpdate())->$setter($value);
 
         // Target
         $customerUpdateRequest = new CustomerUpdateRequest();
 
         // Clone
-        $customerUpdateRequest->clone($customer);
+        $customerUpdateRequest->clone($customerUpdate);
 
         // Check result
-        $getter = 'get'.$parameter;
-        $this->assertSame($customer->$getter(), $customerUpdateRequest->$getter());
+        $method = 'get'.$parameter;
+        $isMethod = 'is'.$parameter;
+        if (!method_exists($customerUpdate, $method) && method_exists($customerUpdate, $isMethod)) {
+            $method = $isMethod;
+        }
+        $this->assertSame($customerUpdate->$method(), $customerUpdateRequest->$method());
     }
 
     /**
@@ -60,6 +64,7 @@ class CloneCustomerTest extends KernelTestCase
             //'gender' => ['Gender', 'female'],
             'first name ' => ['FirstName', $this->faker->firstName('female')],
             'last name' => ['LastName', $this->faker->lastName],
+            'inform insurer about address' => ['InformInsurerAboutAddress', $this->faker->boolean],
             //'birthday' => ['Birthday', $this->faker->dateTimeBetween($startDate = '-60 years', $endDate = '-18 years')->format('Y-m-d')],
             'company' => ['Company', $this->faker->company],
             'street' => ['Street', $this->faker->streetAddress],

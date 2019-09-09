@@ -165,20 +165,6 @@ class Customer implements EntityInterface
     protected $contracts = [];
 
     /**
-     * @param \Gonetto\FCApiClientBundle\Model\Customer $customer
-     *
-     * @return $this
-     */
-    public function clone(Customer $customer): self
-    {
-        foreach (get_object_vars($customer) as $key => $value) {
-            $this->$key = $value;
-        }
-
-        return $this;
-    }
-
-    /**
      * @return string
      *
      * @deprecated

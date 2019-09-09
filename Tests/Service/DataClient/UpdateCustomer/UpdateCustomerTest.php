@@ -3,7 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient\UpdateCustomer;
 
 use Faker\Factory;
-use Gonetto\FCApiClientBundle\Model\Customer;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdate;
 use Gonetto\FCApiClientBundle\Tests\ClientTestCase;
 
 /**
@@ -38,10 +38,11 @@ class UpdateCustomerTest extends ClientTestCase
         $dataClient = $this->mockGuzzleClientInDataClient('{"result": true}');
 
         // Request file
-        $customer = (new Customer())
+        $customerUpdate = new CustomerUpdate();
+        $customerUpdate
             ->setFinanceConsultId('RD1PN')
             ->setIban($this->faker->iban());
-        $updateResponse = $dataClient->updateCustomer($customer);
+        $updateResponse = $dataClient->sendCustomerUpdate($customerUpdate);
 
         // Check response
         $this->assertTrue($updateResponse->isSuccess());
@@ -57,11 +58,12 @@ class UpdateCustomerTest extends ClientTestCase
         $dataClient = $this->mockGuzzleClientInDataClient('{"result": true}');
 
         // Request file
-        $customer = (new Customer())
+        $customerUpdate = new CustomerUpdate();
+        $customerUpdate
             ->setStreet($this->faker->streetAddress)
             ->setCity($this->faker->city)
             ->setZipCode($this->faker->postcode);
-        $updateResponse = $dataClient->updateCustomer($customer);
+        $updateResponse = $dataClient->sendCustomerUpdate($customerUpdate);
 
         // Check response
         $this->assertFalse($updateResponse->isSuccess());
@@ -79,10 +81,11 @@ class UpdateCustomerTest extends ClientTestCase
         );
 
         // Request file
-        $customer = (new Customer())
+        $customerUpdate = new CustomerUpdate();
+        $customerUpdate
             ->setFinanceConsultId('RD1PN')
             ->setIban($this->faker->iban());
-        $updateResponse = $dataClient->updateCustomer($customer);
+        $updateResponse = $dataClient->sendCustomerUpdate($customerUpdate);
 
         // Check response
         $this->assertFalse($updateResponse->isSuccess());

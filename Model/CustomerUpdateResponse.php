@@ -4,11 +4,6 @@ namespace Gonetto\FCApiClientBundle\Model;
 
 use JMS\Serializer\Annotation as JMS;
 
-/**
- * Class DataResponse
- *
- * @package Gonetto\FCApiClientBundle\Model
- */
 class CustomerUpdateResponse
 {
 

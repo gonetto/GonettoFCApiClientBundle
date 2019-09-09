@@ -5,6 +5,7 @@ namespace Gonetto\FCApiClientBundle\Service;
 use DateTime;
 use Exception;
 use Gonetto\FCApiClientBundle\Model\Customer;
+use Gonetto\FCApiClientBundle\Model\CustomerUpdate;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
 use Gonetto\FCApiClientBundle\Model\DataRequest;
@@ -149,7 +150,7 @@ class DataClient
     }
 
     /**
-     * @param \Gonetto\FCApiClientBundle\Model\Customer $customer
+     * @param \Gonetto\FCApiClientBundle\Model\CustomerUpdate $customerUpdate
      *
      * @return CustomerUpdateResponse
      * @throws \Exception
@@ -157,11 +158,11 @@ class DataClient
      * @example error: {"result":false, "error":"Objekt konnte nicht gesperrt werden."} // Try later again
      * @example error: {"result":false, "error":"OID ungültig oder keine Berechtigung."} // Check FC customer ID
      */
-    public function updateCustomer(Customer $customer): CustomerUpdateResponse
+    public function sendCustomerUpdate(CustomerUpdate $customerUpdate): CustomerUpdateResponse
     {
         // Check id
         try {
-            $customer->getFinanceConsultId();
+            $customerUpdate->getFinanceConsultId();
         } catch (TypeError $e) {
             return (new CustomerUpdateResponse())
                 ->setSuccess(false)
@@ -169,7 +170,7 @@ class DataClient
         }
 
         // Prepare request object
-        $this->customerUpdateRequest->clone($customer);
+        $this->customerUpdateRequest->clone($customerUpdate);
 
         // Send request
         $jsonResponse = $this->sendRequest($this->customerUpdateRequest);

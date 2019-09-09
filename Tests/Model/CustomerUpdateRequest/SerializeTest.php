@@ -29,7 +29,7 @@ class SerializeTest extends KernelTestCase
     }
 
     /** {@inheritDoc} */
-    protected function setUp()
+    protected function setUp(): void
     {
         $this->serializer = (new JmsSerializerFactory())->createSerializer();
     }
@@ -38,9 +38,9 @@ class SerializeTest extends KernelTestCase
     {
         // Serialize object
         $request = (new CustomerUpdateRequest())
-            ->setInformCompanyAboutAddress(true)
-            ->setInformCompanyAboutBank(true)
             ->setToken('8029fdd175474c61909ca5f0803965bb464ff546')
+            ->setInformInsurerAboutAddress(true)
+            ->setInformInsurerAboutBank(true)
             ->setFinanceConsultId('19P1CF')
             ->setEmail('anna.musterfrau@domain.tld')
             ->setFirstName('Anna')
@@ -112,8 +112,8 @@ class SerializeTest extends KernelTestCase
             'zip code' => ['setZipCode', 'plz', 54321],
             'city' => ['setCity', 'ort', 'Beispielstadt'],
             'iban' => ['setIban', 'iban', 'DE02500105170137075030'],
-            'ges. informieren adresse' => ['setInformCompanyAboutAddress', 'gesellschaftInformierenAdresse', true],
-            'ges. informieren bank' => ['setInformCompanyAboutBank', 'gesellschaftInformierenBank', true],
+            'ges. informieren adresse' => ['setInformInsurerAboutAddress', 'gesellschaftInformierenAdresse', true],
+            'ges. informieren bank' => ['setInformInsurerAboutBank', 'gesellschaftInformierenBank', true],
         ];
     }
 }
