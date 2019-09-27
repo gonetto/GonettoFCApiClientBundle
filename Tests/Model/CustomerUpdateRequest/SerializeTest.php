@@ -4,7 +4,7 @@ namespace Gonetto\FCApiClientBundle\Tests\Modal\CustomerUpdateRequest;
 
 use Faker\Factory;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
+use Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**

@@ -3,11 +3,11 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service\DataClient;
 
 use Exception;
-use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\CustomerUpdateRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\DataRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\FileRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory;
 use Gonetto\FCApiClientBundle\Service\DataClient;
-use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
-use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Handler\MockHandler;

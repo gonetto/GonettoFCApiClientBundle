@@ -4,7 +4,6 @@ namespace Gonetto\FCApiClientBundle\Service;
 
 use DateTime;
 use Exception;
-use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdate;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateResponse;
@@ -28,7 +27,7 @@ class DataClient
     /** @var \Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest */
     protected $customerUpdateRequest;
 
-    /** @var \Gonetto\FCApiClientBundle\Service\DataRequestFactory */
+    /** @var \Gonetto\FCApiClientBundle\Factory\DataRequestFactory */
     protected $dataRequest;
 
     /** @var \Gonetto\FCApiClientBundle\Model\FileRequest */

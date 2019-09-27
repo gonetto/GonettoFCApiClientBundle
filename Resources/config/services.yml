@@ -9,7 +9,7 @@ services:
 
   # Using alias to enable autowiring
   gonetto.fc_api_client.customer_update_request_factory:
-    class: Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory
+    class: Gonetto\FCApiClientBundle\Factory\CustomerUpdateRequestFactory
 
   Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest:
     factory: ['@gonetto.fc_api_client.customer_update_request_factory', 'createRequest']
@@ -18,7 +18,7 @@ services:
 
   # Using alias to enable autowiring
   gonetto.fc_api_client.data_request_factory:
-    class: Gonetto\FCApiClientBundle\Service\DataRequestFactory
+    class: Gonetto\FCApiClientBundle\Factory\DataRequestFactory
 
   Gonetto\FCApiClientBundle\Model\DataRequest:
     factory: ['@gonetto.fc_api_client.data_request_factory', 'createRequest']
@@ -27,17 +27,17 @@ services:
 
   # Using alias to enable autowiring
   gonetto.fc_api_client.file_request_factory:
-    class: Gonetto\FCApiClientBundle\Service\FileRequestFactory
+    class: Gonetto\FCApiClientBundle\Factory\FileRequestFactory
 
   Gonetto\FCApiClientBundle\Model\FileRequest:
     factory: ['@gonetto.fc_api_client.file_request_factory', 'createRequest']
     class: Gonetto\FCApiClientBundle\Model\FileRequest
     shared: false
 
-  Gonetto\FCApiClientBundle\Service\JmsSerializerFactory: ~
+  Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory: ~
 
   JMS\Serializer\Serializer:
-    factory: 'Gonetto\FCApiClientBundle\Service\JmsSerializerFactory:createSerializer'
+    factory: 'Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory:createSerializer'
     class: JMS\Serializer\Serializer
 
   GuzzleHttp\Client: '@eight_points_guzzle.client.finance_consult'

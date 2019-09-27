@@ -1,6 +1,6 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Service;
+namespace Gonetto\FCApiClientBundle\Factory;
 
 use Gonetto\FCApiClientBundle\EventSubscriber\ContractEventSubscriber;
 use Gonetto\FCApiClientBundle\EventSubscriber\DocumentEventSubscriber;
@@ -8,11 +8,6 @@ use JMS\Serializer\EventDispatcher\EventDispatcher;
 use JMS\Serializer\Serializer;
 use JMS\Serializer\SerializerBuilder;
 
-/**
- * Class JmsSerializerFactory
- *
- * @package Gonetto\FCApiClientBundle\Service
- */
 class JmsSerializerFactory
 {
 

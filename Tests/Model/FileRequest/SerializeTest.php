@@ -3,7 +3,7 @@
 namespace Gonetto\FCApiClientBundle\Tests\Model\FileRequest;
 
 use Gonetto\FCApiClientBundle\Model\FileRequest;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
+use Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**

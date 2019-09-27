@@ -3,9 +3,9 @@
 namespace Gonetto\FCApiClientBundle\Tests\Service;
 
 use Gonetto\FCApiClientBundle\Model\RequestInterface;
-use Gonetto\FCApiClientBundle\Service\CustomerUpdateRequestFactory;
-use Gonetto\FCApiClientBundle\Service\DataRequestFactory;
-use Gonetto\FCApiClientBundle\Service\FileRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\CustomerUpdateRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\DataRequestFactory;
+use Gonetto\FCApiClientBundle\Factory\FileRequestFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
@@ -23,7 +23,7 @@ class RequestFactoriesTest extends KernelTestCase
      */
     public function testInterface(string $factory): void
     {
-        /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
+        /** @var \Gonetto\FCApiClientBundle\Factory\RequestFactoryInterface $requestFactory */
         $requestFactory = new $factory('dummy');
         $request = $requestFactory->createRequest();
         $this->assertInstanceOf(RequestInterface::class, $request);
@@ -36,7 +36,7 @@ class RequestFactoriesTest extends KernelTestCase
      */
     public function testSetToken(string $factory): void
     {
-        /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
+        /** @var \Gonetto\FCApiClientBundle\Factory\RequestFactoryInterface $requestFactory */
         $requestFactory = new $factory('dummy');
         /** @var \Gonetto\FCApiClientBundle\Model\RequestInterface $request */
         $request = $requestFactory->createRequest();
@@ -52,7 +52,7 @@ class RequestFactoriesTest extends KernelTestCase
     {
         $this->expectExceptionMessage('API token can not be empty');
         $requestFactory = new $factory();
-        /** @var \Gonetto\FCApiClientBundle\Service\RequestFactoryInterface $requestFactory */
+        /** @var \Gonetto\FCApiClientBundle\Factory\RequestFactoryInterface $requestFactory */
         $requestFactory->createRequest();
     }
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Gonetto\FCApiClientBundle\Service;
+namespace Gonetto\FCApiClientBundle\Factory;
 
 use Exception;
 use Gonetto\FCApiClientBundle\Model\CustomerUpdateRequest;

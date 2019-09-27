@@ -7,7 +7,7 @@ use Gonetto\FCApiClientBundle\Model\Contract;
 use Gonetto\FCApiClientBundle\Model\Customer;
 use Gonetto\FCApiClientBundle\Model\DataResponse;
 use Gonetto\FCApiClientBundle\Model\Document;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
+use Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**

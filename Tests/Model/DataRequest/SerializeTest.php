@@ -4,7 +4,7 @@ namespace Gonetto\FCApiClientBundle\Tests\Model\DataRequest;
 
 use DateTime;
 use Gonetto\FCApiClientBundle\Model\DataRequest;
-use Gonetto\FCApiClientBundle\Service\JmsSerializerFactory;
+use Gonetto\FCApiClientBundle\Factory\JmsSerializerFactory;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 
 /**
