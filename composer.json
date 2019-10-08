@@ -6,16 +6,19 @@
     "api",
     "client"
   ],
-  "homepage": "https://gonetto.github.com",
+  "homepage": "https://github.com/gonetto",
   "license": "proprietary",
   "authors": [
     {
       "name": "gonetto GmbH",
-      "email": "info@gonetto.de"
+      "homepage": "https://www.gonetto.de",
+      "email": "info@gonetto.de",
+      "role": "Owner"
     },
     {
       "name": "Matthias Schobner",
-      "email": "schobner@gonetto.de"
+      "email": "schobner@gonetto.de",
+      "role": "Developer"
     }
   ],
   "require": {
