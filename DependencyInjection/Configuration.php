@@ -7,8 +7,12 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 class Configuration implements ConfigurationInterface
 {
+
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        return new TreeBuilder('gonetto_fc_api_client');
+        $treeBuilder = new TreeBuilder();
+        $treeBuilder->root('gonetto_fc_api_client');
+
+        return $treeBuilder;
     }
 }
