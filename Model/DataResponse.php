@@ -62,6 +62,7 @@ class DataResponse
 
     /**
      * @return array
+     * TODO:GN: add to all parameters in all objects the array content phpdocs. E.g. \Gonetto\FCApiClientBundle\Model\Customer[] instead array
      */
     public function getCustomers(): array
     {
